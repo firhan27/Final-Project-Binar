@@ -1,0 +1,11 @@
+.Banner-img {
+  width: 75%;
+  margin: auto;
+  height: 40%;
+}
+
+#tes {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
