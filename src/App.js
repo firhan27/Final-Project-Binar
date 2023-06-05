@@ -3,6 +3,7 @@ import Login from "./pages/login/Login";
 import ResetPassword from "./pages/resetPassword/ResetPassword";
 import Register from "./pages/register/Register";
 import VerifikasiOTP from "./pages/verifikasi OTP/VerifikasiOTP";
+
 function App() {
   return (
     <BrowserRouter>
