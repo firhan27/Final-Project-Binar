@@ -7,7 +7,7 @@ const ResetPassword = () => {
   return (
     <Container fluid className="vh-100">
       <Row className="h-100">
-        <Col className="bg_color display-none">
+        <Col className="d-flex align-items-center justify-content-center  bg_color display-none">
           <img src={logo} alt="logo" />
         </Col>
         <Col className="d-flex align-items-center justify-content-center ">
@@ -18,7 +18,6 @@ const ResetPassword = () => {
                 <Form.Label>Masukan password baru </Form.Label>
                 <Form.Control type="password" placeholder="Password baru" />
               </Form.Group>
-
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <div class="d-flex justify-content-between">
                   <Form.Label>Ulangi password baru</Form.Label>
@@ -26,7 +25,7 @@ const ResetPassword = () => {
                 <Form.Control type="password" placeholder="Ulangi password" />
               </Form.Group>
               <Button type="submit" className="custom-button">
-                Submit
+                Simpan
               </Button>
             </Form>
           </div>
