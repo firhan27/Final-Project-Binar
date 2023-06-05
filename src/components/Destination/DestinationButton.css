@@ -1,0 +1,9 @@
+.btn {
+  background-color: #e2d4f0;
+  color: black;
+}
+
+.btn-selected {
+  background-color: #7126b5 !important;
+  color: white !important;
+}
