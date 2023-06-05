@@ -1,0 +1,23 @@
+.txt-color {
+  color: #7126b5 !important;
+}
+
+.bg_color {
+  background-color: #d0b7e6;
+  background-image: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+.width-form {
+  max-width: 452px;
+}
+
+.custom-button {
+  min-width: 380px;
+  background-color: #7126b5 !important;
+}
+
+@media (max-width: 576px) {
+  .display-none {
+    display: none;
+  }
+}
