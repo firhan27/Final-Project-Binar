@@ -12,9 +12,6 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/register" element={<Register />} />
         <Route path="/verifikasi-otp" element={<VerifikasiOTP />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/verifikasi-otp" element={<VerifikasiOTP />} />
       </Routes>
     </BrowserRouter>
   );
