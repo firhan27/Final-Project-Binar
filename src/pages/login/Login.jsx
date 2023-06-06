@@ -11,8 +11,8 @@ const Login = () => {
         <Col className="d-flex align-items-center justify-content-center bg_color display-none">
           <img src={logo} alt="logo" />
         </Col>
-        <Col className="d-flex align-items-center justify-content-center ">
-          <div>
+        <Col className="d-flex align-items-center justify-content-center">
+          <div className="w-75">
             <h3 className="fw-bold">Masuk</h3>
             <Form className="width-form mt-4">
               <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -30,7 +30,7 @@ const Login = () => {
 
                 <Form.Control type="password" placeholder="Masukkan password" />
               </Form.Group>
-              <Button type="submit" className="custom-button">
+              <Button type="submit" className="custom-button-lgn text-light w-100">
                 Masuk
               </Button>
               <div className="d-flex justify-content-center mt-3">
