@@ -16,7 +16,7 @@ const Register = () => {
           <img src={logo} alt="logo" />
         </Col>
         <Col className="d-flex align-items-center justify-content-center ">
-          <div>
+          <div className="w-75">
             <h3 className="fw-bold">Daftar</h3>
             <Form className="width-form mt-4">
               <Form.Group className="mb-3" controlId="formBasicText">
@@ -35,12 +35,12 @@ const Register = () => {
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" placeholder="Buat Password" />
               </Form.Group>
-              <Button type="submit" className="custom-button">
+              <Button type="submit" className="custom-button-rgs text-light w-100">
                 Masuk
               </Button>
               <div className="d-flex justify-content-center mt-3">
                 <Form.Text>
-                  Sudah punya akun?{" "}
+                  Sudah punya akun?
                   <Link to="/login" className="txt-color">
                     Masuk di sini
                   </Link>

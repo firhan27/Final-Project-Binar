@@ -3,6 +3,7 @@ import { Container, Navbar, Form, Button } from "react-bootstrap";
 import "./VerifikasiOTP.css";
 import { Link } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
+import logo from "../../assets/image/logo.png";
 
 const VerifikasiOTP = () => {
   const handleCodeOTPChange = (e) => {
@@ -13,7 +14,9 @@ const VerifikasiOTP = () => {
     <>
       <Navbar bg="light" className="mb-4">
         <Container>
-          <Navbar.Brand href="#home">Logo{/* <img src={logo} alt="logo" /> */}</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/">
+            <img src={logo} alt="logo" className="size-logo" />
+          </Navbar.Brand>
         </Container>
       </Navbar>
       <Container fluid>
@@ -34,7 +37,7 @@ const VerifikasiOTP = () => {
                 <Form.Text>Kirim ulang OTP dalam 60 detik</Form.Text>
               </div>
             </Form.Group>
-            <Button className="custom-button" type="submit">
+            <Button className="custom-button-otp text-light w-100" type="submit">
               Simpan
             </Button>
           </Form>
