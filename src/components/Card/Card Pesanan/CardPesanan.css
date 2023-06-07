@@ -1,0 +1,17 @@
+.card-pesanan {
+  background-color: white;
+  border: 2px solid #7126b5bf;
+}
+
+.status {
+  color: white;
+  background-color: #73ca5c;
+  border: 2px solid #73ca5c;
+  border-radius: 50px;
+  display: inline-block;
+  padding: 5px 10px;
+}
+
+.hr-clr {
+  color: #898989;
+}
