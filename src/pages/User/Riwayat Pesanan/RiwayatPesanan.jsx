@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import "./RiwayatPenanan.css";
 import ModalFilter from "../../../components/Modal/Modal Filter/ModalFilter";
 import ModalSearch from "../../../components/Modal/Modal Search/ModalSearch";
+import CardPesanan from "../../../components/Card/Card Pesanan/CardPesanan";
 
 const RiwayatPesanan = () => {
   const [showFilterModal, setShowFilterModal] = useState(false);
@@ -32,7 +33,7 @@ const RiwayatPesanan = () => {
   return (
     <>
       <NavbarComponent />
-      <Container>
+      <Container className="h-100">
         <h3 className="my-4">Riwayat Pemesanan</h3>
         <Row>
           <Col md={10}>
@@ -53,6 +54,23 @@ const RiwayatPesanan = () => {
                 <ImSearch />
               </p>
             </div>
+          </Col>
+          <hr />
+        </Row>
+        {/* <Row>
+          <Col className="text-center">
+            <h2 className="txt-null-clr mt-5">Oops! Riwayat pesanan kosong!</h2>
+            <h3>Anda belum melakukan pemesanan penerbangan</h3>
+            <Button className="mt-3">Cari Penerbangan</Button>
+          </Col>
+        </Row> */}
+        <Row>
+          <Col md={7}>
+            <h5>Maret 2023</h5>
+            <CardPesanan />
+          </Col>
+          <Col md={5}>
+            <h5>Detail Pesanan</h5>
           </Col>
         </Row>
       </Container>
