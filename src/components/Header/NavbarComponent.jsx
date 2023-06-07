@@ -8,7 +8,7 @@ const NavbarComponent = () => {
   return (
     <Navbar bg="light" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="#home" className="text-dark">
+        <Navbar.Brand as={Link} to="/" className="text-dark">
           <div>
             <img src={logo} alt="logo" fluid style={{ width: "70px", height: "50px" }} />
           </div>
