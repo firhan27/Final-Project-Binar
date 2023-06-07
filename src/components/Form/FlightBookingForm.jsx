@@ -47,7 +47,6 @@ const FlightBookingForm = () => {
                     {/* List of destination countries */}
                   </Form.Control>
                 </Form.Group>
-
                 <Form.Group controlId="departureDate">
                   <Form.Label>Departure Date</Form.Label>
                   <Form.Control type="date" name="departureDate" value={formData.departureDate} onChange={handleInputChange} />
@@ -76,7 +75,7 @@ const FlightBookingForm = () => {
                   </Col>
                 </Row>
                 <Col className="p-2 text-center">
-                  <Button type="submit" className="custom-button mt-4 text-light">
+                  <Button type="submit" className="custom-button mt-4 text-light w-75">
                     Cari Penerbangan
                   </Button>
                 </Col>
