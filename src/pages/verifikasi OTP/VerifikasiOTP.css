@@ -2,7 +2,10 @@
   color: #7126b5 !important;
 }
 
-.custom-button {
-  min-width: 380px;
+.custom-button-otp {
   background-color: #7126b5 !important;
+}
+
+.size-logo {
+  width: 4rem;
 }

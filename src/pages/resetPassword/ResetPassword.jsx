@@ -7,11 +7,11 @@ const ResetPassword = () => {
   return (
     <Container fluid className="vh-100">
       <Row className="h-100">
-        <Col className="d-flex align-items-center justify-content-center  bg_color display-none">
+        <Col className="d-flex align-items-center justify-content-center bg_color display-none">
           <img src={logo} alt="logo" />
         </Col>
         <Col className="d-flex align-items-center justify-content-center ">
-          <div>
+          <div className="w-75">
             <h3 className="fw-bold">Reset Password</h3>
             <Form className="width-form mt-4">
               <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -24,7 +24,7 @@ const ResetPassword = () => {
                 </div>
                 <Form.Control type="password" placeholder="Ulangi password" />
               </Form.Group>
-              <Button type="submit" className="custom-button">
+              <Button type="submit" className="custom-button-rst text-light w-100">
                 Simpan
               </Button>
             </Form>

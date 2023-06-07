@@ -11,13 +11,12 @@
   max-width: 452px;
 }
 
-.custom-button {
-  min-width: 380px;
+.custom-button-lgn {
   background-color: #7126b5 !important;
 }
 
 @media (max-width: 576px) {
   .display-none {
-    display: none;
+    display: none !important;
   }
 }
