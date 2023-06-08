@@ -9,6 +9,7 @@ import "./RiwayatPenanan.css";
 import ModalFilter from "../../../components/Modal/Modal Filter/ModalFilter";
 import ModalSearch from "../../../components/Modal/Modal Search/ModalSearch";
 import CardPesanan from "../../../components/Card/Card Pesanan/CardPesanan";
+import DetailPesanan from "../../../components/Detail Pesanan/DetailPesanan";
 
 const RiwayatPesanan = () => {
   const [showFilterModal, setShowFilterModal] = useState(false);
@@ -33,7 +34,7 @@ const RiwayatPesanan = () => {
   return (
     <>
       <NavbarComponent />
-      <Container className="h-100">
+      <Container className="h-100 ">
         <h3 className="my-4">Riwayat Pemesanan</h3>
         <Row>
           <Col md={10}>
@@ -70,7 +71,7 @@ const RiwayatPesanan = () => {
             <CardPesanan />
           </Col>
           <Col md={5}>
-            <h5>Detail Pesanan</h5>
+            <DetailPesanan />
           </Col>
         </Row>
       </Container>

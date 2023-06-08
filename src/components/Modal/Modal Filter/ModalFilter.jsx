@@ -1,13 +1,16 @@
 import React from "react";
-import { Modal } from "react-bootstrap";
+import { Modal, Form } from "react-bootstrap";
 const ModalFilter = ({ showModal, handleCloseModal }) => {
   return (
     <Modal show={showModal} onHide={handleCloseModal}>
       <Modal.Header closeButton>
-        <Modal.Title>Calendar</Modal.Title>
+        <Modal.Title></Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>Modal content goes here...</p>
+        <h5>From</h5>
+        <Form.Control type="date" name="FromDate" />
+        <h5 className="mt-4">To</h5>
+        <Form.Control type="date" name="ToDate" />
       </Modal.Body>
     </Modal>
   );
