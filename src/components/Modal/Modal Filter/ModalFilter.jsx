@@ -1,5 +1,6 @@
 import React from "react";
 import { Modal, Form } from "react-bootstrap";
+
 const ModalFilter = ({ showModal, handleCloseModal }) => {
   return (
     <Modal show={showModal} onHide={handleCloseModal}>
