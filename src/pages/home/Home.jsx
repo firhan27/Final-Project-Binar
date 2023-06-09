@@ -3,7 +3,7 @@ import NavbarComponent from "../../components/Header/NavbarComponent";
 import BannerComponents from "../../components/Body/BannerComponents";
 import FlightBookingForm from "../../components/Form/FlightBookingForm";
 import FavoriteDestinations from "../../components/Destination/FavoriteDestinations";
-import CardComponent from "../../components/Card/CardComponent";
+import CardDestination from "../../components/Card/Card Destinasi/CardComponent";
 import { Container, Row, Col } from "react-bootstrap";
 import "./Home.css";
 
@@ -29,7 +29,7 @@ const Home = () => {
         </Row>
         <Row className="mt-4 mb-4">
           <Col>
-            <CardComponent />
+            <CardDestination />
           </Col>
         </Row>
       </Container>

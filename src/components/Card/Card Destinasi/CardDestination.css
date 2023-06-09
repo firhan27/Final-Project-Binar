@@ -1,0 +1,16 @@
+.text {
+  margin: 2px 0;
+}
+
+.card-background {
+  background-color: #fff;
+}
+
+.Card-component:hover {
+  transform: scale(0.9);
+  transition-delay: 0.2s;
+}
+
+.text-color {
+  color: #7126b5;
+}
