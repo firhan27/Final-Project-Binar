@@ -30,7 +30,7 @@ const Login = () => {
 
                 <Form.Control type="password" placeholder="Masukkan password" />
               </Form.Group>
-              <Button type="submit" className="custom-button-lgn text-light w-100">
+              <Button type="submit" className="custom-button-lgn text-light w-100" as={Link} to="/">
                 Masuk
               </Button>
               <div className="d-flex justify-content-center mt-3">
