@@ -1,0 +1,28 @@
+.txt-clr {
+  color: #a06ece;
+}
+
+.custom-button-lgn {
+  background-color: #7126b5 !important;
+}
+
+.info-clr {
+  color: #4b1979;
+}
+
+.total-clr {
+  color: #7126b5;
+}
+
+.row-w {
+  max-width: 350px;
+}
+
+.status {
+  color: white;
+  background-color: #73ca5c;
+  border: 2px solid #73ca5c;
+  border-radius: 50px;
+  display: inline-block;
+  padding: 5px 10px;
+}
