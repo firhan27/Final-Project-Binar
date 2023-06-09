@@ -3,6 +3,7 @@ import { Button, Container, Form, Nav, Navbar } from "react-bootstrap";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import logo from "../../assets/image/logo.png";
+import fontLogin from "../../assets/image/fontLogin.png";
 
 const NavbarComponent = () => {
   return (
@@ -18,6 +19,7 @@ const NavbarComponent = () => {
         </Form>
         <Nav className="me mr-auto">
           <Button className="button-color text-light" as={Link} to={"/login"}>
+            <img src={fontLogin} alt="font-login" className="font-button" />
             Masuk
           </Button>
         </Nav>

@@ -29,7 +29,7 @@ const FlightBookingForm = () => {
     <Container className="mt-4">
       <Row className="justify-content-center">
         <Col xs={12} md={6}>
-          <Card>
+          <Card bg="light" border="dark">
             <Card.Body>
               <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="from">
