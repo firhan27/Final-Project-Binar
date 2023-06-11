@@ -5,13 +5,12 @@ import { IoArrowBack } from "react-icons/io5";
 import { FiFilter } from "react-icons/fi";
 import { ImSearch } from "react-icons/im";
 import { Link } from "react-router-dom";
-import "./RiwayatPenanan.css";
+import "./notifikasi.css";
 import ModalFilter from "../../../components/Modal/Modal Filter/ModalFilter";
 import ModalSearch from "../../../components/Modal/Modal Search/ModalSearch";
-import CardPesanan from "../../../components/Card/Card Pesanan/CardPesanan";
-import DetailPesanan from "../../../components/Detail Pesanan/DetailPesanan";
+import notifikationsIcon from "../../../assets/image/notificationsIcon.png";
 
-const RiwayatPesanan = () => {
+const Notifikasi = () => {
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
 
@@ -35,7 +34,7 @@ const RiwayatPesanan = () => {
     <>
       <NavbarComponent />
       <Container className="h-100 ">
-        <h3 className="my-4 fw-bold">Riwayat Pemesanan</h3>
+        <h3 className="my-4 fw-bold">Notifikasi</h3>
         <Row>
           <Col md={10}>
             <Stack className="card">
@@ -66,23 +65,26 @@ const RiwayatPesanan = () => {
               </p>
             </div>
           </Col>
-          <hr />
-        </Row>
-        {/* <Row>
-          <Col className="text-center">
-            <h2 className="txt-null-clr mt-5">Oops! Riwayat pesanan kosong!</h2>
-            <h3>Anda belum melakukan pemesanan penerbangan</h3>
-            <Button className="mt-3">Cari Penerbangan</Button>
-          </Col>
-        </Row> */}
-        <Row>
-          <Col md={7}>
-            <h5>Maret 2023</h5>
-            <CardPesanan />
-          </Col>
-          <Col md={5}>
-            <DetailPesanan />
-          </Col>
+          <hr className="custom-hr" />
+          <Row>
+            <Col md={1} className="d-flex justify-content-end">
+              <div>
+                <img src={notifikationsIcon} alt="notifikasiIcon" />
+              </div>
+            </Col>
+            <Col md={9}>
+              <p className="txt-mute ">
+                Promosi
+                <br />
+                <span className="txt-dark fw-semibold">Dapatkan Potongan 50% Tiket!</span>
+                <br />
+                Syarat dan Ketentuan berlaku!
+              </p>
+            </Col>
+            <Col md={2}>
+              <p className="txt-mute">20 maret, 14:04</p>
+            </Col>
+          </Row>
         </Row>
       </Container>
       <ModalFilter showModal={showFilterModal} handleCloseModal={handleCloseFilterModal} />
@@ -91,4 +93,4 @@ const RiwayatPesanan = () => {
   );
 };
 
-export default RiwayatPesanan;
+export default Notifikasi;
