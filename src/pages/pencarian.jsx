@@ -8,10 +8,10 @@ import ModalTo from "../components/ModalTo.Jsx";
 import ReactDatePicker from "react-datepicker";
 import ModalSeatClass from "../components/ModalSeatClass";
 import ModalPassenger from "../components/ModalPassenger";
-import Navbar from "../components/Navbar";
-import NavbarMobile from "../components/NavbarMobile";
+import Navbar from "../components/navbar";
+import NavbarMobile from "../components/navbarmobile";
 
-function Dashboard() {
+function pencarian() {
   // {ModalFrom}
   const [isOpenFrom, setIsOpenFrom] = useState(false);
   // ModalTo
@@ -408,7 +408,7 @@ function Dashboard() {
         {/* Destinasi Favorit End */}
 
         {/* Navbar 2.0 */}
-        <NavbarMobile />
+        <navbarmobile />
         {/* Navbar 2.0 End */}
       </div>
     </>
