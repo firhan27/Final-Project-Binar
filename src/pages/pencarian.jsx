@@ -11,7 +11,7 @@ import ModalPassenger from "../components/ModalPassenger";
 import Navbar from "../components/Navbar";
 import NavbarMobile from "../components/NavbarMobile";
 
-function Dashboard() {
+function pencarian() {
   // {ModalFrom}
   const [isOpenFrom, setIsOpenFrom] = useState(false);
   // ModalTo
