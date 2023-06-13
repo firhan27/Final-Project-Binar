@@ -8,8 +8,8 @@ import ModalTo from "../components/ModalTo.Jsx";
 import ReactDatePicker from "react-datepicker";
 import ModalSeatClass from "../components/ModalSeatClass";
 import ModalPassenger from "../components/ModalPassenger";
-import Navbar from "../components/navbar";
-import NavbarMobile from "../components/navbarmobile";
+import Navbar from "../components/Navbar";
+import NavbarMobile from "../components/NavbarMobile";
 
 function pencarian() {
   // {ModalFrom}
@@ -408,7 +408,7 @@ function pencarian() {
         {/* Destinasi Favorit End */}
 
         {/* Navbar 2.0 */}
-        <navbarmobile />
+        <NavbarMobile />
         {/* Navbar 2.0 End */}
       </div>
     </>
