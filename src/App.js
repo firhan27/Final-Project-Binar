@@ -19,7 +19,11 @@ function App() {
         <Route path="/verifikasi-otp" element={<VerifikasiOTP />} />
         <Route path="/user/history" element={<RiwayatPesanan />} />
         <Route path="/checkout" element={<Checkout />} />
+
         <Route path="/checkout/payment" element={<Payment />} />
+
+        <Route path="/payment" element={<Payment />} />
+
       </Routes>
     </BrowserRouter>
   );

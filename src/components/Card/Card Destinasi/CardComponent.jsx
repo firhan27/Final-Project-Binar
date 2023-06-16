@@ -5,7 +5,7 @@ import "./CardDestination.css";
 
 const CardDestination = () => {
   return (
-    <Card style={{ width: "18rem" }} className="mt-4 Card-component" bg="light">
+    <Card style={{ width: "18rem" }} className="mt-4 mb-5 Card-component" bg="light">
       <Link>
         <Card.Img variant="top" src="https://lombokpost.jawapos.com/wp-content/uploads/2022/02/asap-beracun-di-bangkok-menurun-namun-tetap-berbahaya_c_279837-750x500-1.jpg" />
       </Link>

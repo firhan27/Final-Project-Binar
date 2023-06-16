@@ -145,7 +145,11 @@ const Checkout = () => {
           <Col sm={8}>
             <Row className="mt-5">
               <Col>
+
                 <Card className="rounded-0" style={{ background: "none" }}>
+
+                <Card className="rounded-0">
+
                   <Card.Body>
                     <CheckoutForm
                       onSubmit={handleFormSubmit}
@@ -158,7 +162,11 @@ const Checkout = () => {
 
             <Row className="mt-5">
               <Col>
+
                 <Card className="rounded-0" style={{ background: "none" }}>
+
+                <Card className="rounded-0">
+
                   <Card.Body>
                     <PassengerForm
                       onSubmit={handleFormSubmit}
@@ -175,16 +183,26 @@ const Checkout = () => {
 
             <Row className="mt-5">
               <Col>
+
                 <Card className="rounded-0" style={{ background: "none" }}>
+
+                <Card className="rounded-0">
+
                   <Card.Body>
                     <KursiSelection />
                   </Card.Body>
                 </Card>
               </Col>
 
+
               <Card className="border-0" style={{ background: "none" }}>
                 <Button
                   className="mt-4 p-3 border-0 text-white"
+
+              <Card className="border-0">
+                <Button
+                  className="mt-4 p-3 border-0"
+
                   style={{
                     background: "#7126B5",
                     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
@@ -202,11 +220,19 @@ const Checkout = () => {
 
           <Col sm={4}>
             <Detail />
+
             <Card className="border-0" style={{ background: "none" }}>
               <Button
                 as={Link}
                 to="/checkout/payment"
                 className="mt-4 p-3 border-0 text-white"
+
+            <Card className="border-0">
+              <Button
+                as={Link}
+                to="/Payment"
+                className="mt-4 p-3 border-0"
+
                 style={{
                   background: "#FF0000",
                   borderRadius: "12px",
