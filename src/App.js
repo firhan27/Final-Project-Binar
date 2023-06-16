@@ -5,6 +5,8 @@ import ResetPassword from "./pages/resetPassword/ResetPassword";
 import Register from "./pages/register/Register";
 import VerifikasiOTP from "./pages/verifikasi OTP/VerifikasiOTP";
 import RiwayatPesanan from "./pages/User/Riwayat Pesanan/RiwayatPesanan";
+import Checkout from "./pages/Chekout/Chekout1";
+import Payment from "./components/Chekout/Payment";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/verifikasi-otp" element={<VerifikasiOTP />} />
         <Route path="/user/history" element={<RiwayatPesanan />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/payment" element={<Payment />} />
       </Routes>
     </BrowserRouter>
   );
