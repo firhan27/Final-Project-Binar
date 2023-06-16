@@ -14,3 +14,13 @@
   margin-bottom: 4px;
   margin-right: 4px;
 }
+
+.btn-position {
+  display: flex;
+  justify-content: center;
+}
+
+.text-position {
+  display: flex;
+  justify-content: center;
+}
