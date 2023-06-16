@@ -1,3 +1,76 @@
 .custom-button {
   background-color: #7126b5 !important;
 }
+
+.text {
+  display: block;
+}
+
+.card-size {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+@media (max-width: 360px) {
+  .card-size {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+.text-color {
+  color: #7126b5;
+}
+
+.font-button {
+  margin-right: 7px;
+}
+
+.font-size {
+  height: 20px;
+  width: 20px;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+input {
+  border: 1px solid #999;
+  padding: 0.5rem;
+  width: 300px;
+}
+
+.no-suggestions {
+  color: #999;
+  padding: 0.5rem;
+}
+
+.suggestions {
+  border: 1px solid #999;
+  border-top-width: 0;
+  list-style: none;
+  margin-top: 0;
+  max-height: 143px;
+  overflow-y: auto;
+  padding-left: 0;
+  width: calc(300px + 1rem);
+}
+
+.suggestions li {
+  padding: 0.5rem;
+}
+
+.suggestion-active,
+.suggestions li:hover {
+  background-color: #008f68;
+  color: #fae042;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.suggestions li:not(:last-of-type) {
+  border-bottom: 1px solid #999;
+}
