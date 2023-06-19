@@ -30,11 +30,7 @@ const Payment = ({ formData }) => {
     return (
       <Collapse in={collapseStates[key]}>
         <Container className="w-75">
-
           <Card className="border-0" style={{ background: "none" }}>
-
-          <Card className="border-0">
-
             <Card.Body>
               <b>Card Number</b>
               <Form.Control
@@ -173,11 +169,6 @@ const Payment = ({ formData }) => {
             <Card className="border-0 mb-3 mt-3" style={{ background: "none" }}>
               <Button
                 className="p-3 text-start d-flex justify-content-between align-items-center border-0 text-white "
-
-            <Card className="border-0 mb-3 mt-3">
-              <Button
-                className="p-3 text-start d-flex justify-content-between align-items-center border-0 "
-
                 style={{
                   background: collapseStates.gopay ? "#7126B5" : "#3C3C3C",
                   padding: "10px 15px",
@@ -196,15 +187,9 @@ const Payment = ({ formData }) => {
               {renderCollapse("gopay")}
             </Card>
 
-
             <Card className="border-0 mb-3" style={{ background: "none" }}>
               <Button
                 className="p-3 text-start d-flex justify-content-between align-items-center border-0 text-white"
-
-            <Card className="border-0 mb-3">
-              <Button
-                className="p-3 text-start d-flex justify-content-between align-items-center border-0"
-
                 style={{
                   background: collapseStates.virtualAccount
                     ? "#7126B5"
@@ -225,15 +210,9 @@ const Payment = ({ formData }) => {
               {renderCollapse("virtualAccount")}
             </Card>
 
-
             <Card className="border-0" style={{ background: "none" }}>
               <Button
                 className="p-3 text-start d-flex justify-content-between align-items-center border-0 text-white"
-
-            <Card className="border-0">
-              <Button
-                className="p-3 text-start d-flex justify-content-between align-items-center border-0"
-
                 style={{
                   background: collapseStates.creditCard ? "#7126B5" : "#3C3C3C",
                   padding: "10px 15px",
@@ -252,18 +231,12 @@ const Payment = ({ formData }) => {
               {renderCollapse("creditCard")}
             </Card>
 
-
             <Card
               className="border-0 text-white"
               style={{ background: "none" }}
             >
               <Button
                 className="mt-4 p-3 border-0 fw-bold fs-5 text-white"
-
-            <Card style={{ border: "none" }}>
-              <Button
-                className="mt-4 p-3 border-0 fw-bold fs-5"
-
                 style={{
                   background: "#7126B5",
                   boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
