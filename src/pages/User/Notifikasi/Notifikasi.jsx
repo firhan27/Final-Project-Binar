@@ -36,43 +36,45 @@ const Notifikasi = () => {
       <Container className="h-100 ">
         <h3 className="my-4 fw-bold">Notifikasi</h3>
         <Row>
-          <Col md={10}>
-            <Stack className="card">
-              <Link to="/" className="text-decoration-none">
-                <p className="fs-5 text-light mt-2 ms-2">
-                  <IoArrowBack /> <b>Beranda</b>
+          <Row className="mb-3">
+            <Col md={10}>
+              <Stack className="card">
+                <Link to="/" className="text-decoration-none">
+                  <p className="fs-5 text-light mt-2 ms-2">
+                    <IoArrowBack /> <b>Beranda</b>
+                  </p>
+                </Link>
+              </Stack>
+            </Col>
+            <Col md={2}>
+              <div className="d-flex align-items-center">
+                <Button variant="light" className="fs-6 line-btn-fltr" onClick={handleShowFilterModal}>
+                  <FiFilter /> <b>Filter</b>
+                </Button>
+                <p
+                  className="ms-4 mt-2 fs-4"
+                  onClick={handleShowSearchModal}
+                  style={{ cursor: "pointer" }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.color = "purple";
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.color = "";
+                  }}
+                >
+                  <ImSearch />
                 </p>
-              </Link>
-            </Stack>
-          </Col>
-          <Col md={2}>
-            <div className="d-flex align-items-center">
-              <Button variant="light" className="fs-6 line-btn-fltr" onClick={handleShowFilterModal}>
-                <FiFilter /> <b>Filter</b>
-              </Button>
-              <p
-                className="ms-4 mt-2 fs-4"
-                onClick={handleShowSearchModal}
-                style={{ cursor: "pointer" }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.color = "purple";
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.color = "";
-                }}
-              >
-                <ImSearch />
-              </p>
-            </div>
-          </Col>
+              </div>
+            </Col>
+          </Row>
           <hr className="custom-hr" />
           <Row>
-            <Col md={1} className="d-flex justify-content-end">
+            <Col md={1} xs={2} className="d-flex justify-content-end">
               <div>
                 <img src={notifikationsIcon} alt="notifikasiIcon" />
               </div>
             </Col>
-            <Col md={9}>
+            <Col xs={8}>
               <p className="txt-mute ">
                 Promosi
                 <br />
@@ -81,8 +83,26 @@ const Notifikasi = () => {
                 Syarat dan Ketentuan berlaku!
               </p>
             </Col>
-            <Col md={2}>
+            <Col xs={2}>
               <p className="txt-mute">20 maret, 14:04</p>
+            </Col>
+          </Row>
+          <Row>
+            <hr className="custom-hr" />
+            <Col md={1} xs={2} className="d-flex justify-content-end">
+              <div>
+                <img src={notifikationsIcon} alt="notifikasiIcon" />
+              </div>
+            </Col>
+            <Col xs={8}>
+              <p className="txt-mute ">
+                Notifikasi
+                <br />
+                <span className="txt-dark fw-semibold">Terdapat perubahan pada jadwal penerbangan kode booking 45GT6. Cek jadwal perjalanan Anda disini!</span>
+              </p>
+            </Col>
+            <Col xs={2}>
+              <p className="txt-mute">5 Maret, 14:04</p>
             </Col>
           </Row>
         </Row>
