@@ -22,7 +22,6 @@ function App() {
         <Route path="/user/notifikasi" element={<Notifikasi />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/checkout/payment" element={<Payment />} />
-        <Route path="/payment" element={<Payment />} />
       </Routes>
     </BrowserRouter>
   );

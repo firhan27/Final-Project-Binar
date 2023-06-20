@@ -9,7 +9,7 @@ import PassengerForm2 from "../../components/Chekout/PassengerFrom2";
 import KursiSelection from "../../components/Chekout/KursiSelection";
 import Detail from "../../components/Chekout/Detail";
 
-const Checkout = () => {
+const Checkout1 = () => {
   const [timeRemaining, setTimeRemaining] = useState(900);
 
   useEffect(() => {
@@ -56,13 +56,9 @@ const Checkout = () => {
             <Row className="mb-1">
               <Col className="d-flex align-items-center">
                 <Button
-                  className=""
+                  className="border-0 fs-5 fw-bold"
                   style={{
                     background: "none",
-                    border: "none",
-                    color: "#000000",
-                    fontSize: "20px",
-                    fontWeight: "700",
                     fontHeight: "30px",
                   }}
                 >
@@ -78,13 +74,9 @@ const Checkout = () => {
                   }}
                 />
                 <Button
-                  className=""
+                  className="border-0 fs-5 fw-bold"
                   style={{
                     background: "none",
-                    border: "none",
-                    color: "#000000",
-                    fontSize: "20px",
-                    fontWeight: "700",
                     fontHeight: "30px",
                   }}
                 >
@@ -100,13 +92,9 @@ const Checkout = () => {
                   }}
                 />
                 <Button
-                  className=""
+                  className="border-0 fs-5 fw-bold"
                   style={{
                     background: "none",
-                    border: "none",
-                    color: "#000000",
-                    fontSize: "20px",
-                    fontWeight: "700",
                     fontHeight: "30px",
                   }}
                 >
@@ -123,11 +111,8 @@ const Checkout = () => {
               >
                 <Card.Body>
                   <p
-                    className="text-center text-white p-0 m-0 "
+                    className="text-center text-white p-0 m-0 fs-6 fw-bold "
                     style={{
-                      fontStyle: "normal",
-                      fontSize: "16px",
-                      fontWeight: "500",
                       lineHeight: "24px",
                     }}
                   >
@@ -145,11 +130,7 @@ const Checkout = () => {
           <Col sm={8}>
             <Row className="mt-5">
               <Col>
-
                 <Card className="rounded-0" style={{ background: "none" }}>
-
-                <Card className="rounded-0">
-
                   <Card.Body>
                     <CheckoutForm
                       onSubmit={handleFormSubmit}
@@ -162,11 +143,7 @@ const Checkout = () => {
 
             <Row className="mt-5">
               <Col>
-
                 <Card className="rounded-0" style={{ background: "none" }}>
-
-                <Card className="rounded-0">
-
                   <Card.Body>
                     <PassengerForm
                       onSubmit={handleFormSubmit}
@@ -183,32 +160,20 @@ const Checkout = () => {
 
             <Row className="mt-5">
               <Col>
-
                 <Card className="rounded-0" style={{ background: "none" }}>
-
-                <Card className="rounded-0">
-
                   <Card.Body>
                     <KursiSelection />
                   </Card.Body>
                 </Card>
               </Col>
 
-
               <Card className="border-0" style={{ background: "none" }}>
                 <Button
-                  className="mt-4 p-3 border-0 text-white"
-
-              <Card className="border-0">
-                <Button
-                  className="mt-4 p-3 border-0"
-
+                  className="mt-4 p-3 border-0 text-white fs-5 fw-bold"
                   style={{
                     background: "#7126B5",
                     boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                     borderRadius: "12px",
-                    fontWeight: "500",
-                    fontSize: "20px",
                   }}
                   size="lg"
                 >
@@ -220,24 +185,14 @@ const Checkout = () => {
 
           <Col sm={4}>
             <Detail />
-
             <Card className="border-0" style={{ background: "none" }}>
               <Button
                 as={Link}
                 to="/checkout/payment"
-                className="mt-4 p-3 border-0 text-white"
-
-            <Card className="border-0">
-              <Button
-                as={Link}
-                to="/Payment"
-                className="mt-4 p-3 border-0"
-
+                className="mt-4 p-3 border-0 fs-5 fw-bold text-white"
                 style={{
                   background: "#FF0000",
                   borderRadius: "12px",
-                  fontWeight: "500",
-                  fontSize: "20px",
                 }}
                 size="lg"
               >
@@ -251,4 +206,4 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+export default Checkout1;
