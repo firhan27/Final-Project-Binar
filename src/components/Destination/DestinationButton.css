@@ -1,3 +1,10 @@
+@media (max-width: 360px) {
+  .card-size {
+    display: grid;
+    width: 100%;
+  }
+}
+
 .btn {
   background-color: #e2d4f0;
   color: black;
@@ -22,5 +29,25 @@
 
 .text-position {
   display: flex;
-  justify-content: center;
+}
+
+.text {
+  margin: 2px 0;
+}
+
+.card-background {
+  background-color: #fff;
+}
+
+.text-color {
+  color: #7126b5;
+}
+
+.link-unstyled {
+  text-decoration: none;
+}
+
+.Card-component:hover {
+  transform: scale(0.9);
+  transition-delay: 0.2s;
 }
