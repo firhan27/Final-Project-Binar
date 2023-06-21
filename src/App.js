@@ -7,6 +7,7 @@ import VerifikasiOTP from "./pages/verifikasi OTP/VerifikasiOTP";
 import RiwayatPesanan from "./pages/User/Riwayat Pesanan/RiwayatPesanan";
 import Checkout1 from "./pages/Checkout/Checkout1";
 import Payment from "./components/Chekout/Payment";
+import Notifikasi from "./pages/User/Notifikasi/Notifikasi";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/verifikasi-otp" element={<VerifikasiOTP />} />
         <Route path="/user/history" element={<RiwayatPesanan />} />
+        <Route path="/user/notifikasi" element={<Notifikasi />} />
         <Route path="/checkout" element={<Checkout1 />} />
         <Route path="/checkout/payment" element={<Payment />} />
       </Routes>
