@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { FaAngleRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
 import CheckoutForm from "../../components/Chekout/ChekoutForm";
 import PassengerForm from "../../components/Chekout/PassengerForm";
 import PassengerForm2 from "../../components/Chekout/PassengerFrom2";
@@ -43,9 +42,7 @@ const Checkout1 = () => {
     const minutes = Math.floor((time % 3600) / 60);
     const seconds = time % 60;
 
-    return `${hours < 10 ? "0" + hours : hours}:${
-      minutes < 10 ? "0" + minutes : minutes
-    }:${seconds < 10 ? "0" + seconds : seconds}`;
+    return `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
   };
 
   return (
@@ -105,10 +102,7 @@ const Checkout1 = () => {
             </Row>
 
             <Col>
-              <Card
-                className="p-0 m-0"
-                style={{ backgroundColor: "red", borderRadius: "12px" }}
-              >
+              <Card className="p-0 m-0" style={{ backgroundColor: "red", borderRadius: "12px" }}>
                 <Card.Body>
                   <p
                     className="text-center text-white p-0 m-0 fs-6 fw-bold "
@@ -132,10 +126,7 @@ const Checkout1 = () => {
               <Col>
                 <Card className="rounded-0" style={{ background: "none" }}>
                   <Card.Body>
-                    <CheckoutForm
-                      onSubmit={handleFormSubmit}
-                      onChange={handleFormChange}
-                    />
+                    <CheckoutForm onSubmit={handleFormSubmit} onChange={handleFormChange} />
                   </Card.Body>
                 </Card>
               </Col>
@@ -145,14 +136,8 @@ const Checkout1 = () => {
               <Col>
                 <Card className="rounded-0" style={{ background: "none" }}>
                   <Card.Body>
-                    <PassengerForm
-                      onSubmit={handleFormSubmit}
-                      onChange={handleFormChange}
-                    />
-                    <PassengerForm2
-                      onSubmit={handleFormSubmit}
-                      onChange={handleFormChange}
-                    />
+                    <PassengerForm onSubmit={handleFormSubmit} onChange={handleFormChange} />
+                    <PassengerForm2 onSubmit={handleFormSubmit} onChange={handleFormChange} />
                   </Card.Body>
                 </Card>
               </Col>
