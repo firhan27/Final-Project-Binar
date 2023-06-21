@@ -12,7 +12,7 @@ const FlightBookingForm = () => {
     departureDate: "",
     returnDate: "",
     passengers: 1,
-    seatClass: "economy",
+    seatClass: "Economy",
   });
 
   const [showModal, setShowModal] = useState(false);
@@ -109,7 +109,8 @@ const FlightBookingForm = () => {
         <Modal.Body>
           {activeField === "from" && (
             <Form.Group controlId="from">
-              <Form.Control type="search" placeholder="Masukkan Kota atau Negara" name="from" value={formData.from} onChange={handleInputChange} />
+              <Form.Label>From</Form.Label>
+              <Form.Control as="select" name="from" value={formData.from} onChange={handleInputChange}></Form.Control>
             </Form.Group>
           )}
 
@@ -135,8 +136,8 @@ const FlightBookingForm = () => {
             <Form.Group controlId="seatClass">
               <Form.Label>Seat Class</Form.Label>
               <Form.Control as="select" name="seatClass" value={formData.seatClass} onChange={handleInputChange}>
-                <option value="economy">Economy Class</option>
-                <option value="business">Business Class</option>
+                <option value="Economy">Economy Class</option>
+                <option value="Business">Business Class</option>
               </Form.Control>
             </Form.Group>
           )}

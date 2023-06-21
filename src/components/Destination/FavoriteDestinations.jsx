@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./DestinationButton.css";
-import { Container, Col, Row } from "react-bootstrap";
+import { Container, Col, Row, Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import fontSearch from "../../assets/image/fontSearch.png";
 
 const FavoriteDestinations = () => {
@@ -11,12 +12,78 @@ const FavoriteDestinations = () => {
     setSelectedDestination(destination);
   };
 
+  const destinationsAsia = [
+    {
+      imageSrc: "https://lombokpost.jawapos.com/wp-content/uploads/2022/02/asap-beracun-di-bangkok-menurun-namun-tetap-berbahaya_c_279837-750x500-1.jpg",
+      title: "Jakarta -> Bangkok",
+      airline: "AirAsia",
+      date: "20 - 30 Maret 2023",
+      price: "IDR 950.000",
+    },
+  ];
+
+  const destinationsAmerika = [
+    {
+      imageSrc: "https://www.roamingtheusa.com/wp-content/uploads/2021/11/statue-of-liberty-new-york-city-skyline-1024x680.jpg",
+      title: "Jakarta -> New York",
+      airline: "Garuda indonesia",
+      date: "20 - 30 Maret 2023",
+      price: "IDR 3.950.000",
+    },
+  ];
+
+  const destinationsAustralia = [
+    {
+      imageSrc: "https://travel2next.com/wp-content/uploads/Sydney-Opera-House-1024x603.jpg",
+      title: "Jakarta -> Sydney",
+      airline: "Garuda indonesia",
+      date: "20 - 30 Maret 2023",
+      price: "IDR 2.950.000",
+    },
+  ];
+
+  const destinationsEropa = [
+    {
+      imageSrc: "https://www.learnitalianpod.com/wp-content/uploads/2023/01/colosseum_rome.jpg",
+      title: "Jakarta -> Roma",
+      airline: "Garuda indonesia",
+      date: "20 - 30 Maret 2023",
+      price: "IDR 3.950.000",
+    },
+  ];
+
+  const destinationsAfrika = [
+    {
+      imageSrc: "https://regiopia.com/fileadmin/user_upload/Afrika/Suedafrika/Pretoria/sights/voortrekker-monument-pretoria-s%C3%BCdafrika-sehensw%C3%BCrdigkeiten.jpg",
+      title: "Jakarta -> Pretoria",
+      airline: "Garuda indonesia",
+      date: "20 - 30 Maret 2023",
+      price: "IDR 3.950.000",
+    },
+  ];
+
+  let displayedDestinations = [];
+
+  if (selectedDestination === "asia") {
+    displayedDestinations = destinationsAsia;
+  } else if (selectedDestination === "amerika") {
+    displayedDestinations = destinationsAmerika;
+  } else if (selectedDestination === "australia") {
+    displayedDestinations = destinationsAustralia;
+  } else if (selectedDestination === "eropa") {
+    displayedDestinations = destinationsEropa;
+  } else if (selectedDestination === "afrika") {
+    displayedDestinations = destinationsAfrika;
+  } else {
+    displayedDestinations = [...destinationsAsia, ...destinationsAmerika, ...destinationsAustralia, ...destinationsEropa, ...destinationsAfrika];
+  }
+
   return (
-    <Container>
+    <>
       <Container>
         <Row>
           <Col md={6} className="text-position">
-            <h4 className="fw-bold">Destinasi Favorit</h4>
+            <h4 className="fw-bold mb-5">Destinasi Favorit</h4>
           </Col>
         </Row>
         <Row>
@@ -51,7 +118,25 @@ const FavoriteDestinations = () => {
           </Col>
         </Row>
       </Container>
-    </Container>
+
+      <div className="d-flex flex-wrap justify-content-center mt-5">
+        {displayedDestinations.map((destination, index) => (
+          <Card key={index} style={{ width: "18rem" }} className="mt-4 mb-5 ms-2 me-2 Card-component" bg="light">
+            <Link>
+              <Card.Img variant="top" src={destination.imageSrc} />
+            </Link>
+            <Card.Body className="">
+              <Card.Title className="fw-bold">{destination.title}</Card.Title>
+              <Card.Text className="fw-bold text text-color">{destination.airline}</Card.Text>
+              <Card.Text className="text">{destination.date}</Card.Text>
+              <Card.Text className="text">
+                Mulai dari <span className="fw-bold text-danger">{destination.price}</span>
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
+    </>
   );
 };
 
