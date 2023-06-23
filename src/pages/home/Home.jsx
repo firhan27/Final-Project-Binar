@@ -1,7 +1,7 @@
 import React from "react";
 import NavbarComponent from "../../components/Header/NavbarComponent";
 import BannerComponents from "../../components/Body/BannerComponents";
-import FlightBookingForm from "../../components/Form/FlightBookingForm";
+import FromTo from "../../components/Form/FromTo";
 import FavoriteDestinations from "../../components/Destination/FavoriteDestinations";
 import FooterComponent from "../../components/Footer/FooterComponent";
 import { Container, Row, Col } from "react-bootstrap";
@@ -19,7 +19,7 @@ const Home = () => {
         </Row>
         <Row className="mt-5 mb-5">
           <Col>
-            <FlightBookingForm />
+            <FromTo />
           </Col>
         </Row>
         <Row className="mt-5 mb-5">
