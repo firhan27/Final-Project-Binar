@@ -15,3 +15,9 @@
 .hr-clr {
   color: #898989;
 }
+
+.search-input {
+  background-color: #EEEEEE;
+  border-radius: 16px;
+  height: 40px;
+}
