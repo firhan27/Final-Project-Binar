@@ -11,7 +11,6 @@ import ModalSearch from "../../../components/Modal/Modal Search/ModalSearch";
 import CardPesanan from "../../../components/Card/Card Pesanan/CardPesanan";
 import DetailPesanan from "../../../components/Detail Pesanan/DetailPesanan";
 
-
 const RiwayatPesanan = () => {
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
@@ -36,10 +35,10 @@ const RiwayatPesanan = () => {
     <>
       <NavbarComponent />
       <Container className="h-100 ">
-        <h3 className="my-4">Riwayat Pemesanan</h3>
+        <h3 className="my-4 fw-bold">Riwayat Pemesanan</h3>
         <Row>
           <Col md={10}>
-            <Stack className="card">
+            <Stack className="stack-back">
               <Link to="/" className="text-decoration-none">
                 <p className="fs-5 text-light mt-2 ms-2">
                   <IoArrowBack /> <b>Beranda</b>
@@ -52,7 +51,17 @@ const RiwayatPesanan = () => {
               <Button variant="light" className="fs-6 line-btn-fltr" onClick={handleShowFilterModal}>
                 <FiFilter /> <b>Filter</b>
               </Button>
-              <p className="ms-4 mt-2 fs-4" onClick={handleShowSearchModal}>
+              <p
+                className="ms-4 mt-2 fs-4"
+                onClick={handleShowSearchModal}
+                style={{ cursor: "pointer" }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.color = "purple";
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.color = "";
+                }}
+              >
                 <ImSearch />
               </p>
             </div>

@@ -1,0 +1,107 @@
+/* custom class reusable */
+
+/* text color */
+.text-purple {
+  color: #7126B5 !important;
+}
+
+/* button color */
+.btn-purple {
+  background-color: #7126B5 !important;
+  /* set the background color to purple */
+}
+
+.btn-lilac {
+  background-color: #A06ECE !important;
+  /* set the background color to purple */
+}
+
+.btn-green-pastel {
+  background-color: #73CA5C !important;
+  /* set the background color to purple */
+}
+
+.btn-lilac {
+  background-color: #A06ECE !important;
+  /* set the background color to purple */
+}
+
+/* ring color */
+.ring-purple {
+  border-color: #7126B5 !important;
+}
+
+.card {
+  background-color: #fff !important;
+}
+
+
+/* custom class */
+
+/* button */
+.btn-date {
+  margin: 0 0 !important;
+}
+
+.scroll-container .col-2 {
+  width: 11% !important;
+}
+
+.btn-date:hover {
+  background-color: #A06ECE !important;
+  color: #fff !important;
+}
+
+.btn-date:hover .text-muted {
+  color: #fff !important;
+}
+
+.btn-transparent-ring-purple:hover {
+  background-color: #7126B5 !important;
+  color: #fff !important;
+}
+
+.btn-sort {
+  background-color: transparent;
+}
+
+.btn-sort:hover {
+  background-color: #A06ECE !important;
+  color: #fff !important;
+}
+
+/* coloring */
+.red-price {
+  color: #FF0000 !important;
+}
+
+
+.scroll-container {
+  overflow-x: hidden;
+  white-space: nowrap;
+}
+
+.scroll-container p {
+  font-size: 15px;
+}
+
+.horizontal-line {
+  height: 30px;
+  border: none;
+  border-right: 2px solid #d0d0d0;
+}
+
+.border-bottom-50 {
+  border-bottom: 5px solid black;
+  border-bottom-width: 10px;
+  border-bottom-height: 20px;
+}
+
+.my-hr {
+  border-bottom: 3px solid black !important;
+}
+
+.modal-dialog-right {
+  display: flex;
+  align-items: right;
+}

@@ -1,10 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import "./Login.css";
 import { Link } from "react-router-dom";
 import logo from "../../assets/image/logo.png";
+import axios from "axios";
 
 const Login = () => {
+  const [emailOrPhone, setEmailOrPhone] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      let data = JSON.stringify({
+        emailOrPhone: emailOrPhone,
+        password: password,
+      });
+
+      let config = {
+        method: "post",
+        url: "https://skypass-dev.up.railway.app/auth/login",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+      const response = await axios.request(config);
+      console.log(response.data);
+      console.log(response.data.data);
+
+      const { access_token } = response.data.data;
+
+      localStorage.setItem("token", access_token);
+
+      window.location.href = "/";
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container fluid className="vh-100">
       <Row className="h-100">
@@ -14,23 +49,23 @@ const Login = () => {
         <Col className="d-flex align-items-center justify-content-center">
           <div className="w-75">
             <h3 className="fw-bold">Masuk</h3>
-            <Form className="width-form mt-4">
+            <Form className="width-form mt-4" onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email/No Telepon</Form.Label>
-                <Form.Control type="email" placeholder="Contoh: johndoe@gmail.com" />
+                <Form.Control type="email" placeholder="Contoh: johndoe@gmail.com" value={emailOrPhone} onChange={(e) => setEmailOrPhone(e.target.value)} />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicPassword">
-                <div class="d-flex justify-content-between">
+                <div className="d-flex justify-content-between">
                   <Form.Label>Password</Form.Label>
                   <Link to="/reset-password" className="txt-color fw-bold">
                     Lupa Kata Sandi
                   </Link>
                 </div>
 
-                <Form.Control type="password" placeholder="Masukkan password" />
+                <Form.Control type="password" placeholder="Masukkan password" value={password} onChange={(e) => setPassword(e.target.value)} />
               </Form.Group>
-              <Button type="submit" className="custom-button-lgn text-light w-100" as={Link} to="/">
+              <Button type="submit" className="custom-button-lgn text-light w-100">
                 Masuk
               </Button>
               <div className="d-flex justify-content-center mt-3">
