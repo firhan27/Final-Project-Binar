@@ -76,3 +76,8 @@ body {
 .input-size {
   width: 300px;
 }
+
+.img-size {
+  width: 12px;
+  height: 20px;
+}

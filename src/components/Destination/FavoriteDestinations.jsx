@@ -14,9 +14,9 @@ const FavoriteDestinations = () => {
 
   const destinationsAsia = [
     {
-      imageSrc: "https://lombokpost.jawapos.com/wp-content/uploads/2022/02/asap-beracun-di-bangkok-menurun-namun-tetap-berbahaya_c_279837-750x500-1.jpg",
-      title: "Jakarta -> Bangkok",
-      airline: "AirAsia",
+      imageSrc: "https://blog.thomascook.in/wp-content/uploads/2022/08/Most-Iconic-Landmarks-in-Singapore-1024x682.jpg",
+      title: "Jakarta -> Singapore",
+      airline: "Lion Air",
       date: "20 - 30 Maret 2023",
       price: "IDR 950.000",
     },
@@ -26,7 +26,7 @@ const FavoriteDestinations = () => {
     {
       imageSrc: "https://www.roamingtheusa.com/wp-content/uploads/2021/11/statue-of-liberty-new-york-city-skyline-1024x680.jpg",
       title: "Jakarta -> New York",
-      airline: "Garuda indonesia",
+      airline: "Citilink",
       date: "20 - 30 Maret 2023",
       price: "IDR 3.950.000",
     },
@@ -34,9 +34,9 @@ const FavoriteDestinations = () => {
 
   const destinationsAustralia = [
     {
-      imageSrc: "https://travel2next.com/wp-content/uploads/Sydney-Opera-House-1024x603.jpg",
-      title: "Jakarta -> Sydney",
-      airline: "Garuda indonesia",
+      imageSrc: "https://www.planetware.com/photos-large/AUS/australia-tasmania-hobart-tasman-bridge.jpg",
+      title: "Jakarta -> Hobart",
+      airline: "Lion Air",
       date: "20 - 30 Maret 2023",
       price: "IDR 2.950.000",
     },
@@ -44,9 +44,9 @@ const FavoriteDestinations = () => {
 
   const destinationsEropa = [
     {
-      imageSrc: "https://www.learnitalianpod.com/wp-content/uploads/2023/01/colosseum_rome.jpg",
-      title: "Jakarta -> Roma",
-      airline: "Garuda indonesia",
+      imageSrc: "https://tiqets-cdn.s3.eu-west-1.amazonaws.com/wordpress/blog/wp-content/uploads/2020/09/shutterstock_1013811547.jpg",
+      title: "Jakarta -> London",
+      airline: "Garuda Indonesia",
       date: "20 - 30 Maret 2023",
       price: "IDR 3.950.000",
     },
@@ -54,8 +54,8 @@ const FavoriteDestinations = () => {
 
   const destinationsAfrika = [
     {
-      imageSrc: "https://regiopia.com/fileadmin/user_upload/Afrika/Suedafrika/Pretoria/sights/voortrekker-monument-pretoria-s%C3%BCdafrika-sehensw%C3%BCrdigkeiten.jpg",
-      title: "Jakarta -> Pretoria",
+      imageSrc: "https://memnon-reisen.com/wp-content/uploads/2021/11/99.jpg",
+      title: "Jakarta -> Hurghada",
       airline: "Garuda indonesia",
       date: "20 - 30 Maret 2023",
       price: "IDR 3.950.000",
