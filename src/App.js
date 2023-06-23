@@ -7,6 +7,7 @@ import VerifikasiOTP from "./pages/verifikasi OTP/VerifikasiOTP";
 import RiwayatPesanan from "./pages/User/Riwayat Pesanan/RiwayatPesanan";
 import Checkout1 from "./pages/Checkout/Checkout1";
 import Payment from "./components/Chekout/Payment";
+import SearchPage from "./pages/SearchPage/SearchPage";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/user/history" element={<RiwayatPesanan />} />
         <Route path="/checkout" element={<Checkout1 />} />
         <Route path="/checkout/payment" element={<Payment />} />
+        <Route path="/search" element={<SearchPage />} />
       </Routes>
     </BrowserRouter>
   );
