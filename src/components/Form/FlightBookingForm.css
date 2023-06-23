@@ -12,7 +12,7 @@
   width: 100%;
 }
 
-@media (max-width: 360px) {
+@media (max-width: 350px) {
   .card-size {
     display: flex;
     justify-content: center;
@@ -37,10 +37,8 @@ body {
   font-family: sans-serif;
 }
 
-input {
-  border: 1px solid #999;
-  padding: 0.5rem;
-  width: 300px;
+.input {
+  width: 500px;
 }
 
 .no-suggestions {
@@ -73,4 +71,8 @@ input {
 
 .suggestions li:not(:last-of-type) {
   border-bottom: 1px solid #999;
+}
+
+.input-size {
+  width: 300px;
 }
