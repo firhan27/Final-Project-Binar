@@ -1,0 +1,9 @@
+.btn-logout {
+  background-color: rgb(187, 22, 22) !important;
+  color: aliceblue;
+}
+
+.btn-logout:hover {
+  background-color: rgb(237, 1, 1) !important;
+  color: aliceblue;
+}

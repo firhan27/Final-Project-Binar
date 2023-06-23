@@ -38,7 +38,7 @@ const RiwayatPesanan = () => {
         <h3 className="my-4 fw-bold">Riwayat Pemesanan</h3>
         <Row>
           <Col md={10}>
-            <Stack className="card">
+            <Stack className="stack-back">
               <Link to="/" className="text-decoration-none">
                 <p className="fs-5 text-light mt-2 ms-2">
                   <IoArrowBack /> <b>Beranda</b>

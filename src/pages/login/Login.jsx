@@ -14,8 +14,8 @@ const Login = () => {
 
     try {
       let data = JSON.stringify({
-        emailOrPhone,
-        password,
+        emailOrPhone: emailOrPhone,
+        password: password,
       });
 
       let config = {
@@ -29,8 +29,14 @@ const Login = () => {
       const response = await axios.request(config);
       console.log(response.data);
       console.log(response.data.data);
+
+      const { access_token } = response.data.data;
+
+      localStorage.setItem("token", access_token);
+
+      window.location.href = "/";
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
   };
 

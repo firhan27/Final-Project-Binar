@@ -34,9 +34,10 @@ const Register = () => {
       const response = await axios.request(config);
       console.log(response.data);
       console.log(response.data.data);
+
       nav("/verifikasi-otp");
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
   };
 

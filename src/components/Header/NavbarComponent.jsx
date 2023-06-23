@@ -3,11 +3,13 @@ import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import "./Navbar.css";
 import { FiUser } from "react-icons/fi";
 import { IoNotificationsOutline, IoList } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/image/logo.png";
 import fontLogin from "../../assets/image/fontLogin.png";
+import { FiLogOut } from "react-icons/fi";
 
 const NavbarComponent = () => {
+  const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -41,6 +43,17 @@ const NavbarComponent = () => {
                   <Link to="/user/profile">
                     <FiUser className="fs-3 icons mx-2" />
                   </Link>
+                  <Button
+                    className=" btn-logout"
+                    onClick={() => {
+                      localStorage.removeItem("token");
+                      setIsLoggedIn(false);
+                      return navigate("/");
+                    }}
+                  >
+                    <FiLogOut />
+                    Keluar
+                  </Button>
                 </div>
               </Nav>
             </Navbar.Collapse>
