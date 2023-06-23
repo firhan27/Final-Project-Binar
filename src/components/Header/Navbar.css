@@ -14,3 +14,11 @@
 .font-button {
   margin-right: 7px;
 }
+
+.icons {
+  color: #151515;
+}
+
+.icons:hover {
+  color: #7126b5;
+}
