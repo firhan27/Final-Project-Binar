@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { Modal, Form } from "react-bootstrap";
+import adultVector from "../../assets/image/adultVector.png";
+import childVector from "../../assets/image/childVector.png";
+import infantVector from "../../assets/image/infantVector.png";
+import "./FlightBookingForm.css";
 
 const PassengerComponent = () => {
   const [showModal, setShowModal] = useState(false);
@@ -48,16 +52,19 @@ const PassengerComponent = () => {
         <Modal.Body>
           <Form>
             <Form.Group controlId="adults">
+              <img src={adultVector} alt="adult" className="font-button font-size img-size" />
               <Form.Label>Dewasa</Form.Label>
               <Form.Control type="number" min="0" name="adults" value={selectedPassengers.adults} onChange={handlePassengerChange} />
             </Form.Group>
 
             <Form.Group controlId="children">
+              <img src={childVector} alt="adult" className="font-button font-size img-size" />
               <Form.Label>Anak</Form.Label>
               <Form.Control type="number" min="0" name="children" value={selectedPassengers.children} onChange={handlePassengerChange} />
             </Form.Group>
 
             <Form.Group controlId="infants">
+              <img src={infantVector} alt="adult" className="font-button font-size img-size" />
               <Form.Label>Bayi</Form.Label>
               <Form.Control type="number" min="0" name="infants" value={selectedPassengers.infants} onChange={handlePassengerChange} />
             </Form.Group>
