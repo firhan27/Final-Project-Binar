@@ -1,40 +1,87 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import "./Login.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/image/logo.png";
 import axios from "axios";
+import { toast } from "react-toastify";
+import Cookies from "js-cookie";
 
 const Login = () => {
+  const nav = useNavigate();
   const [emailOrPhone, setEmailOrPhone] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      let data = JSON.stringify({
-        emailOrPhone: emailOrPhone,
-        password: password,
-      });
+    const data = {
+      emailOrPhone: emailOrPhone,
+      password: password,
+    };
 
-      let config = {
-        method: "post",
-        url: "https://skypass-dev.up.railway.app/auth/login",
+    try {
+      // hit endpoint
+      const response = await axios.post("https://skypass-dev.up.railway.app/auth/login", data, {
         headers: {
           "Content-Type": "application/json",
         },
-        data: data,
-      };
-      const response = await axios.request(config);
-      console.log(response.data);
-      console.log(response.data.data);
+        withCredentials: true,
+      });
 
-      const { access_token } = response.data.data;
+      // if success status code 200
+      if (response.status === 200) {
+        const { access_token } = response.data.data;
+        localStorage.setItem("token", access_token);
 
-      localStorage.setItem("token", access_token);
+        // Redirect ke home
+        nav("/");
+      }
+    } catch (error) {
+      // if error user need to verified first
+      if (error.response && error.response.status === 403) {
+        const { verifiedToken } = error.response.data.data;
 
-      window.location.href = "/";
+        // set token in cookie and redirect to page verifikasi-otp
+        Cookies.set("verifiedToken", verifiedToken, {
+          expires: 10 / (24 * 60),
+        }); //  expired in 10 minute
+        toast.warn("Harap verifikasi email anda terlebih dahulu!");
+        // redirect
+        nav("/auth/register/verifikasi-otp");
+      } else if (error.response && error.response.status === 404) {
+        toast.warn("Email atau password anda salah!");
+      } else if (error.response && error.response.status === 401) {
+        toast.warn("Password anda salah!");
+      } else if (error.response && error.response.status === 400) {
+        toast.warn("Silakan masukkan email Anda!.");
+      } else {
+        console.log(error.message);
+      }
+    }
+  };
+
+  // handle for reset request password (use for from send email reset password)
+  const handleResetRequest = async (e) => {
+    e.preventDefault();
+
+    // Memastikan emailOrPhone terisi sebelum mengirim permintaan reset password
+    if (!emailOrPhone) {
+      // change with your design error or something else
+      toast.warn("Silakan masukkan email Anda!");
+      return;
+    }
+
+    try {
+      const response = await axios.post("https://skypass-dev.up.railway.app/auth/reset-request", {
+        emailOrPhone: emailOrPhone,
+      });
+
+      if (response.status === 200 || response.status === 202) {
+        // do something jika success, jangan direct ke reset-password dengan token dari server!
+        nav("/auth/reset-password");
+        console.log(response.data.data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -58,11 +105,10 @@ const Login = () => {
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <div className="d-flex justify-content-between">
                   <Form.Label>Password</Form.Label>
-                  <Link to="/reset-password" className="txt-color fw-bold">
+                  <Link to="/auth/reset-password" className="txt-color fw-bold">
                     Lupa Kata Sandi
                   </Link>
                 </div>
-
                 <Form.Control type="password" placeholder="Masukkan password" value={password} onChange={(e) => setPassword(e.target.value)} />
               </Form.Group>
               <Button type="submit" className="custom-button-lgn text-light w-100">
@@ -71,7 +117,7 @@ const Login = () => {
               <div className="d-flex justify-content-center mt-3">
                 <Form.Text>
                   Belum punya Akun?
-                  <Link to="/register" className="txt-color">
+                  <Link to="/auth/register" className="txt-color">
                     Daftar di sini
                   </Link>
                 </Form.Text>

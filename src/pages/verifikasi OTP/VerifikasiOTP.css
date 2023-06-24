@@ -10,6 +10,9 @@
   width: 4rem;
 }
 
+.tx-resend {
+  color: red;
+}
 .resend {
   color: red;
 }
