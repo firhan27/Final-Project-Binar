@@ -4,6 +4,7 @@ import "./Register.css";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/image/logo.png";
 import axios from "axios";
+import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 
 const Register = () => {
@@ -16,33 +17,70 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validasi jika isi form ada yang kosong
+    if (!name || !email || !phone || !password) {
+      toast.warn("Harap isi semua form!");
+      return;
+    }
+
+    // Validasi email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      toast.warn("Email tidak valid!");
+      return;
+    }
+
+    // Validasi password
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      toast.warn("Kata sandi harus mengandung setidaknya minimal 8 karakter, satu huruf besar dan satu angka");
+      return;
+    }
+
     try {
-      let data = JSON.stringify({
+      const data = JSON.stringify({
         name: name,
         email: email,
         phone: phone,
         password: password,
       });
 
-      let config = {
-        method: "post",
-        url: "https://skypass-dev.up.railway.app/auth/register",
+      const response = await axios.post("https://skypass-dev.up.railway.app/auth/register", data, {
         headers: {
           "Content-Type": "application/json",
         },
-        data: data,
-      };
-      const response = await axios.request(config);
-      console.log(response.data);
-      console.log(response.data.data);
+      });
 
-      nav("/verifikasi-otp");
-    } catch (error) {
-      if (error.response.status === 400) {
-        toast.warn("Isi form yang belum diisi!");
-        return;
+      if (response.status === 201) {
+        const { verifiedToken } = response.data.data;
+
+        // set token in cookie and redirect to page verifikasi-otp
+        Cookies.set("verifiedToken", verifiedToken, {
+          expires: 10 / (24 * 60),
+        }); //  expired in 10 minute
+
+        // redirect
+        nav("/auth/register/verifikasi-otp");
       }
-      console.log(error);
+    } catch (error) {
+      // if error user already exist
+      if (error.response && error.response.status === 409) {
+        const { message } = error.response.data;
+
+        console.log(message);
+        toast.warn(message);
+      } else if (error.response && error.response.status === 400) {
+        // bad request (ex: password must be at least 8 characters long)
+        const { message } = error.response.data;
+
+        // do someting with the message
+        console.log(message);
+        toast.warn(message);
+      } else {
+        // server or axios error
+        console.log(error.response.data);
+        toast.warn(error.response.data);
+      }
     }
   };
 

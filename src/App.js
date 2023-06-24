@@ -27,7 +27,14 @@ function App() {
             </AuthNoToken>
           }
         />
-        <Route path="/auth/reset-password" element={<ResetPassword />} />
+        <Route
+          path="/auth/reset-password"
+          element={
+            <AuthNoToken>
+              <ResetPassword />
+            </AuthNoToken>
+          }
+        />
         <Route
           path="/auth/register"
           element={
@@ -37,7 +44,7 @@ function App() {
           }
         />
         <Route
-          path="auth/register/verifikasi-otp"
+          path="/auth/register/verifikasi-otp"
           element={
             <AuthNoToken>
               <VerifikasiOTP />
