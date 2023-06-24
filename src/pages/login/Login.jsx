@@ -4,6 +4,7 @@ import "./Login.css";
 import { Link } from "react-router-dom";
 import logo from "../../assets/image/logo.png";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [emailOrPhone, setEmailOrPhone] = useState("");
@@ -36,6 +37,25 @@ const Login = () => {
 
       window.location.href = "/";
     } catch (error) {
+      if (axios.isAxiosError(error)) {
+        // If not valid token
+        if (error.response.status === 403) {
+          toast.warn("Harap verifikasi akun Anda terlebih dahulu!");
+          return;
+        }
+        if (error.response.status === 404) {
+          toast.warn("Email atau password anda salah!");
+          return;
+        }
+        if (error.response.status === 401) {
+          toast.warn("Password anda salah!");
+          return;
+        }
+        if (error.response.status === 400) {
+          toast.warn("Isi Email dan password anda!");
+          return;
+        }
+      }
       console.log(error);
     }
   };
@@ -58,7 +78,7 @@ const Login = () => {
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <div className="d-flex justify-content-between">
                   <Form.Label>Password</Form.Label>
-                  <Link to="/reset-password" className="txt-color fw-bold">
+                  <Link to="/auth/reset-password" className="txt-color fw-bold">
                     Lupa Kata Sandi
                   </Link>
                 </div>

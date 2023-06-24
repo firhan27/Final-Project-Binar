@@ -4,6 +4,7 @@ import "./Register.css";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/image/logo.png";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const nav = useNavigate();
@@ -37,8 +38,17 @@ const Register = () => {
 
       nav("/verifikasi-otp");
     } catch (error) {
+      if (error.response.status === 400) {
+        toast.warn("Isi form yang belum diisi!");
+        return;
+      }
       console.log(error);
     }
+  };
+
+  const handlePhoneChange = (e) => {
+    const inputValue = e.target.value.replace(/\D/g, ""); // Hapus semua karakter non-digit
+    setPhone(inputValue);
   };
 
   return (
@@ -61,7 +71,7 @@ const Register = () => {
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicText2">
                 <Form.Label>Nomor Telepon</Form.Label>
-                <Form.Control type="text" placeholder="Masukkan Nomor Telepon" maxLength="12" pattern="\d{12}" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                <Form.Control type="text" placeholder="Masukkan Nomor Telepon" maxLength="13" pattern="\d{13}" value={phone} onChange={handlePhoneChange} />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
