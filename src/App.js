@@ -28,7 +28,7 @@ function App() {
           }
         />
         <Route
-          path="/auth/reset-password"
+          path="/reset-password"
           element={
             <AuthNoToken>
               <ResetPassword />
