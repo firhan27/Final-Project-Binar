@@ -78,8 +78,7 @@ const Login = () => {
       });
 
       if (response.status === 200 || response.status === 202) {
-        // do something jika success, jangan direct ke reset-password dengan token dari server!
-        nav("/auth/reset-password");
+        toast.success("Silakan cek email anda!");
         console.log(response.data.data);
       }
     } catch (error) {
@@ -105,7 +104,7 @@ const Login = () => {
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <div className="d-flex justify-content-between">
                   <Form.Label>Password</Form.Label>
-                  <Link to="/auth/reset-password" className="txt-color fw-bold">
+                  <Link className="txt-color fw-bold" onClick={handleResetRequest}>
                     Lupa Kata Sandi
                   </Link>
                 </div>
