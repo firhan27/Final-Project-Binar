@@ -51,19 +51,19 @@ const PassengerComponent = () => {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group controlId="adults">
+            <Form.Group controlId="adults" className="mb-2">
               <img src={adultVector} alt="adult" className="font-button font-size img-size" />
               <Form.Label>Dewasa</Form.Label>
               <Form.Control type="number" min="0" name="adults" value={selectedPassengers.adults} onChange={handlePassengerChange} />
             </Form.Group>
 
-            <Form.Group controlId="children">
+            <Form.Group controlId="children" className="mb-2">
               <img src={childVector} alt="adult" className="font-button font-size img-size" />
               <Form.Label>Anak</Form.Label>
               <Form.Control type="number" min="0" name="children" value={selectedPassengers.children} onChange={handlePassengerChange} />
             </Form.Group>
 
-            <Form.Group controlId="infants">
+            <Form.Group controlId="infants" className="mb-2">
               <img src={infantVector} alt="adult" className="font-button font-size img-size" />
               <Form.Label>Bayi</Form.Label>
               <Form.Control type="number" min="0" name="infants" value={selectedPassengers.infants} onChange={handlePassengerChange} />
