@@ -30,6 +30,7 @@ const Register = () => {
           "Content-Type": "application/json",
         },
         data: data,
+        withCredntials: true,
       };
       const response = await axios.request(config);
       console.log(response.data);
