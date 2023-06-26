@@ -109,7 +109,7 @@ const Register = () => {
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicText2">
                 <Form.Label>Nomor Telepon</Form.Label>
-                <Form.Control type="text" placeholder="Masukkan Nomor Telepon" maxLength="13" pattern="\d{13}" value={phone} onChange={handlePhoneChange} />
+                <Form.Control type="text" placeholder="Masukkan Nomor Telepon" maxLength="13" value={phone} onChange={handlePhoneChange} />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
