@@ -69,13 +69,9 @@ const ResetPassword = () => {
     };
 
     try {
-      const response = await axios.post("https://skypass-dev.up.railway.app/auth/reset-password", {
-        data: data,
-      });
+      const response = await axios.post("https://skypass-dev.up.railway.app/auth/reset-password", data);
       console.log(response.data);
       toast.success("Ganti kata sandi berhasil!");
-
-      nav("/auth/login");
     } catch (error) {
       console.log(error);
     }
