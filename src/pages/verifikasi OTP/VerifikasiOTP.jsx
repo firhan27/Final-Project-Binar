@@ -145,7 +145,7 @@ const VerifikasiOTP = () => {
                     Kirim ulang OTP dalam <span className="tx-resend">{countdown}</span> detik!
                   </Form.Text>
                 ) : (
-                  <Form.Text className="resend text-center fs-5" onClick={handleResendOTP}>
+                  <Form.Text className="resend text-center fs-5 mt-1" style={{ cursor: "pointer" }} onClick={handleResendOTP}>
                     Kirim ulang OTP!
                   </Form.Text>
                 )}

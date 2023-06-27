@@ -31,8 +31,9 @@ const Login = () => {
 
       // if success status code 200
       if (response.status === 200) {
-        const { access_token } = response.data.data;
+        const { access_token, refresh_token } = response.data.data;
         localStorage.setItem("token", access_token);
+        localStorage.setItem("refresh_token", refresh_token);
 
         // Redirect ke home
         nav("/");
