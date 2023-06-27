@@ -7,9 +7,9 @@ import ItemCardTicket from "../../components/ItemCardTicket/ItemCardTicket";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
-const SearchPage = () => {
+const SearchPage = ({ searchData }) => {
   const [isActiveDetail, setIsActiveDetail] = useState(null);
-  
+
   const onClickDetail = (id) => {
     setIsActiveDetail((prevId) => (prevId === id ? null : id));
   };
@@ -49,17 +49,10 @@ const SearchPage = () => {
           <div className="col-10 mt-4">
             <p className="fs-5 fw-bolder">Pilih Penerbangan</p>
             <div className="d-flex justify-content-between px-3 gap-2">
-              <button
-                className="col-8 btn btn-primary text-start my-0 btn btn-lilac text-semibold border-0 py-2"
-                style={{ color: "white" }}
-              >
-                <i className="fas fa-arrow-left me-3"></i>JKT > MLB - 2
-                Penumpang - Economy
+              <button className="col-8 btn btn-primary text-start my-0 btn btn-lilac text-semibold border-0 py-2" style={{ color: "white" }}>
+                <i className="fas fa-arrow-left me-3"></i>JKT > MLB - 2 Penumpang - Economy
               </button>
-              <button
-                className="col-4 btn btn-primary my-0 btn btn-green-pastel border-0 py-2 text-semibold"
-                style={{ color: "white" }}
-              >
+              <button className="col-4 btn btn-primary my-0 btn btn-green-pastel border-0 py-2 text-semibold" style={{ color: "white" }}>
                 Ubah Pencarian
               </button>
             </div>
@@ -81,11 +74,7 @@ const SearchPage = () => {
       <div className="container d-flex justify-content-center">
         <div className="col-10 py-4">
           <div className="d-flex justify-content-end">
-            <button
-              className="btn btn-transparent rounded-pill ring-purple text-purple btn-transparent-ring-purple"
-              data-bs-toggle="modal"
-              data-bs-target="#sortModal"
-            >
+            <button className="btn btn-transparent rounded-pill ring-purple text-purple btn-transparent-ring-purple" data-bs-toggle="modal" data-bs-target="#sortModal">
               <i className="fas fa-sort-alt me-2"></i>Termurah
             </button>
           </div>
@@ -94,35 +83,18 @@ const SearchPage = () => {
             <div className="col 8">
               <div className="d-flex flex-column gap-4">
                 {data.map((item) => {
-                  return (
-                    <ItemCardTicket
-                      key={item.id}
-                      isActive={isActiveDetail === item.id}
-                      onClick={() => onClickDetail(item.id)}
-                    />
-                  );
+                  return <ItemCardTicket key={item.id} isActive={isActiveDetail === item.id} onClick={() => onClickDetail(item.id)} />;
                 })}
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div
-        className="modal fade"
-        id="sortModal"
-        tabindex="-1"
-        aria-labelledby="sortModalLabel"
-        aria-hidden="true"
-      >
+      <div className="modal fade" id="sortModal" tabindex="-1" aria-labelledby="sortModalLabel" aria-hidden="true">
         <div className="modal-dialog border-0 modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header border-0">
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form action="#">
               <div className="modal-body px-0 py-0">
@@ -176,10 +148,7 @@ const SearchPage = () => {
                 </button>
               </div>
               <div className="modal-footer my-0 border-0">
-                <button
-                  type="submit"
-                  className="btn btn-purple rounded-pill px-5 text-white"
-                >
+                <button type="submit" className="btn btn-purple rounded-pill px-5 text-white">
                   Pilih
                 </button>
               </div>

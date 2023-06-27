@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Modal, Form } from "react-bootstrap";
+import { Modal, Form, Button } from "react-bootstrap";
 import adultVector from "../../assets/image/adultVector.png";
 import childVector from "../../assets/image/childVector.png";
 import infantVector from "../../assets/image/infantVector.png";
 import "./FlightBookingForm.css";
 
-const PassengerComponent = () => {
+const PassengerComponent = (props) => {
   const [showModal, setShowModal] = useState(false);
   const [selectedPassengers, setSelectedPassengers] = useState({
     adults: 1,
@@ -41,10 +41,14 @@ const PassengerComponent = () => {
     return selectedPassengersString.trim();
   };
 
+  const handleClick = () => {
+    props.dataSelect(selectedPassengers);
+    handleClose();
+  };
+
   return (
     <>
       <Form.Control type="text" readOnly value={renderSelectedPassengers()} onClick={handleShow} />
-
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Pilih Penumpang</Modal.Title>
@@ -68,6 +72,7 @@ const PassengerComponent = () => {
               <Form.Label>Bayi</Form.Label>
               <Form.Control type="number" min="0" name="infants" value={selectedPassengers.infants} onChange={handlePassengerChange} />
             </Form.Group>
+            <Button onClick={handleClick}>Ok</Button>
           </Form>
         </Modal.Body>
       </Modal>
