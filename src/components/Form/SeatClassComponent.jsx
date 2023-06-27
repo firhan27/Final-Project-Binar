@@ -1,38 +1,46 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Form } from "react-bootstrap";
+import Select from "react-select";
 
-const SeatClassComponent = ({ dataSelect }) => {
-  const [data, setData] = useState();
+const SeatClassComponent = (props) => {
+  const [dataClass, setDataClass] = useState([]);
   const URL = "https://skypass-dev.up.railway.app/class";
 
   const fetchApi = async () => {
     try {
       const response = await axios.get(URL);
-      setData(response.data.data.classes);
+      setDataClass(response.data.data.classes);
     } catch (error) {
       console.error(error);
     }
   };
 
   const [inputValue, setInputValue] = useState();
-  const inputHandleChange = (event) => {
-    setInputValue(event.target.value);
+  const inputHandleChange = (selectedOption) => {
+    setInputValue(selectedOption);
+    props.setDataClass(selectedOption);
   };
 
   const handleClick = (event) => {
     event.preventDefault();
-    dataSelect(inputValue);
+    props.dataSelect(inputValue);
   };
 
   useEffect(() => {
     fetchApi();
   }, [URL]);
 
+  // Transform the airport data into options array for react-select
+  const selectOptions = dataClass.map((classes) => ({
+    value: classes.name,
+    label: classes.name,
+  }));
+
   return (
     <Form.Group>
       <Form onSubmit={handleClick}>
-        <Form.Select onChange={inputHandleChange}>{data && data.map((classes, i) => <option key={i}>{classes.name}</option>)}</Form.Select>
+        <Select options={selectOptions} onChange={inputHandleChange} isClearable={true} />
       </Form>
     </Form.Group>
   );
