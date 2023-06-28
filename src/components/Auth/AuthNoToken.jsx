@@ -6,6 +6,39 @@ import { toast } from "react-toastify";
 const AuthNoToken = ({ children }) => {
   const navigate = useNavigate();
 
+  const RefreshToken = () => {
+    const refresh_token = localStorage.getItem("refresh_token");
+
+    let data = JSON.stringify({
+      refreshToken: refresh_token,
+    });
+
+    let config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "https://skypass-dev.up.railway.app/auth/refresh-token",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
+
+    async function makeRequest() {
+      try {
+        const response = await axios.request(config);
+        console.log(JSON.stringify(response.data));
+
+        const { access_token } = response.data.data;
+
+        localStorage.setItem("token", access_token);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    makeRequest();
+  };
+
   useEffect(() => {
     const getProfile = async (token) => {
       try {
@@ -20,9 +53,13 @@ const AuthNoToken = ({ children }) => {
         if (axios.isAxiosError(error)) {
           // If not valid token
           if (error.response.status === 403) {
-            localStorage.removeItem("token");
-            toast.error("Token tidak valid!");
-            return (window.location.href = "/");
+            if (error.response.data.message === "jwt expired") {
+              RefreshToken();
+            } else {
+              localStorage.removeItem("token");
+              toast.error("Token tidak valid!");
+              return (window.location.href = "/");
+            }
           }
           toast.error(error.response.data.message);
           return;
