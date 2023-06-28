@@ -4,7 +4,7 @@ import "./Navbar.css";
 import { FiUser } from "react-icons/fi";
 import { IoNotificationsOutline, IoList } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../assets/image/logo.png";
+import logo from "../../assets/image/logo-skypass.png";
 import fontLogin from "../../assets/image/fontLogin.png";
 import { FiLogOut } from "react-icons/fi";
 
@@ -41,7 +41,7 @@ const NavbarComponent = () => {
       <Container>
         <Navbar.Brand as={Link} to="/" className="text-dark">
           <div>
-            <img src={logo} alt="logo" fluid style={{ width: "70px", height: "50px" }} />
+            <img src={logo} alt="logo" fluid style={{ width: "75px", height: "60px" }} />
           </div>
         </Navbar.Brand>
         {isLoggedIn ? (
