@@ -67,12 +67,16 @@ const PassengerComponent = (props) => {
               <Form.Control type="number" min="0" name="children" value={selectedPassengers.children} onChange={handlePassengerChange} />
             </Form.Group>
 
-            <Form.Group controlId="infants" className="mb-2">
+            <Form.Group controlId="infants" className="mb-3">
               <img src={infantVector} alt="adult" className="font-button font-size img-size" />
               <Form.Label>Bayi</Form.Label>
               <Form.Control type="number" min="0" name="infants" value={selectedPassengers.infants} onChange={handlePassengerChange} />
             </Form.Group>
-            <Button onClick={handleClick}>Ok</Button>
+            <div className="button-posisition">
+              <Button onClick={handleClick} className="button-passenger text-light">
+                Submit
+              </Button>
+            </div>
           </Form>
         </Modal.Body>
       </Modal>

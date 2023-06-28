@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./SearchPage.css";
 import NavbarComponent from "../../components/Header/NavbarComponent";
 import ItemDateSearch from "../../components/ItemDateSearch/ItemDateSearch";
@@ -6,41 +6,42 @@ import ItemCardFilter from "../../components/ItemCardFilter/ItemCardFilter";
 import ItemCardTicket from "../../components/ItemCardTicket/ItemCardTicket";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 const SearchPage = ({ searchData }) => {
   const [isActiveDetail, setIsActiveDetail] = useState(null);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const [flights, setFlights] = useState(null);
 
   const onClickDetail = (id) => {
     setIsActiveDetail((prevId) => (prevId === id ? null : id));
   };
 
-  const data = [
-    {
-      id: 1,
-      title: "Penerbangan",
-      content: "Garuda Indonesia",
-    },
-    {
-      id: 2,
-      title: "Kelas",
-      content: "Economy",
-    },
-    {
-      id: 3,
-      title: "Berangkat",
-      content: "JKT",
-    },
-    {
-      id: 4,
-      title: "Tujuan",
-      content: "MLB",
-    },
-    {
-      id: 5,
-      title: "Tanggal",
-      content: "Senin, 20 Juli 2020",
-    },
-  ];
+  useEffect(() => {
+    if (!location) return;
+    const getData = async () => {
+      try {
+        const body = {
+          from: queryParams.get("from"),
+          to: queryParams.get("to"),
+          departure: queryParams.get("departure"),
+          totalPassenger: queryParams.get("totalPassenger"),
+          classId: queryParams.get("classId"),
+        };
+        const { data } = await axios.post("https://skypass-dev.up.railway.app/flights/oneway", body);
+        if (data.status) {
+          setFlights(data.data.filter);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getData();
+  }, [location]);
+
   return (
     <>
       <NavbarComponent />
@@ -50,7 +51,7 @@ const SearchPage = ({ searchData }) => {
             <p className="fs-5 fw-bolder">Pilih Penerbangan</p>
             <div className="d-flex justify-content-between px-3 gap-2">
               <button className="col-8 btn btn-primary text-start my-0 btn btn-lilac text-semibold border-0 py-2" style={{ color: "white" }}>
-                <i className="fas fa-arrow-left me-3"></i>JKT > MLB - 2 Penumpang - Economy
+                <i className="fas fa-arrow-left me-3"></i>JKT MLB - 2 Penumpang - Economy
               </button>
               <button className="col-4 btn btn-primary my-0 btn btn-green-pastel border-0 py-2 text-semibold" style={{ color: "white" }}>
                 Ubah Pencarian
@@ -82,8 +83,8 @@ const SearchPage = ({ searchData }) => {
             <ItemCardFilter />
             <div className="col 8">
               <div className="d-flex flex-column gap-4">
-                {data.map((item) => {
-                  return <ItemCardTicket key={item.id} isActive={isActiveDetail === item.id} onClick={() => onClickDetail(item.id)} />;
+                {flights.map((item) => {
+                  return <ItemCardTicket key={item.id} data={item} isActive={isActiveDetail === item.id} onClick={() => onClickDetail(item.id)} />;
                 })}
               </div>
             </div>
