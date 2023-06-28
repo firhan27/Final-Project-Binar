@@ -2,6 +2,13 @@
   background-color: #7126b5 !important;
 }
 
+.background-toggle {
+  background-color: #b47aee !important;
+}
+.background-toggle:hover {
+  background-color: #d4bbee !important;
+}
+
 .Navbar-search {
   width: 350px;
 }
@@ -13,4 +20,20 @@
 
 .font-button {
   margin-right: 7px;
+}
+
+.icons {
+  color: #151515;
+}
+
+.icons:hover {
+  color: #7126b5;
+}
+
+.btn-yakin {
+  background-color: rgb(202, 43, 43) !important;
+  color: white !important;
+}
+.btn-yakin:hover {
+  background-color: rgb(158, 37, 37) !important;
 }

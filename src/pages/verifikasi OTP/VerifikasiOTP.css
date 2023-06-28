@@ -9,3 +9,14 @@
 .size-logo {
   width: 4rem;
 }
+
+.tx-resend {
+  color: red;
+}
+.resend {
+  color: red;
+}
+
+.resend:hover {
+  color: rgb(159, 0, 0);
+}
