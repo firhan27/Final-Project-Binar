@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Card, Button, Collapse, Form } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Button,
+  Collapse,
+  Form,
+} from "react-bootstrap";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { FaAngleRight } from "react-icons/fa";
 import Detail from "./Detail";
@@ -25,20 +33,32 @@ const Payment = ({ formData }) => {
           <Card className="border-0" style={{ background: "none" }}>
             <Card.Body>
               <b>Card Number</b>
-              <Form.Control className="mt-1 border-0 shadow-none" placeholder="4480 0000 0000 0000" />
+              <Form.Control
+                className="mt-1 border-0 shadow-none"
+                placeholder="4480 0000 0000 0000"
+              />
               <hr className="mt-1" />
               <b>Card Holder Name</b>
-              <Form.Control className="mt-1 border-0 shadow-none" placeholder="John Doe" />
+              <Form.Control
+                className="mt-1 border-0 shadow-none"
+                placeholder="John Doe"
+              />
               <hr className="mt-1" />
               <Row>
                 <Col>
                   <b>CVV</b>
-                  <Form.Control className="mt-1 border-0 shadow-none" placeholder="000" />
+                  <Form.Control
+                    className="mt-1 border-0 shadow-none"
+                    placeholder="000"
+                  />
                   <hr className="mt-1" />
                 </Col>
                 <Col>
                   <b>Expiry Date</b>
-                  <Form.Control className="mt-1 border-0 shadow-none" placeholder="07/24" />
+                  <Form.Control
+                    className="mt-1 border-0 shadow-none"
+                    placeholder="07/24"
+                  />
                   <hr className="mt-1" />
                 </Col>
               </Row>
@@ -111,7 +131,10 @@ const Payment = ({ formData }) => {
             </Row>
 
             <Col>
-              <Card className="p-0 m-0" style={{ backgroundColor: "red", borderRadius: "12px" }}>
+              <div
+                className="p-3 m-0"
+                style={{ backgroundColor: "red", borderRadius: "12px" }}
+              >
                 <Card.Body>
                   <p
                     className="text-center text-white p-0 m-0 fw-bold "
@@ -123,7 +146,7 @@ const Payment = ({ formData }) => {
                     Selesaikan Pembayaran
                   </p>
                 </Card.Body>
-              </Card>
+              </div>
             </Col>
           </Row>
         </Container>
@@ -154,7 +177,12 @@ const Payment = ({ formData }) => {
                 onClick={() => handleCollapse("gopay")}
                 aria-expanded={collapseStates.gopay}
               >
-                Gopay {collapseStates.gopay ? <BsChevronUp size={20} /> : <BsChevronDown size={20} />}
+                Gopay{" "}
+                {collapseStates.gopay ? (
+                  <BsChevronUp size={20} />
+                ) : (
+                  <BsChevronDown size={20} />
+                )}
               </Button>
               {renderCollapse("gopay")}
             </Card>
@@ -163,14 +191,21 @@ const Payment = ({ formData }) => {
               <Button
                 className="p-3 text-start d-flex justify-content-between align-items-center border-0 text-white"
                 style={{
-                  background: collapseStates.virtualAccount ? "#7126B5" : "#3C3C3C",
+                  background: collapseStates.virtualAccount
+                    ? "#7126B5"
+                    : "#3C3C3C",
                   padding: "10px 15px",
                   textAlign: "start",
                 }}
                 onClick={() => handleCollapse("virtualAccount")}
                 aria-expanded={collapseStates.virtualAccount}
               >
-                Virtual Account {collapseStates.virtualAccount ? <BsChevronUp size={20} /> : <BsChevronDown size={20} />}
+                Virtual Account{" "}
+                {collapseStates.virtualAccount ? (
+                  <BsChevronUp size={20} />
+                ) : (
+                  <BsChevronDown size={20} />
+                )}
               </Button>
               {renderCollapse("virtualAccount")}
             </Card>
@@ -186,12 +221,20 @@ const Payment = ({ formData }) => {
                 onClick={() => handleCollapse("creditCard")}
                 aria-expanded={collapseStates.creditCard}
               >
-                Credit Card {collapseStates.creditCard ? <BsChevronUp size={20} /> : <BsChevronDown size={20} />}
+                Credit Card{" "}
+                {collapseStates.creditCard ? (
+                  <BsChevronUp size={20} />
+                ) : (
+                  <BsChevronDown size={20} />
+                )}
               </Button>
               {renderCollapse("creditCard")}
             </Card>
 
-            <Card className="border-0 text-white" style={{ background: "none" }}>
+            <Card
+              className="border-0 text-white"
+              style={{ background: "none" }}
+            >
               <Button
                 className="mt-4 p-3 border-0 fw-bold fs-5 text-white"
                 style={{

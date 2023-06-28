@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Stack, Button, Card, Modal, Form } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Stack,
+  Button,
+  Card,
+  Modal,
+  Form,
+} from "react-bootstrap";
 import { IoArrowBack } from "react-icons/io5";
 import NavbarComponent from "../../../components/Header/NavbarComponent";
 import { Link } from "react-router-dom";
 import "./Profile.css";
 import axios from "axios";
+import CheckoutForm from "../../../components/Chekout/ChekoutForm";
 
 const Profile = () => {
   const [dataUser, setDataUser] = useState("");
@@ -16,11 +26,14 @@ const Profile = () => {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await axios.get(`https://skypass-dev.up.railway.app/user/whoami`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          `https://skypass-dev.up.railway.app/user/whoami`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         const data = response.data.data.user;
         setDataUser(data);
@@ -111,10 +124,17 @@ const Profile = () => {
           <Modal.Title>Ubah Nama</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <CheckoutForm dataUser={dataUser} />
+        </Modal.Body>
+        <Modal.Body>
           <Form>
             <Form.Group controlId="formNewName">
               <Form.Label>Nama Baru</Form.Label>
-              <Form.Control type="text" value={newName} onChange={(e) => setNewName(e.target.value)} />
+              <Form.Control
+                type="text"
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
