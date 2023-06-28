@@ -63,7 +63,7 @@ const FlightBookingForm = (props) => {
         <Col xs={12} md={11}>
           <Card bg="light" border="light" className="card-size">
             <h3 className="fw-bold m-4">
-              Pilih Jadwal Penerbangan spesial di <span className="text-color">Tiketku!</span>
+              Pilih Jadwal Penerbangan spesial di <span className="text-color">SkyPass!</span>
             </h3>
             <Card.Body>
               <Form>

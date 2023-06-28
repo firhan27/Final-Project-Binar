@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import "./Register.css";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../assets/image/logo.png";
+import logo from "../../assets/image/logo-skypass.png";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
