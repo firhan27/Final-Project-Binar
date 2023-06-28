@@ -8,6 +8,8 @@ import FromComponent from "./FromComponent";
 import ToComponent from "./ToComponent";
 import SeatClassComponent from "./SeatClassComponent";
 import PassengerComponent from "./PassangerComponent";
+import SearchPage from "../../pages/SearchPage/SearchPage";
+import { useNavigate } from "react-router-dom";
 
 const FlightBookingForm = (props) => {
   const [dataFrom, setDataFrom] = useState("");
@@ -16,6 +18,7 @@ const FlightBookingForm = (props) => {
   const [returnDate, setReturnDate] = useState("");
   const [selectedPassengers, setSelectedPassengers] = useState();
   const [dataClass, setDataClass] = useState("");
+  const navigate = useNavigate();
 
   const buttonClick = (event) => {
     event.preventDefault();
@@ -28,6 +31,11 @@ const FlightBookingForm = (props) => {
       dataClass,
     };
     console.log(searchData);
+    navigate(`/search?from=${dataFrom.value}&to=${dataTo.value}&departure=${departureDate}&totalPassenger=${totalPassenger(selectedPassengers)}&classId=${dataClass.value}`);
+  };
+
+  const totalPassenger = (passenger) => {
+    return Object.values(passenger).reduce((acc, obj) => acc + obj, 0);
   };
 
   const [inputValue, setInputValue] = useState();
@@ -61,44 +69,44 @@ const FlightBookingForm = (props) => {
               <Form>
                 <Row>
                   <Col>
-                    <Form.Group>
+                    <Form.Group className="mb-3">
                       <img src={planeVector} alt="plane" className="font-button" />
                       <Form.Label>From</Form.Label>
                       <FromComponent setDataFrom={setDataFrom} onChange={inputHandleChange} />
                     </Form.Group>
                   </Col>
                   <Col>
-                    <Form.Group>
+                    <Form.Group className="mb-3">
                       <img src={planeVector} alt="plane" className="font-button" />
                       <Form.Label>To</Form.Label>
                       <ToComponent setDataTo={setDataTo} onChange={inputHandleChange} />
                     </Form.Group>
                   </Col>
                 </Row>
-                <Row className="mt-4">
+                <Row className="mt-2">
                   <Col>
-                    <Form.Group onSubmit={handleClick}>
+                    <Form.Group onSubmit={handleClick} className="mb-3">
                       <img src={dateVector} alt="date" className="font-button font-size" />
                       <Form.Label>Departure Date</Form.Label>
                       <Form.Control type="date" value={departureDate} onChange={(e) => setDeparatureDate(e.target.value)} />
                     </Form.Group>
                   </Col>
                   <Col>
-                    <Form.Group onSubmit={handleClick}>
+                    <Form.Group onSubmit={handleClick} className="mb-3">
                       <img src={dateVector} alt="date" className="font-button font-size" />
                       <Form.Label>Return Date</Form.Label>
                       <Form.Control type="date" value={returnDate} onChange={(e) => setReturnDate(e.target.value)} />
                     </Form.Group>
                   </Col>
                   <Col>
-                    <Form.Group>
+                    <Form.Group className="mb-3">
                       <img src={passangerVector} alt="passanger" className="font-button" />
                       <Form.Label>Passengers</Form.Label>
                       <PassengerComponent setSelectedPassengers={handleDataSelect} dataSelect={handleDataSelect} onChange={inputHandleChange} />
                     </Form.Group>
                   </Col>
                   <Col>
-                    <Form.Group>
+                    <Form.Group className="mb-3">
                       <img src={passangerVector} alt="passanger" className="font-button" />
                       <Form.Label>Seat Class</Form.Label>
                       <SeatClassComponent setDataClass={setDataClass} onChange={inputHandleChange} />

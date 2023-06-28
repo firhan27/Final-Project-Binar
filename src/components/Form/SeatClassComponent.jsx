@@ -33,7 +33,7 @@ const SeatClassComponent = (props) => {
 
   // Transform the airport data into options array for react-select
   const selectOptions = dataClass.map((classes) => ({
-    value: classes.name,
+    value: classes.id,
     label: classes.name,
   }));
 

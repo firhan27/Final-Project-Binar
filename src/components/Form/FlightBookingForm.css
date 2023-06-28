@@ -82,3 +82,12 @@ body {
   height: 18px;
   margin-bottom: 3px;
 }
+
+.button-passenger {
+  background-color: #7126b5 !important;
+  width: 75px;
+}
+
+.button-posisition {
+  text-align: right;
+}

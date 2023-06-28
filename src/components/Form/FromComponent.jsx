@@ -34,7 +34,7 @@ const FromComponent = (props) => {
 
   // Transform the airport data into options array for react-select
   const selectOptions = dataFrom.map((airport) => ({
-    value: airport.city,
+    value: airport.airport_code,
     label: airport.city,
   }));
 
