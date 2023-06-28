@@ -91,7 +91,7 @@ const Profile = () => {
         <h3 className="my-4 fw-bold">Akun</h3>
         <Row className="mb-3">
           <Col>
-            <Stack className="stack-back">
+            <Stack className="stack-back rounded">
               <Link to="/" className="text-decoration-none">
                 <p className="fs-5 text-light mt-2 ms-2">
                   <IoArrowBack /> <b>Beranda</b>
