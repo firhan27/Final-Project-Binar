@@ -42,6 +42,8 @@ const SearchPage = ({ searchData }) => {
     getData();
   }, [location]);
 
+  console.log(flights);
+
   return (
     <>
       <NavbarComponent />
@@ -83,9 +85,7 @@ const SearchPage = ({ searchData }) => {
             <ItemCardFilter />
             <div className="col 8">
               <div className="d-flex flex-column gap-4">
-                {flights.map((item) => {
-                  return <ItemCardTicket key={item.id} data={item} isActive={isActiveDetail === item.id} onClick={() => onClickDetail(item.id)} />;
-                })}
+                {flights && flights.length > 0 ? flights.map((item) => <ItemCardTicket key={item.id} data={item} isActive={isActiveDetail === item.id} onClick={() => onClickDetail(item.id)} />) : <p>data kosong</p>}
               </div>
             </div>
           </div>
