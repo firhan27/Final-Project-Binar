@@ -14,7 +14,6 @@ import NavbarComponent from "../../../components/Header/NavbarComponent";
 import { Link } from "react-router-dom";
 import "./Profile.css";
 import axios from "axios";
-import CheckoutForm from "../../../components/Chekout/ChekoutForm";
 
 const Profile = () => {
   const [dataUser, setDataUser] = useState("");
@@ -123,9 +122,6 @@ const Profile = () => {
         <Modal.Header closeButton>
           <Modal.Title>Ubah Nama</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <CheckoutForm dataUser={dataUser} />
-        </Modal.Body>
         <Modal.Body>
           <Form>
             <Form.Group controlId="formNewName">

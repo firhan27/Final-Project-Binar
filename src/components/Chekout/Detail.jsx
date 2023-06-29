@@ -79,7 +79,7 @@ function Detail() {
 
           <div className="d-flex justify-content-between align-items-center">
             <h5 className="fw-bold txt-primary">Total</h5>
-            <h4 className="fw-bold" style={{ color: "#7126B5" }}>
+            <h4 className="fw-bold fs-5" style={{ color: "#7126B5" }}>
               IDR 9.850.000
             </h4>
           </div>

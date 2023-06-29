@@ -75,7 +75,15 @@ function App() {
             </AuthToken>
           }
         />
-        <Route path="/checkout" element={<Checkout1 />} />
+
+        <Route
+          path="/checkout"
+          element={
+            <AuthToken>
+              <Checkout1 />
+            </AuthToken>
+          }
+        />
         <Route path="/checkout/payment" element={<Payment />} />
         <Route path="/search" element={<SearchPage />} />
       </Routes>

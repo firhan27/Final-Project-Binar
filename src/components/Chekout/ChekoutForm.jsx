@@ -1,35 +1,185 @@
-import React, { useState } from "react";
-import { Container, Form, Card, Row, Button } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Container, Form, Card, Button } from "react-bootstrap";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-const CheckoutForm = ({ dataUser }) => {
-  const [fullName, setFullName] = useState(dataUser.name || "");
-  const [familyName, setFamilyName] = useState(dataUser.familyName || "");
-  const [phoneNumber, setPhoneNumber] = useState(dataUser.phoneNumber || "");
-  const [email, setEmail] = useState(dataUser.email || "");
+const CheckoutForm = () => {
+  const [dataUser, setDataUser] = useState(null);
+  const [dataPassenger, setDataPassenger] = useState({
+    passenger1: {
+      title: "",
+      fullName: "",
+      familyName: "",
+      dateOfBirth: "",
+      nationality: "",
+      idType: "",
+      idIssuer: "",
+      idValidity: "",
+    },
+    passenger2: {
+      title: "",
+      fullName: "",
+      familyName: "",
+      dateOfBirth: "",
+      nationality: "",
+      idType: "",
+      idIssuer: "",
+      idValidity: "",
+    },
+  });
+  const [setIsRequestSent] = useState(false);
+
+  useEffect(() => {
+    const getProfile = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const response = await axios.get(
+          `https://skypass-dev.up.railway.app/user/whoami`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const data = response.data.data.user;
+        setDataUser(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    getProfile();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      toast.error("Token not found");
+      return;
+    }
+
+    const { passenger1, passenger2 } = dataPassenger;
+
+    if (!passenger1.surname || !passenger1.surname.trim()) {
+      toast.error("fill in your personal adult 1");
+      return;
+    }
+
+    if (!passenger2.surname || !passenger2.surname.trim()) {
+      toast.error("fill in your personal adult 2");
+      return;
+    }
+
+    const postData = {
+      passengers: [
+        {
+          name: passenger1.fullName,
+          surname: passenger1.surname,
+          gender: true,
+          valid_until: passenger1.idValidity,
+          country_publication: passenger1.idIssuer,
+          ktp_passport: passenger1.idType,
+          citizenship: passenger1.nationality,
+          bod: passenger1.dateOfBirth,
+          passenger_type: "adult",
+        },
+        {
+          name: passenger2.fullName,
+          surname: passenger2.surname,
+          gender: false,
+          valid_until: passenger2.idValidity,
+          country_publication: passenger2.idIssuer,
+          ktp_passport: passenger2.idType,
+          citizenship: passenger2.nationality,
+          bod: passenger2.dateOfBirth,
+          passenger_type: "adult",
+        },
+        /*  {
+          name: "John",
+          surname: "Doe",
+          gender: true,
+          valid_until: "2023-12-31T00:00:00.000Z",
+          country_publication: "United States",
+          ktp_passport: "ABCD1234",
+          citizenship: "US",
+          bod: "1990-01-01",
+          passenger_type: "adult",
+        },
+        {
+          name: "Jane",
+          surname: "Doe",
+          gender: false,
+          valid_until: "2024-06-30T00:00:00.000Z",
+          country_publication: "United Kingdom",
+          ktp_passport: "EFGH5678",
+          citizenship: "UK",
+          bod: "1995-05-10",
+          passenger_type: "adult",
+        }, */
+      ],
+      information: {
+        tax: 100000,
+        total_price: 500000,
+        flight_id: 2682,
+      },
+    };
+
+    const isValidDate1 = !isNaN(
+      Date.parse(dataPassenger.passenger1.dateOfBirth)
+    );
+    const isValidDate2 = !isNaN(
+      Date.parse(dataPassenger.passenger2.dateOfBirth)
+    );
+
+    if (!isValidDate1 || !isValidDate2) {
+      toast.error("Tanggal yang dimasukkan tidak valid");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "https://skypass-dev.up.railway.app/booking",
+        postData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response.data.data);
+      setIsRequestSent(true); // Permintaan terkirim
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        if (error.response && error.response.status === 401) {
+          toast.error("Unauthorized: Please check your token");
+        } else if (error.response && error.response.data) {
+          toast.error(error.response.data.message);
+        } else {
+          toast.error("Request failed with status code 403");
+        }
+      } else {
+        toast.error(error.message);
+      }
+      setIsRequestSent(false); // Permintaan gagal
+    }
   };
 
-  /*Passenger1*/
-  const [title1, setTitle1] = useState("");
-  const [fullName1, setFullName1] = useState("");
-  const [familyName1, setFamilyName1] = useState("");
-  const [dateOfBirth1, setDateOfBirth1] = useState("");
-  const [nationality1, setNationality1] = useState("");
-  const [idType1, setIdType1] = useState("");
-  const [idIssuer1, setIdIssuer1] = useState("");
-  const [idValidity1, setIdValidity1] = useState("");
-
-  /*Passenger2*/
-  const [title2, setTitle2] = useState("");
-  const [fullName2, setFullName2] = useState("");
-  const [familyName2, setFamilyName2] = useState("");
-  const [dateOfBirth2, setDateOfBirth2] = useState("");
-  const [nationality2, setNationality2] = useState("");
-  const [idType2, setIdType2] = useState("");
-  const [idIssuer2, setIdIssuer2] = useState("");
-  const [idValidity2, setIdValidity2] = useState("");
+  const handleChange = (e, passenger) => {
+    const { name, value } = e.target;
+    console.log(name, value);
+    setDataPassenger((prevState) => ({
+      ...prevState,
+      [passenger]: {
+        ...prevState[passenger],
+        [name]: value,
+      },
+    }));
+  };
 
   return (
     <>
@@ -63,48 +213,78 @@ const CheckoutForm = ({ dataUser }) => {
             </h5>
 
             <div className="">
-              <Form onSubmit={handleSubmit}>
+              <Form>
                 <Form.Group controlId="fullName" className="p-2">
-                  <Form.Label>Nama Lengkap</Form.Label>
+                  <Form.Label
+                    style={{
+                      color: "#4B1979",
+                      fontSize: "14px",
+                      fontWeight: "700",
+                    }}
+                  >
+                    Nama Lengkap
+                  </Form.Label>
                   <Form.Control
                     className="rounded-1"
                     type="text"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
+                    value={dataUser?.name}
+                    disabled
                   />
                 </Form.Group>
 
                 <Form.Group controlId="familyName" className="p-2">
-                  <Form.Label>Nama Keluarga</Form.Label>
+                  <Form.Label
+                    style={{
+                      color: "#4B1979",
+                      fontSize: "14px",
+                      fontWeight: "700",
+                    }}
+                  >
+                    Nama Keluarga
+                  </Form.Label>
                   <Form.Control
                     className="rounded-1"
                     type="text"
-                    value={familyName}
-                    onChange={(e) => setFamilyName(e.target.value)}
+                    value={dataUser ? dataUser.familyName : "Skypass Test"}
+                    disabled
                   />
                 </Form.Group>
 
                 <Form.Group controlId="phoneNumber" className="p-2">
-                  <Form.Label>Nomor Telepon</Form.Label>
+                  <Form.Label
+                    style={{
+                      color: "#4B1979",
+                      fontSize: "14px",
+                      fontWeight: "700",
+                    }}
+                  >
+                    Nomor Telepon
+                  </Form.Label>
                   <Form.Control
                     className="rounded-1"
                     type="tel"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    value={dataUser?.phone}
+                    disabled
                   />
                 </Form.Group>
 
                 <Form.Group controlId="email" className="p-2">
-                  <Form.Label>Email</Form.Label>
+                  <Form.Label
+                    style={{
+                      color: "#4B1979",
+                      fontSize: "14px",
+                      fontWeight: "700",
+                    }}
+                  >
+                    Email
+                  </Form.Label>
                   <Form.Control
                     className="rounded-1"
                     type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={dataUser?.email}
+                    disabled
                   />
                 </Form.Group>
-
-                <button type="submit">Simpan</button>
               </Form>
             </div>
           </Card.Body>
@@ -154,8 +334,9 @@ const CheckoutForm = ({ dataUser }) => {
                 <Form.Control
                   className="rounded-1"
                   type="text"
-                  value={title1}
-                  onChange={(e) => setTitle1(e.target.value)}
+                  name="title"
+                  value={dataPassenger.passenger1.title}
+                  onChange={(e) => handleChange(e, "passenger1")}
                 />
               </Form.Group>
 
@@ -172,12 +353,13 @@ const CheckoutForm = ({ dataUser }) => {
                 <Form.Control
                   className="rounded-1"
                   type="text"
-                  value={fullName1}
-                  onChange={(e) => setFullName1(e.target.value)}
+                  name="fullName"
+                  value={dataPassenger.passenger1.fullName}
+                  onChange={(e) => handleChange(e, "passenger1")}
                 />
               </Form.Group>
 
-              <Form.Group controlId="familyName1" className="p-2">
+              <Form.Group controlId="surname1" className="p-2">
                 <Form.Label
                   style={{
                     color: "#4B1979",
@@ -190,8 +372,9 @@ const CheckoutForm = ({ dataUser }) => {
                 <Form.Control
                   className="rounded-1"
                   type="text"
-                  value={familyName1}
-                  onChange={(e) => setFamilyName1(e.target.value)}
+                  name="surname"
+                  value={dataPassenger.passenger1.surname}
+                  onChange={(e) => handleChange(e, "passenger1")}
                 />
               </Form.Group>
 
@@ -208,8 +391,9 @@ const CheckoutForm = ({ dataUser }) => {
                 <Form.Control
                   className="rounded-1"
                   type="date"
-                  value={dateOfBirth1}
-                  onChange={(e) => setDateOfBirth1(e.target.value)}
+                  name="dateOfBirth"
+                  value={dataPassenger.passenger1.dateOfBirth}
+                  onChange={(e) => handleChange(e, "passenger1")}
                 />
               </Form.Group>
 
@@ -226,8 +410,9 @@ const CheckoutForm = ({ dataUser }) => {
                 <Form.Control
                   className="rounded-1"
                   type="text"
-                  value={nationality1}
-                  onChange={(e) => setNationality1(e.target.value)}
+                  name="nationality"
+                  value={dataPassenger.passenger1.nationality}
+                  onChange={(e) => handleChange(e, "passenger1")}
                 />
               </Form.Group>
 
@@ -244,8 +429,9 @@ const CheckoutForm = ({ dataUser }) => {
                 <Form.Control
                   className="rounded-1"
                   type="text"
-                  value={idType1}
-                  onChange={(e) => setIdType1(e.target.value)}
+                  name="idType"
+                  value={dataPassenger.passenger1.idType}
+                  onChange={(e) => handleChange(e, "passenger1")}
                 />
               </Form.Group>
 
@@ -262,8 +448,9 @@ const CheckoutForm = ({ dataUser }) => {
                 <Form.Control
                   className="rounded-1"
                   type="text"
-                  value={idIssuer1}
-                  onChange={(e) => setIdIssuer1(e.target.value)}
+                  name="idIssuer"
+                  value={dataPassenger.passenger1.idIssuer}
+                  onChange={(e) => handleChange(e, "passenger1")}
                 />
               </Form.Group>
 
@@ -280,27 +467,26 @@ const CheckoutForm = ({ dataUser }) => {
                 <Form.Control
                   className="rounded-1"
                   type="date"
-                  value={idValidity1}
-                  onChange={(e) => setIdValidity1(e.target.value)}
+                  name="idValidity"
+                  value={dataPassenger.passenger1.idValidity}
+                  onChange={(e) => handleChange(e, "passenger1")}
                 />
               </Form.Group>
-            </Form>
 
-            <h5
-              className="text-white p-2 mt-4"
-              style={{
-                backgroundColor: "#303030",
-                borderTopLeftRadius: "10px",
-                borderTopRightRadius: "10px",
-                fontSize: "16px",
-                fontWeight: "500",
-                fontHeight: "24px",
-              }}
-            >
-              Data Penumpang 2 - Adult
-            </h5>
+              <h5
+                className="text-white p-2 mt-4"
+                style={{
+                  backgroundColor: "#303030",
+                  borderTopLeftRadius: "10px",
+                  borderTopRightRadius: "10px",
+                  fontSize: "16px",
+                  fontWeight: "500",
+                  fontHeight: "24px",
+                }}
+              >
+                Data Penumpang 2 - Adult
+              </h5>
 
-            <Form onSubmit={handleSubmit}>
               <Form.Group controlId="title2" className="p-2">
                 <Form.Label
                   style={{
@@ -314,8 +500,9 @@ const CheckoutForm = ({ dataUser }) => {
                 <Form.Control
                   className="rounded-1"
                   type="text"
-                  value={title2}
-                  onChange={(e) => setTitle2(e.target.value)}
+                  name="title"
+                  value={dataPassenger.passenger2.title}
+                  onChange={(e) => handleChange(e, "passenger2")}
                 />
               </Form.Group>
 
@@ -332,12 +519,13 @@ const CheckoutForm = ({ dataUser }) => {
                 <Form.Control
                   className="rounded-1"
                   type="text"
-                  value={fullName2}
-                  onChange={(e) => setFullName2(e.target.value)}
+                  name="fullName"
+                  value={dataPassenger.passenger2.fullName}
+                  onChange={(e) => handleChange(e, "passenger2")}
                 />
               </Form.Group>
 
-              <Form.Group controlId="familyName2" className="p-2">
+              <Form.Group controlId="surname2" className="p-2">
                 <Form.Label
                   style={{
                     color: "#4B1979",
@@ -350,8 +538,9 @@ const CheckoutForm = ({ dataUser }) => {
                 <Form.Control
                   className="rounded-1"
                   type="text"
-                  value={familyName2}
-                  onChange={(e) => setFamilyName2(e.target.value)}
+                  name="surname"
+                  value={dataPassenger.passenger2.surname}
+                  onChange={(e) => handleChange(e, "passenger2")}
                 />
               </Form.Group>
 
@@ -368,8 +557,9 @@ const CheckoutForm = ({ dataUser }) => {
                 <Form.Control
                   className="rounded-1"
                   type="date"
-                  value={dateOfBirth2}
-                  onChange={(e) => setDateOfBirth2(e.target.value)}
+                  name="dateOfBirth"
+                  value={dataPassenger.passenger2.dateOfBirth}
+                  onChange={(e) => handleChange(e, "passenger2")}
                 />
               </Form.Group>
 
@@ -386,8 +576,9 @@ const CheckoutForm = ({ dataUser }) => {
                 <Form.Control
                   className="rounded-1"
                   type="text"
-                  value={nationality2}
-                  onChange={(e) => setNationality2(e.target.value)}
+                  name="nationality"
+                  value={dataPassenger.passenger2.nationality}
+                  onChange={(e) => handleChange(e, "passenger2")}
                 />
               </Form.Group>
 
@@ -404,8 +595,9 @@ const CheckoutForm = ({ dataUser }) => {
                 <Form.Control
                   className="rounded-1"
                   type="text"
-                  value={idType2}
-                  onChange={(e) => setIdType2(e.target.value)}
+                  name="idType"
+                  value={dataPassenger.passenger2.idType}
+                  onChange={(e) => handleChange(e, "passenger2")}
                 />
               </Form.Group>
 
@@ -422,8 +614,9 @@ const CheckoutForm = ({ dataUser }) => {
                 <Form.Control
                   className="rounded-1"
                   type="text"
-                  value={idIssuer2}
-                  onChange={(e) => setIdIssuer2(e.target.value)}
+                  name="idIssuer"
+                  value={dataPassenger.passenger2.idIssuer}
+                  onChange={(e) => handleChange(e, "passenger2")}
                 />
               </Form.Group>
 
@@ -440,30 +633,35 @@ const CheckoutForm = ({ dataUser }) => {
                 <Form.Control
                   className="rounded-1"
                   type="date"
-                  value={idValidity2}
-                  onChange={(e) => setIdValidity2(e.target.value)}
+                  name="idValidity"
+                  value={dataPassenger.passenger2.idValidity}
+                  onChange={(e) => handleChange(e, "passenger2")}
                 />
               </Form.Group>
+
+              <Card className="border-0" style={{ background: "none" }}>
+                <Button
+                  type="submit"
+                  className="mt-4 p-3 border-0 fw-bold fs-5 text-white"
+                  style={{
+                    background: "#7126B5",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    borderRadius: "12px",
+                  }}
+                  size="lg"
+                >
+                  Simpan
+                </Button>
+              </Card>
+
+              {/*   {isRequestSent && (
+                <p>Terima kasih, permintaan Anda berhasil terkirim!</p>
+              )}
+              {!isRequestSent && <p>Permintaan gagal. Silakan coba lagi.</p>} */}
             </Form>
           </Card.Body>
         </Card>
       </Container>
-
-      <Row className="px-2">
-        <Card className="border-0" style={{ background: "none" }}>
-          <Button
-            className="mt-4 p-3 border-0 fw-bold fs-5 text-white"
-            style={{
-              background: "#7126B5",
-              boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-              borderRadius: "12px",
-            }}
-            size="lg"
-          >
-            Simpan
-          </Button>
-        </Card>
-      </Row>
     </>
   );
 };
