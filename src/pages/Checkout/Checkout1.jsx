@@ -3,9 +3,6 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { FaAngleRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import CheckoutForm from "../../components/Chekout/ChekoutForm";
-import PassengerForm from "../../components/Chekout/PassengerForm";
-import PassengerForm2 from "../../components/Chekout/PassengerFrom2";
-import KursiSelection from "../../components/Chekout/KursiSelection";
 import Detail from "../../components/Chekout/Detail";
 
 const Checkout1 = () => {
@@ -42,7 +39,9 @@ const Checkout1 = () => {
     const minutes = Math.floor((time % 3600) / 60);
     const seconds = time % 60;
 
-    return `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+    return `${hours < 10 ? "0" + hours : hours}:${
+      minutes < 10 ? "0" + minutes : minutes
+    }:${seconds < 10 ? "0" + seconds : seconds}`;
   };
 
   return (
@@ -102,7 +101,10 @@ const Checkout1 = () => {
             </Row>
 
             <Col>
-              <Card className="p-0 m-0" style={{ backgroundColor: "red", borderRadius: "12px" }}>
+              <div
+                className="p-3 m-0"
+                style={{ backgroundColor: "red", borderRadius: "12px" }}
+              >
                 <Card.Body>
                   <p
                     className="text-center text-white p-0 m-0 fs-6 fw-bold "
@@ -113,7 +115,7 @@ const Checkout1 = () => {
                     Selesaikan dalam {formatTime(timeRemaining)}
                   </p>
                 </Card.Body>
-              </Card>
+              </div>
             </Col>
           </Row>
         </Container>
@@ -124,47 +126,11 @@ const Checkout1 = () => {
           <Col sm={8}>
             <Row className="mt-5">
               <Col>
-                <Card className="rounded-0" style={{ background: "none" }}>
-                  <Card.Body>
-                    <CheckoutForm onSubmit={handleFormSubmit} onChange={handleFormChange} />
-                  </Card.Body>
-                </Card>
+                <CheckoutForm
+                  onSubmit={handleFormSubmit}
+                  onChange={handleFormChange}
+                />
               </Col>
-            </Row>
-
-            <Row className="mt-5">
-              <Col>
-                <Card className="rounded-0" style={{ background: "none" }}>
-                  <Card.Body>
-                    <PassengerForm onSubmit={handleFormSubmit} onChange={handleFormChange} />
-                    <PassengerForm2 onSubmit={handleFormSubmit} onChange={handleFormChange} />
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-
-            <Row className="mt-5">
-              <Col>
-                <Card className="rounded-0" style={{ background: "none" }}>
-                  <Card.Body>
-                    <KursiSelection />
-                  </Card.Body>
-                </Card>
-              </Col>
-
-              <Card className="border-0" style={{ background: "none" }}>
-                <Button
-                  className="mt-4 p-3 border-0 text-white fs-5 fw-bold"
-                  style={{
-                    background: "#7126B5",
-                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-                    borderRadius: "12px",
-                  }}
-                  size="lg"
-                >
-                  Simpan
-                </Button>
-              </Card>
             </Row>
           </Col>
 

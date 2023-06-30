@@ -13,6 +13,7 @@ import Profile from "./pages/User/Akun/Profile";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import AuthToken from "./components/Auth/AuthToken";
 import AuthNoToken from "./components/Auth/AuthNoToken";
+import PaymentSucces from "./components/Chekout/PaymentSucces";
 
 function App() {
   return (
@@ -75,8 +76,17 @@ function App() {
             </AuthToken>
           }
         />
-        <Route path="/checkout" element={<Checkout1 />} />
+
+        <Route
+          path="/checkout"
+          element={
+            <AuthToken>
+              <Checkout1 />
+            </AuthToken>
+          }
+        />
         <Route path="/checkout/payment" element={<Payment />} />
+        <Route path="/paymentsucces" element={<PaymentSucces />} />
         <Route path="/search" element={<SearchPage />} />
       </Routes>
       <ToastContainer theme="light" />

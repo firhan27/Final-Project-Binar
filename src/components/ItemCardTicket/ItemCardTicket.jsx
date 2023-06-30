@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import DetailCardTicket from "../DetailCardTicket/DetailCardTicket";
 import { Thumbnail } from "../../assets";
 import "./ItemCardTicket.css";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
+import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+
 const ItemCardTicket = ({ data, isActive, onClick }) => {
+  const navigate = useNavigate();
+  const handleSelectTicket = () => {
+    navigate("/checkout", { state: { id: data.id } });
+    console.log(data.id);
+  };
+
   return (
     <div className="card p-4 d-flex flex-column gap-1 border-0 shadow">
       <div className="d-flex justify-content-between">
@@ -35,8 +45,10 @@ const ItemCardTicket = ({ data, isActive, onClick }) => {
           <i className="far fs-5 fa-suitcase-rolling text-purple"></i>
         </button>
         <div className="col-3 d-flex flex-column justify-content-end">
-          <p className="h5 fw-bolder text-purple">IDR {data.price}</p>
-          <button className="btn btn-purple text-white w-75 mx-auto rounded-pill btn-ticket">Pilih</button>
+          <p className="h5 fw-bolder text-purple text-center">IDR {data.price}</p>
+          <Button className="btn btn-purple text-white w-75 mx-auto rounded-pill btn-ticket border-0" as={Link} to="/checkout" onClick={handleSelectTicket}>
+            Pilih
+          </Button>
         </div>
       </div>
       {isActive !== null && isActive && <DetailCardTicket />}

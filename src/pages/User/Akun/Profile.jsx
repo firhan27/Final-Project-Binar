@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Stack, Button, Card, Modal, Form } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Stack,
+  Button,
+  Card,
+  Modal,
+  Form,
+} from "react-bootstrap";
 import { IoArrowBack } from "react-icons/io5";
 import NavbarComponent from "../../../components/Header/NavbarComponent";
 import { Link } from "react-router-dom";
@@ -16,11 +25,14 @@ const Profile = () => {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await axios.get(`https://skypass-dev.up.railway.app/user/whoami`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          `https://skypass-dev.up.railway.app/user/whoami`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         const data = response.data.data.user;
         setDataUser(data);
@@ -114,7 +126,11 @@ const Profile = () => {
           <Form>
             <Form.Group controlId="formNewName">
               <Form.Label>Nama Baru</Form.Label>
-              <Form.Control type="text" value={newName} onChange={(e) => setNewName(e.target.value)} />
+              <Form.Control
+                type="text"
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
