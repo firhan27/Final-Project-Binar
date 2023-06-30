@@ -33,7 +33,7 @@ const AuthToken = ({ children }) => {
 
     if (!token) {
       toast.warn("Anda harus login!");
-      return navigate("/login");
+      return navigate("/auth/login");
     }
 
     // get user information
