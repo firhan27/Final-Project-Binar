@@ -8,7 +8,6 @@ import FromComponent from "./FromComponent";
 import ToComponent from "./ToComponent";
 import SeatClassComponent from "./SeatClassComponent";
 import PassengerComponent from "./PassangerComponent";
-import SearchPage from "../../pages/SearchPage/SearchPage";
 import { useNavigate } from "react-router-dom";
 
 const FlightBookingForm = (props) => {
@@ -30,7 +29,6 @@ const FlightBookingForm = (props) => {
       selectedPassengers,
       dataClass,
     };
-    console.log(searchData);
     navigate(`/search?from=${dataFrom.value}&to=${dataTo.value}&departure=${departureDate}&totalPassenger=${totalPassenger(selectedPassengers)}&classId=${dataClass.value}`);
   };
 

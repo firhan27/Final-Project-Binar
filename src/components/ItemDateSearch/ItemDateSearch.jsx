@@ -1,5 +1,4 @@
 import React from "react";
-// import "./ItemDateSearch.css";
 
 const ItemDateSearch = ({ type }) => {
   if (type === "active") {

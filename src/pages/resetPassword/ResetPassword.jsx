@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import "./resetPassword.css";
 import logo from "../../assets/image/logo.png";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import axios from "axios";
+import client from "../../api/axios"
 import { toast } from "react-toastify";
 
 const ResetPassword = () => {
@@ -26,7 +26,6 @@ const ResetPassword = () => {
 
     if (tokenParts.length !== 3) {
       toast.error("Token tidak valid!");
-      console.log("Invalid token");
       history("/auth/register");
       return;
     }
@@ -36,7 +35,6 @@ const ResetPassword = () => {
       atob(tokenParts[1]);
     } catch (error) {
       toast.error("Token tidak valid!");
-      console.log("Invalid token");
       history("/auth/register");
       return;
     }
@@ -65,8 +63,7 @@ const ResetPassword = () => {
     };
 
     try {
-      const response = await axios.post("https://skypass-dev.up.railway.app/auth/reset-password", data);
-      console.log(response.data);
+      const response = await client.post("/auth/reset-password", data);
       toast.success("Ganti kata sandi berhasil!");
     } catch (error) {
       console.log(error);

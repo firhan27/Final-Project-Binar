@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import client from "../../api/axios"
 import { Form } from "react-bootstrap";
 import Select from "react-select";
 import "./FlightBookingForm.css";
 
 const ToComponent = (props) => {
   const [dataTo, setDataTo] = useState([]);
-  const URL = "https://skypass-dev.up.railway.app/airports";
 
   const fetchApi = async () => {
     try {
-      const response = await axios.get(URL);
+      const response = await client.get("/airports");
       setDataTo(response.data.data.airports);
     } catch (error) {
       console.error(error);
@@ -30,7 +29,7 @@ const ToComponent = (props) => {
 
   useEffect(() => {
     fetchApi();
-  }, [URL]);
+  }, []);
 
   // Transform the airport data into options array for react-select
   const selectOptions = dataTo.map((airport) => ({

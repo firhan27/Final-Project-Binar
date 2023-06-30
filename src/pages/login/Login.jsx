@@ -4,6 +4,7 @@ import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/image/logo-skypass.png";
 import axios from "axios";
+import client from "../../api/axios"
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 
@@ -22,7 +23,7 @@ const Login = () => {
 
     try {
       // hit endpoint
-      const response = await axios.post("https://skypass-dev.up.railway.app/auth/login", data, {
+      const response = await client.post("/auth/login", data, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -77,7 +78,6 @@ const Login = () => {
 
       if (response.status === 200 || response.status === 202) {
         toast.success("Silakan cek email anda!");
-        console.log(response.data.data);
       }
     } catch (error) {
       console.log(error);

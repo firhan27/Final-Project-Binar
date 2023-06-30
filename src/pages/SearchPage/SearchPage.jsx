@@ -7,7 +7,7 @@ import ItemCardTicket from "../../components/ItemCardTicket/ItemCardTicket";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
+import client from "../../api/axios"
 
 const SearchPage = ({ searchData }) => {
   const [isActiveDetail, setIsActiveDetail] = useState(null);
@@ -30,7 +30,7 @@ const SearchPage = ({ searchData }) => {
           totalPassenger: queryParams.get("totalPassenger"),
           classId: queryParams.get("classId"),
         };
-        const { data } = await axios.post("https://skypass-dev.up.railway.app/flights/oneway", body);
+        const { data } = await client.post("/flights/oneway", body);
         if (data.status) {
           setFlights(data.data.filter);
         }
@@ -41,8 +41,6 @@ const SearchPage = ({ searchData }) => {
 
     getData();
   }, [location]);
-
-  console.log(flights);
 
   return (
     <>
