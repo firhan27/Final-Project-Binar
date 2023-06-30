@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import "./Register.css";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/image/logo-skypass.png";
-import axios from "axios";
+import client from "../../api/axios"
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 
@@ -45,7 +45,7 @@ const Register = () => {
         password: password,
       });
 
-      const response = await axios.post("https://skypass-dev.up.railway.app/auth/register", data, {
+      const response = await client.post("/auth/register", data, {
         headers: {
           "Content-Type": "application/json",
         },

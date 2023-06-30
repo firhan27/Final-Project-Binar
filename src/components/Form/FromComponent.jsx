@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import client from "../../api/axios"
 import { Form } from "react-bootstrap";
 import Select from "react-select";
 import "./FlightBookingForm.css";
 
 const FromComponent = (props) => {
   const [dataFrom, setDataFrom] = useState([]);
-  const URL = "https://skypass-dev.up.railway.app/airports";
 
   const fetchApi = async () => {
     try {
-      const response = await axios.get(URL);
+      const response = await client.get('/airports');
       setDataFrom(response.data.data.airports);
     } catch (error) {
       console.error(error);
