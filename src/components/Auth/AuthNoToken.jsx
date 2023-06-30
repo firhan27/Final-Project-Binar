@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import client from '../../api/axios'
 import { toast } from "react-toastify";
 
 const AuthNoToken = ({ children }) => {
@@ -16,7 +17,7 @@ const AuthNoToken = ({ children }) => {
     let config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "https://skypass-dev.up.railway.app/auth/refresh-token",
+      url: "auth/refresh-token",
       headers: {
         "Content-Type": "application/json",
       },
@@ -25,7 +26,7 @@ const AuthNoToken = ({ children }) => {
 
     async function makeRequest() {
       try {
-        const response = await axios.request(config);
+        const response = await client.request(config);
         console.log(JSON.stringify(response.data));
 
         const { access_token } = response.data.data;
@@ -42,7 +43,7 @@ const AuthNoToken = ({ children }) => {
   useEffect(() => {
     const getProfile = async (token) => {
       try {
-        await axios.get(`https://skypass-dev.up.railway.app/user/whoami`, {
+        await client.get(`/user/whoami`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

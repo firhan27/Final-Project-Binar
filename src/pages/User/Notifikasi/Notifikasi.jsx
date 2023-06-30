@@ -10,6 +10,7 @@ import ModalFilter from "../../../components/Modal/Modal Filter/ModalFilter";
 import ModalSearch from "../../../components/Modal/Modal Search/ModalSearch";
 import notifikationsIcon from "../../../assets/image/notificationsIcon.png";
 import axios from "axios";
+import client from "../../../api/axios"
 
 const Notifikasi = () => {
   const [notifications, setNotifications] = useState([]);
@@ -21,14 +22,13 @@ const Notifikasi = () => {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await axios.get(`https://skypass-dev.up.railway.app/notifications`, {
+        const response = await client.get(`/notifications`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
         const data = response.data.data.notifications;
-        console.log(data);
 
         setNotifications(data);
       } catch (error) {
