@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Form, Card, Button } from "react-bootstrap";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useLocation } from "react-router-dom";
 
 const CheckoutForm = () => {
   const [dataUser, setDataUser] = useState(null);
@@ -27,7 +28,9 @@ const CheckoutForm = () => {
       idValidity: "",
     },
   });
-  const [setIsRequestSent] = useState(false);
+  const [isRequestSent, setIsRequestSent] = useState(false);
+  const location = useLocation();
+  console.log(location.state?.id);
 
   useEffect(() => {
     const getProfile = async () => {
@@ -107,7 +110,7 @@ const CheckoutForm = () => {
           country_publication: "United States",
           ktp_passport: "ABCD1234",
           citizenship: "US",
-          bod: "1990-01-01",
+          bod: "1990-01-01",  
           passenger_type: "adult",
         },
         {
@@ -654,10 +657,11 @@ const CheckoutForm = () => {
                 </Button>
               </Card>
 
-              {/*   {isRequestSent && (
-                <p>Terima kasih, permintaan Anda berhasil terkirim!</p>
+              {isRequestSent && (
+                <p className="text-center fw-bold pt-3 mb-0">
+                  Terima kasih, permintaan Anda berhasil terkirim!
+                </p>
               )}
-              {!isRequestSent && <p>Permintaan gagal. Silakan coba lagi.</p>} */}
             </Form>
           </Card.Body>
         </Card>

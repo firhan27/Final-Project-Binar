@@ -11,6 +11,7 @@ import {
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { FaAngleRight } from "react-icons/fa";
 import Detail from "./Detail";
+import { Link } from "react-router-dom";
 
 const Payment = ({ formData }) => {
   const [collapseStates, setCollapseStates] = useState({
@@ -236,6 +237,8 @@ const Payment = ({ formData }) => {
               style={{ background: "none" }}
             >
               <Button
+                as={Link}
+                to="/paymentsucces"
                 className="mt-4 p-3 border-0 fw-bold fs-5 text-white"
                 style={{
                   background: "#7126B5",

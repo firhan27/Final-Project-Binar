@@ -1,8 +1,23 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import logoMaskapai from "../../assets/image/logoMaskapai.png";
+import { useLocation } from "react-router-dom";
 
-function Detail() {
+const Detail = () => {
+  /* const location = useLocation();
+  const selectedData = location.state?.selectedData;
+
+  if (!selectedData) {
+    console.log("selectedData is null or undefined");
+    return null;
+  }
+
+  console.log("data:", data);
+  console.log("selectedData:", selectedData); */
+
+  /* const location = useLocation();
+  console.log(location.state?.id); */
+
   return (
     <Container className="mt-5">
       <h4
@@ -79,14 +94,14 @@ function Detail() {
 
           <div className="d-flex justify-content-between align-items-center">
             <h5 className="fw-bold txt-primary">Total</h5>
-            <h4 className="fw-bold fs-5" style={{ color: "#7126B5" }}>
-              IDR 9.850.000
+            <h4 className="fw-bold" style={{ color: "#7126B5" }}>
+              IDR
             </h4>
           </div>
         </Col>
       </Row>
     </Container>
   );
-}
+};
 
 export default Detail;
