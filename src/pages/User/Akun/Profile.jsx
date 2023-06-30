@@ -4,7 +4,7 @@ import { IoArrowBack } from "react-icons/io5";
 import NavbarComponent from "../../../components/Header/NavbarComponent";
 import { Link } from "react-router-dom";
 import "./Profile.css";
-import axios from "axios";
+import client from "../../../api/axios"
 
 const Profile = () => {
   const [dataUser, setDataUser] = useState("");
@@ -16,11 +16,14 @@ const Profile = () => {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await axios.get(`https://skypass-dev.up.railway.app/user/whoami`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await client.get(
+          `/user/whoami`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         const data = response.data.data.user;
         setDataUser(data);
@@ -51,7 +54,7 @@ const Profile = () => {
 
       const config = {
         method: "put",
-        url: `https://skypass-dev.up.railway.app/user/${dataUser?.id}`,
+        url: `/user/${dataUser?.id}`,
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -59,8 +62,7 @@ const Profile = () => {
         data: data,
       };
 
-      const response = await axios.request(config);
-      console.log(response.data);
+      const response = await client.request(config);
 
       // Update the name in the dataUser state
       setDataUser({ ...dataUser, name: newName });
@@ -99,7 +101,7 @@ const Profile = () => {
                 <p>Nomor Telepon: {dataUser?.phone}</p>
                 <p>Email: {dataUser?.email}</p>
                 <Button variant="light" onClick={openModal}>
-                  Ubah Nama
+                  Ubah Profile
                 </Button>
               </Card.Body>
             </Card>

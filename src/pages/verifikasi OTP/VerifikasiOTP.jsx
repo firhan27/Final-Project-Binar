@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
 import logo from "../../assets/image/logo.png";
-import axios from "axios";
+import client from "../../api/axios"
 import Cookies from "js-cookie";
 
 const VerifikasiOTP = () => {
@@ -40,10 +40,8 @@ const VerifikasiOTP = () => {
       verifiedToken: Cookies.get("verifiedToken"),
     };
 
-    const url = "https://skypass-dev.up.railway.app/auth/otp/verify";
-
     try {
-      const response = await axios.post(url, data, {
+      const response = await client.post("/auth/otp/verify", data, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -59,9 +57,7 @@ const VerifikasiOTP = () => {
     } catch (error) {
       // if otp is wrong
       if (error.response && error.response.status === 400) {
-        // do something in fron end (ex: display error message!)
         toast.warn("Kode OTP salah!");
-        console.log(error.response.data.message);
       } else {
         // else for user not allowed to attempt otp
         toast.warn("Tidak diizinkan untuk mencoba OTP!");
@@ -76,10 +72,8 @@ const VerifikasiOTP = () => {
   const handleResendOTP = async (e) => {
     e.preventDefault();
 
-    const url = `https://skypass-dev.up.railway.app/auth/otp/resend?token=${Cookies.get("verifiedToken")}`;
-
     try {
-      const response = await axios.get(url, {
+      const response = await client.get(`/auth/otp/resend?token=${Cookies.get("verifiedToken")}`, {
         headers: {
           "Content-Type": "application/json",
         },

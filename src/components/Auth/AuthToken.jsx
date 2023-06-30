@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import client from "../../api/axios"
 import { toast } from "react-toastify";
 
 const AuthToken = ({ children }) => {
@@ -9,7 +10,7 @@ const AuthToken = ({ children }) => {
   useEffect(() => {
     const getProfile = async (token) => {
       try {
-        await axios.get(`https://skypass-dev.up.railway.app/user/whoami`, {
+        await client.get(`/user/whoami`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -33,7 +34,7 @@ const AuthToken = ({ children }) => {
 
     if (!token) {
       toast.warn("Anda harus login!");
-      return navigate("/login");
+      return navigate("/auth/login");
     }
 
     // get user information

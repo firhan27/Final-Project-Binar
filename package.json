@@ -9,6 +9,10 @@
     "@testing-library/user-event": "^13.2.1",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.0",
+<<<<<<< HEAD
+=======
+    "dotenv": "^16.3.1",
+>>>>>>> e0d410059b4916dc7f5636f3c60d78f17d563dbb
     "history": "^5.3.0",
     "js-cookie": "^3.0.5",
     "mdb-react-ui-kit": "^6.1.0",
