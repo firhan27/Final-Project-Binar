@@ -12,7 +12,7 @@
   width: 100%;
 }
 
-@media (max-width: 350px) {
+@media (max-width: 360px) {
   .card-size {
     display: flex;
     justify-content: center;
@@ -37,8 +37,10 @@ body {
   font-family: sans-serif;
 }
 
-.input {
-  width: 500px;
+input {
+  border: 1px solid #999;
+  padding: 0.5rem;
+  width: 300px;
 }
 
 .no-suggestions {
@@ -78,6 +80,16 @@ body {
 }
 
 .img-size {
-  width: 12px;
-  height: 20px;
+  width: 10px;
+  height: 18px;
+  margin-bottom: 3px;
+}
+
+.button-passenger {
+  background-color: #7126b5 !important;
+  width: 75px;
+}
+
+.button-posisition {
+  text-align: right;
 }

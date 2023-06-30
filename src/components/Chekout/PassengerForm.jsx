@@ -1,159 +1,164 @@
-import React, { useState } from "react";
-import { Form, Container } from "react-bootstrap";
+import React, { useState } from 'react';
+import { Form, Container } from 'react-bootstrap';
 
-const PassengerForm = () => {
-  const [title, setTitle] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [familyName, setFamilyName] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
-  const [nationality, setNationality] = useState("");
-  const [idType, setIdType] = useState("");
-  const [idIssuer, setIdIssuer] = useState("");
-  const [idValidity, setIdValidity] = useState("");
+const PassengerForm = ({ type, index = 1, updatePassengerData }) => {
+  const [formData, setFormData] = useState({});
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Lakukan sesuatu dengan data penumpang yang diisi
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    const updatedFormData = { ...formData, [name]: value };
+    setFormData(updatedFormData);
+
+    updatePassengerData(index - 1, {
+      name: `${updatedFormData.fullName}`,
+      surname: updatedFormData.familyName,
+      gender: updatedFormData.gender,
+      bod: updatedFormData.dateOfBirth,
+      citizenship: updatedFormData.nationality,
+      ktp_passport: updatedFormData.idType,
+      country_publication: updatedFormData.idIssuer,
+      valid_until: updatedFormData.idValidity,
+      passenger_type: type,
+    });
   };
 
   return (
     <Container>
       <h4
-        className=""
+        className=''
         style={{
-          color: "#000000",
-          fontSize: "20px",
-          fontWeight: "700",
-          fontHeight: "30px",
+          color: '#000000',
+          fontSize: '20px',
+          fontWeight: '700',
+          fontHeight: '30px',
         }}
       >
-        {" "}
+        {' '}
         Isi Data Penumpang
       </h4>
       <h5
-        className="mt-3 text-white p-2"
+        className='mt-3 text-white p-2'
         style={{
-          backgroundColor: "#303030",
-          borderTopLeftRadius: "10px",
-          borderTopRightRadius: "10px",
-          fontSize: "16px",
-          fontWeight: "500",
-          fontHeight: "24px",
+          backgroundColor: '#303030',
+          borderTopLeftRadius: '10px',
+          borderTopRightRadius: '10px',
+          fontSize: '16px',
+          fontWeight: '500',
+          fontHeight: '24px',
         }}
       >
-        Data Penumpang 1 - Adult
+        Data Penumpang {index} - {type}
       </h5>
 
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="title" className="p-2">
+      <Form>
+        <Form.Group controlId='gender' className='p-2'>
           <Form.Label
-            style={{ color: "#4B1979", fontSize: "14px", fontWeight: "700" }}
+            style={{ color: '#4B1979', fontSize: '14px', fontWeight: '700' }}
           >
             Title
           </Form.Label>
-          <Form.Control
-            className="rounded-1"
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
+          <Form.Select name='gender' onChange={handleOnChange}>
+            <option hidden={true}>Select Title</option>
+            <option value={true}>Mr.</option>
+            <option value={false}>Ms.</option>
+          </Form.Select>
         </Form.Group>
 
-        <Form.Group controlId="fullName" className="p-2">
+        <Form.Group controlId='fullName' className='p-2'>
           <Form.Label
-            style={{ color: "#4B1979", fontSize: "14px", fontWeight: "700" }}
+            style={{ color: '#4B1979', fontSize: '14px', fontWeight: '700' }}
           >
             Nama Lengkap
           </Form.Label>
           <Form.Control
-            className="rounded-1"
-            type="text"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
+            className='rounded-1'
+            type='text'
+            name='fullName'
+            onChange={handleOnChange}
           />
         </Form.Group>
 
-        <Form.Group controlId="familyName" className="p-2">
+        <Form.Group controlId='familyName' className='p-2'>
           <Form.Label
-            style={{ color: "#4B1979", fontSize: "14px", fontWeight: "700" }}
+            style={{ color: '#4B1979', fontSize: '14px', fontWeight: '700' }}
           >
             Nama Keluarga
           </Form.Label>
           <Form.Control
-            className="rounded-1"
-            type="text"
-            value={familyName}
-            onChange={(e) => setFamilyName(e.target.value)}
+            className='rounded-1'
+            type='text'
+            name='familyName'
+            onChange={handleOnChange}
           />
         </Form.Group>
 
-        <Form.Group controlId="dateOfBirth" className="p-2">
+        <Form.Group controlId='dateOfBirth' className='p-2'>
           <Form.Label
-            style={{ color: "#4B1979", fontSize: "14px", fontWeight: "700" }}
+            style={{ color: '#4B1979', fontSize: '14px', fontWeight: '700' }}
           >
             Tanggal Lahir
           </Form.Label>
           <Form.Control
-            className="rounded-1"
-            type="date"
-            value={dateOfBirth}
-            onChange={(e) => setDateOfBirth(e.target.value)}
+            className='rounded-1'
+            type='date'
+            name='dateOfBirth'
+            onChange={handleOnChange}
           />
         </Form.Group>
 
-        <Form.Group controlId="nationality" className="p-2">
+        <Form.Group controlId='nationality' className='p-2'>
           <Form.Label
-            style={{ color: "#4B1979", fontSize: "14px", fontWeight: "700" }}
+            style={{ color: '#4B1979', fontSize: '14px', fontWeight: '700' }}
           >
             Kewarganegaraan
           </Form.Label>
           <Form.Control
-            className="rounded-1"
-            type="text"
-            value={nationality}
-            onChange={(e) => setNationality(e.target.value)}
+            className='rounded-1'
+            type='text'
+            name='nationality'
+            onChange={handleOnChange}
           />
         </Form.Group>
 
-        <Form.Group controlId="idType" className="p-2">
+        <Form.Group controlId='idType' className='p-2'>
           <Form.Label
-            style={{ color: "#4B1979", fontSize: "14px", fontWeight: "700" }}
+            style={{ color: '#4B1979', fontSize: '14px', fontWeight: '700' }}
           >
             KTP/Paspor
           </Form.Label>
           <Form.Control
-            className="rounded-1"
-            type="text"
-            value={idType}
-            onChange={(e) => setIdType(e.target.value)}
+            className='rounded-1'
+            type='text'
+            name='idType'
+            onChange={handleOnChange}
           />
         </Form.Group>
 
-        <Form.Group controlId="idIssuer" className="p-2">
+        <Form.Group controlId='idIssuer' className='p-2'>
           <Form.Label
-            style={{ color: "#4B1979", fontSize: "14px", fontWeight: "700" }}
+            style={{ color: '#4B1979', fontSize: '14px', fontWeight: '700' }}
           >
             Nama Penerbit
           </Form.Label>
           <Form.Control
-            className="rounded-1"
-            type="text"
-            value={idIssuer}
-            onChange={(e) => setIdIssuer(e.target.value)}
+            className='rounded-1'
+            type='text'
+            name='idIssuer'
+            onChange={handleOnChange}
           />
         </Form.Group>
 
-        <Form.Group controlId="idValidity" className="p-2">
+        <Form.Group controlId='idValidity' className='p-2'>
           <Form.Label
-            style={{ color: "#4B1979", fontSize: "14px", fontWeight: "700" }}
+            style={{ color: '#4B1979', fontSize: '14px', fontWeight: '700' }}
           >
             Berlaku Selajutnya
           </Form.Label>
           <Form.Control
-            className="rounded-1"
-            type="date"
-            value={idValidity}
-            onChange={(e) => setIdValidity(e.target.value)}
+            className='rounded-1'
+            type='date'
+            name='idValidity'
+            onChange={handleOnChange}
           />
         </Form.Group>
       </Form>

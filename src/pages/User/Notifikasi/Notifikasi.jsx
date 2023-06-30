@@ -63,7 +63,7 @@ const Notifikasi = () => {
         <Row>
           <Row className="mb-3">
             <Col md={10}>
-              <Stack className="stack-back">
+              <Stack className="stack-back rounded">
                 <Link to="/" className="text-decoration-none">
                   <p className="fs-5 text-light mt-2 ms-2">
                     <IoArrowBack /> <b>Beranda</b>
