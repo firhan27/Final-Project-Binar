@@ -40,8 +40,6 @@ const ResetPassword = () => {
     }
   }, [searchParams, history]);
 
-  // do handle submit to server (dont forget send the token)
-  // const token = searchParams.get('token'); // gunakan token var ini untuk reset password
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -51,7 +49,6 @@ const ResetPassword = () => {
     }
 
     const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
-
     if (!passwordRegex.test(password)) {
       toast.error("Password harus memiliki minimal 8 karakter, 1 huruf besar, dan 1 angka!");
       return;

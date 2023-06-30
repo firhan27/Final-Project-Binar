@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Stack,
-  Button,
-  Card,
-  Modal,
-  Form,
-} from "react-bootstrap";
+import { Container, Row, Col, Stack, Button, Card, Modal, Form } from "react-bootstrap";
 import { IoArrowBack } from "react-icons/io5";
 import NavbarComponent from "../../../components/Header/NavbarComponent";
 import { Link } from "react-router-dom";
@@ -110,7 +101,7 @@ const Profile = () => {
                 <p>Nomor Telepon: {dataUser?.phone}</p>
                 <p>Email: {dataUser?.email}</p>
                 <Button variant="light" onClick={openModal}>
-                  Ubah Nama
+                  Ubah Profile
                 </Button>
               </Card.Body>
             </Card>
@@ -125,11 +116,7 @@ const Profile = () => {
           <Form>
             <Form.Group controlId="formNewName">
               <Form.Label>Nama Baru</Form.Label>
-              <Form.Control
-                type="text"
-                value={newName}
-                onChange={(e) => setNewName(e.target.value)}
-              />
+              <Form.Control type="text" value={newName} onChange={(e) => setNewName(e.target.value)} />
             </Form.Group>
           </Form>
         </Modal.Body>

@@ -93,7 +93,7 @@ const Notifikasi = () => {
             </Col>
           </Row>
           <hr className="custom-hr" />
-          {notifications.length > 0 &&
+          {notifications.length > 0 ? (
             notifications.map((notif, i) => {
               const createdAt = new Date(notif.createdAt);
               const formattedDate = createdAt.toLocaleDateString("id-ID", {
@@ -124,7 +124,14 @@ const Notifikasi = () => {
                   <hr className="custom-hr" />
                 </Row>
               );
-            })}
+            })
+          ) : (
+            <Row>
+              <Col className="text-center">
+                <h2 className="txt-null-clr mt-5">Belum ada pesan!.....</h2>
+              </Col>
+            </Row>
+          )}
         </Row>
       </Container>
       <ModalFilter showModal={showFilterModal} handleCloseModal={handleCloseFilterModal} />

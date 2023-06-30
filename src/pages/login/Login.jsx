@@ -63,13 +63,10 @@ const Login = () => {
     }
   };
 
-  // handle for reset request password (use for from send email reset password)
   const handleResetRequest = async (e) => {
     e.preventDefault();
 
-    // Memastikan emailOrPhone terisi sebelum mengirim permintaan reset password
     if (!emailOrPhone) {
-      // change with your design error or something else
       toast.warn("Silakan masukkan email Anda!");
       return;
     }

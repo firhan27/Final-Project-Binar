@@ -57,9 +57,7 @@ const VerifikasiOTP = () => {
     } catch (error) {
       // if otp is wrong
       if (error.response && error.response.status === 400) {
-        // do something in fron end (ex: display error message!)
         toast.warn("Kode OTP salah!");
-        console.log(error.response.data.message);
       } else {
         // else for user not allowed to attempt otp
         toast.warn("Tidak diizinkan untuk mencoba OTP!");
