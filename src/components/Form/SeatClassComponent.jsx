@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import client from "../../api/axios"
 import { Form } from "react-bootstrap";
 import Select from "react-select";
 
 const SeatClassComponent = (props) => {
   const [dataClass, setDataClass] = useState([]);
-  const URL = "https://skypass-dev.up.railway.app/class";
 
   const fetchApi = async () => {
     try {
-      const response = await axios.get(URL);
+      const response = await client.get("/class");
       setDataClass(response.data.data.classes);
     } catch (error) {
       console.error(error);
@@ -29,7 +28,7 @@ const SeatClassComponent = (props) => {
 
   useEffect(() => {
     fetchApi();
-  }, [URL]);
+  }, []);
 
   // Transform the airport data into options array for react-select
   const selectOptions = dataClass.map((classes) => ({

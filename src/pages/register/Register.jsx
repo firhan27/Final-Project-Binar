@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import "./Register.css";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/image/logo-skypass.png";
-import axios from "axios";
+import client from "../../api/axios"
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 
@@ -45,7 +45,7 @@ const Register = () => {
         password: password,
       });
 
-      const response = await axios.post("https://skypass-dev.up.railway.app/auth/register", data, {
+      const response = await client.post("/auth/register", data, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -65,20 +65,10 @@ const Register = () => {
     } catch (error) {
       // if error user already exist
       if (error.response && error.response.status === 409) {
-        const { message } = error.response.data;
-
-        console.log(message);
-        toast.warn(message);
+        toast.warn("Email sudah terdaftar!");
       } else if (error.response && error.response.status === 400) {
-        // bad request (ex: password must be at least 8 characters long)
-        const { message } = error.response.data;
-
-        // do someting with the message
-        console.log(message);
-        toast.warn(message);
+        toast.warn("password harus minimal 8 karakter");
       } else {
-        // server or axios error
-        console.log(error.response.data);
         toast.warn(error.response.data);
       }
     }

@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import DetailCardTicket from "../DetailCardTicket/DetailCardTicket";
-import { Thumbnail } from "../../assets";
 import "./ItemCardTicket.css";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { Link } from "react-router-dom";
@@ -11,7 +10,6 @@ const ItemCardTicket = ({ data, isActive, onClick }) => {
   const navigate = useNavigate();
   const handleSelectTicket = () => {
     navigate("/checkout", { state: { id: data.id } });
-    console.log(data.id);
   };
 
   return (
