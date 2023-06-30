@@ -65,20 +65,10 @@ const Register = () => {
     } catch (error) {
       // if error user already exist
       if (error.response && error.response.status === 409) {
-        const { message } = error.response.data;
-
-        console.log(message);
-        toast.warn(message);
+        toast.warn("Email sudah terdaftar!");
       } else if (error.response && error.response.status === 400) {
-        // bad request (ex: password must be at least 8 characters long)
-        const { message } = error.response.data;
-
-        // do someting with the message
-        console.log(message);
-        toast.warn(message);
+        toast.warn("password harus minimal 8 karakter");
       } else {
-        // server or axios error
-        console.log(error.response.data);
         toast.warn(error.response.data);
       }
     }
