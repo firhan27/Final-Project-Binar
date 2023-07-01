@@ -5,6 +5,8 @@ import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import moment from "moment/moment";
+require('moment/locale/id');
 
 const ItemCardTicket = ({ data, isActive, onClick }) => {
   const navigate = useNavigate();
@@ -30,7 +32,7 @@ const ItemCardTicket = ({ data, isActive, onClick }) => {
       <div className="d-flex justify-content-between">
         <div className="ms-2 col-7 d-flex justify-content-center align-items-center gap-1 px-2">
           <div className="d-flex flex-column">
-            <p className="my-0 fw-bold">{data.departure_time}</p>
+            <p className="my-0 fw-bold">{moment(data.departure_time, 'HH:mm:ss').format("HH:mm")}</p>
             <p className="my-0 fw-bold">{data.departure_airport_code}</p>
           </div>
           <div className="col-8 text-center">
@@ -39,7 +41,7 @@ const ItemCardTicket = ({ data, isActive, onClick }) => {
             <p className="my-0 text-muted">Direct</p>
           </div>
           <div className="d-flex flex-column">
-            <p className="my-0 fw-bold">{data.arrival_time}</p>
+            <p className="my-0 fw-bold">{moment(data.arrival_time, 'HH:mm:ss').format("HH:mm")}</p>
             <p className="my-0 fw-bold"> {data.arrival_airport_code}</p>
           </div>
         </div>
@@ -48,7 +50,7 @@ const ItemCardTicket = ({ data, isActive, onClick }) => {
         </button>
         <div className="col-3 d-flex flex-column justify-content-end">
           <p className="h5 fw-bolder text-purple text-center">
-            IDR {data.price}
+            IDR {data.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
           </p>
           <Button
             className="btn btn-purple text-white w-75 mx-auto rounded-pill btn-ticket border-0"
@@ -60,7 +62,7 @@ const ItemCardTicket = ({ data, isActive, onClick }) => {
           </Button>
         </div>
       </div>
-      {isActive !== null && isActive && <DetailCardTicket />}
+      {isActive !== null && isActive && <DetailCardTicket data={data} />}
     </div>
   );
 };
