@@ -2,28 +2,62 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { FaAngleRight } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import CheckoutForm from '../../components/Chekout/ChekoutForm';
 import PassengerForm from '../../components/Chekout/PassengerForm';
 import Detail from '../../components/Chekout/Detail';
 import PassengerContext from '../../utils/passengerContext';
 import { toast } from 'react-toastify';
+import client from '../../api/axios';
 
 const Checkout1 = () => {
   // config
   const [timeRemaining, setTimeRemaining] = useState(900);
+  const [flight, setFlight] = useState();
+  const [bookingCode, setBookingCode] = useState();
   const { passengerTypes } = useContext(PassengerContext);
   const [passengers, setPassengers] = useState([]);
   const nav = useNavigate();
   const location = useLocation();
-
-  console.log('ini id flights', location.state.id);
+  const [isDataSubmitted, setIsDataSubmitted] = useState(false);
+  const [isAllow, setIsAllow] = useState(true);
+  const [dataFetched, setDataFetched] = useState(false);
 
   // protect
   useEffect(() => {
-    if (typeof passengerTypes === 'undefined') {
+    // validate
+    if (typeof passengerTypes === 'undefined' || !location.state.id) {
       nav('/'); // Redirect ke halaman home jika passengerTypes undefined
+    } else {
+      const fetchData = async () => {
+        try {
+          const response = await client.get(
+            `/flights/oneway/${location.state.id}`
+          );
+          if (response.data.status === true) {
+            setDataFetched(true);
+            setFlight(response.data.data.flight[0]);
+          }
+        } catch (error) {
+          toast.warn('opps server error!');
+        }
+      };
+      // Fetch data hanya jika isDataFetched adalah false
+      if (!dataFetched) {
+        fetchData();
+      }
     }
-  }, [passengerTypes, nav]);
+
+    if (timeRemaining <= 0) {
+      setIsAllow(false);
+    } else {
+      const timer = setTimeout(() => {
+        setTimeRemaining((prevTime) => prevTime - 1);
+      }, 1000);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [passengerTypes, nav, location, timeRemaining, dataFetched]);
 
   // Create a function to update passengers data in state
   const updatePassengerData = (index, passengerData) => {
@@ -34,7 +68,7 @@ const Checkout1 = () => {
     });
   };
 
-  const handleFormSubmit = () => {
+  const handleFormSubmit = async () => {
     // Memeriksa setiap objek dalam array passengers
     const isDataValid = passengers.every((passenger) => {
       if (passenger.passenger_type === 'baby') {
@@ -56,7 +90,7 @@ const Checkout1 = () => {
 
     if (isDataValid) {
       // Mengecek dan menambahkan penumpang bayi
-      if (passengerTypes?.baby > 0) {
+      if (passengerTypes?.baby > 0 || passengerTypes?.baby === 0) {
         // Mencari penumpang bayi yang sudah ada
         const existingBabyPassengers = passengers.filter(
           (passenger) => passenger.passenger_type === 'baby'
@@ -78,17 +112,58 @@ const Checkout1 = () => {
           ...babyPassengersToAdd,
         ]);
 
+        // Menghitung total harga
+        let totalPrice = 0;
+        Object.entries(passengerTypes).forEach(([passengerType, count]) => {
+          let price = flight.price * count; // Harga default
+          if (passengerType === 'baby') {
+            price = 0; // Set harga menjadi 0 untuk tipe "baby"
+          }
+          totalPrice += price;
+        });
+
+        // Menghitung pajak
+        const taxRate = 0.11;
+        const tax = totalPrice * taxRate;
+        const finalPrice = totalPrice + tax;
+
         // Kirim data ke API
-        console.log('valid bro', passengers);
+        try {
+          const token = localStorage.getItem('token');
+          const response = await client.post(
+            '/booking',
+            {
+              passengers: [...passengers, ...babyPassengersToAdd],
+              information: {
+                tax,
+                total_price: finalPrice,
+                flight_id: location.state.id,
+              },
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          if (response.data.status === true) {
+            setIsDataSubmitted(true);
+            setIsAllow(false);
+            setBookingCode(response.data.data.booking_code);
+            toast.success('data booking sudah terkonfirmasi');
+          }
+        } catch (error) {
+          console.log(error.response);
+          toast.error('server error');
+        }
+      } else {
+        toast.warn('data ada masalah');
       }
     } else {
       toast.warn('data tidak lengkap');
     }
 
-    setTimeRemaining(900); // Mengatur waktu ulang menjadi 15 menit
-  };
-
-  const handleFormChange = (passengerData) => {
     setTimeRemaining(900); // Mengatur waktu ulang menjadi 15 menit
   };
 
@@ -100,6 +175,17 @@ const Checkout1 = () => {
     return `${hours < 10 ? '0' + hours : hours}:${
       minutes < 10 ? '0' + minutes : minutes
     }:${seconds < 10 ? '0' + seconds : seconds}`;
+  };
+
+  // condition
+  if (!flight) {
+    return <p>Loading...</p>;
+  }
+
+  const dataPayment = {
+    flight,
+    bookingCode,
+    passengerTypes,
   };
 
   return (
@@ -159,8 +245,8 @@ const Checkout1 = () => {
             </Row>
 
             <Col>
-              <Card
-                className='p-0 m-0'
+              <div
+                className='p-3 m-0'
                 style={{ backgroundColor: 'red', borderRadius: '12px' }}
               >
                 <Card.Body>
@@ -173,28 +259,14 @@ const Checkout1 = () => {
                     Selesaikan dalam {formatTime(timeRemaining)}
                   </p>
                 </Card.Body>
-              </Card>
+              </div>
             </Col>
           </Row>
         </Container>
       </Container>
-
       <Container>
         <Row>
           <Col sm={8}>
-            <Row className='mt-5'>
-              <Col>
-                <Card className='rounded-0' style={{ background: 'none' }}>
-                  <Card.Body>
-                    <CheckoutForm
-                      onSubmit={handleFormSubmit}
-                      onChange={handleFormChange}
-                    />
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-
             <Row className='mt-5'>
               <Col>
                 {/* looping adults and children */}
@@ -207,8 +279,6 @@ const Checkout1 = () => {
                     >
                       <Card.Body>
                         <PassengerForm
-                          onSubmit={handleFormSubmit}
-                          onChange={handleFormChange}
                           type={'adult'}
                           updatePassengerData={updatePassengerData}
                           index={index + 1}
@@ -227,8 +297,6 @@ const Checkout1 = () => {
                     >
                       <Card.Body>
                         <PassengerForm
-                          onSubmit={handleFormSubmit}
-                          onChange={handleFormChange}
                           type={'kid'}
                           updatePassengerData={updatePassengerData}
                           index={index + 1 + passengerTypes?.adults}
@@ -253,6 +321,7 @@ const Checkout1 = () => {
                   }}
                   size='lg'
                   onClick={handleFormSubmit}
+                  disabled={!isAllow ? true : false}
                 >
                   Simpan
                 </Button>
@@ -261,21 +330,25 @@ const Checkout1 = () => {
           </Col>
 
           <Col sm={4}>
-            <Detail />
-            <Card className='border-0' style={{ background: 'none' }}>
-              <Button
-                as={Link}
-                to='/checkout/payment'
-                className='mt-4 p-3 border-0 fs-5 fw-bold text-white'
-                style={{
-                  background: '#FF0000',
-                  borderRadius: '12px',
-                }}
-                size='lg'
-              >
-                Lanjut Bayar
-              </Button>
-            </Card>
+            {/* bikin loading cek */}
+            <Detail flight={flight} passengerTypes={passengerTypes} />
+            {isDataSubmitted ? (
+              <Card className='border-0' style={{ background: 'none' }}>
+                <Button
+                  as={Link}
+                  to='/checkout/payment'
+                  state={dataPayment}
+                  className='mt-4 p-3 border-0 fs-5 fw-bold text-white'
+                  style={{
+                    background: '#FF0000',
+                    borderRadius: '12px',
+                  }}
+                  size='lg'
+                >
+                  Lanjut Bayar
+                </Button>
+              </Card>
+            ) : null}
           </Col>
         </Row>
       </Container>

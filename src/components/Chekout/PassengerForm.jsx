@@ -57,7 +57,7 @@ const PassengerForm = ({ type, index = 1, updatePassengerData }) => {
           >
             Title
           </Form.Label>
-          <Form.Select name='gender' onChange={handleOnChange}>
+          <Form.Select name='gender' onChange={handleOnChange} required>
             <option hidden={true}>Select Title</option>
             <option value={true}>Mr.</option>
             <option value={false}>Ms.</option>
@@ -75,6 +75,7 @@ const PassengerForm = ({ type, index = 1, updatePassengerData }) => {
             type='text'
             name='fullName'
             onChange={handleOnChange}
+            required
           />
         </Form.Group>
 
