@@ -10,14 +10,19 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import client from '../../api/axios';
 import { Form } from 'react-bootstrap';
 
-const SearchPage = ({ searchData }) => {
+const SearchPage = () => {
     const [isActiveDetail, setIsActiveDetail] = useState(null);
     const location = useLocation();
     const navigate = useNavigate();
     const queryParams = new URLSearchParams(location.search);
     const [flights, setFlights] = useState([]);
-    const [filter, setFilter] = useState('');
-    const [currentURL, setCurrentURL] = useState('');
+    const [filter, setFilter] = useState(['departure', 'asc']);
+
+    const from = queryParams.get('from');
+    const to = queryParams.get('to');
+    const departure = queryParams.get('departure');
+    const totalPassenger = queryParams.get('totalPassenger');
+    const classId = queryParams.get('classId');
 
     const onClickDetail = (id) => {
         setIsActiveDetail((prevId) => (prevId === id ? null : id));
@@ -25,26 +30,23 @@ const SearchPage = ({ searchData }) => {
 
     const handleFilter = (e) => {
         e.preventDefault();
-        navigate(`${currentURL}&${filter}`);
+        navigate(
+            `/search?from=${from}&to=${to}&departure=${departure}&totalPassenger=${totalPassenger}&classId=${classId}&type=${filter[0]}&sort=${filter[1]}`
+        );
     };
-
-    useEffect(() => {
-        const url = `${location.pathname}${location.search}`;
-        setCurrentURL(url);
-    }, []);
 
     useEffect(() => {
         if (!location) return;
         const getData = async () => {
             try {
                 const body = {
-                    from: queryParams.get('from'),
-                    to: queryParams.get('to'),
-                    departure: queryParams.get('departure'),
-                    totalPassenger: queryParams.get('totalPassenger'),
-                    classId: queryParams.get('classId'),
+                    from: from,
+                    to: to,
+                    departure: departure,
+                    totalPassenger: totalPassenger,
+                    classId: classId,
                 };
-                const { data } = await client.post(`/flights/oneway?${filter}`, body);
+                const { data } = await client.post(`/flights/oneway?type=${filter[0]}&sort=${filter[1]}`, body);
                 if (data.status) {
                     setFlights(data.data.filter);
                 }
@@ -152,7 +154,7 @@ const SearchPage = ({ searchData }) => {
                                                 type="radio"
                                                 name="filter"
                                                 id="hargaTermurah"
-                                                onChange={() => setFilter('type=price&sort=asc')}
+                                                onChange={() => setFilter(['price', 'asc'])}
                                             />
                                             <label html htmlFor="hargaTermurah">
                                                 <span className="fw-bolder">Harga</span> - Termurah
@@ -163,7 +165,7 @@ const SearchPage = ({ searchData }) => {
                                                 type="radio"
                                                 name="filter"
                                                 id="durasiTerpendek"
-                                                onChange={() => setFilter('type=duration&sort=asc')}
+                                                onChange={() => setFilter(['duration', 'asc'])}
                                             />
                                             <label htmlFor="durasiTerpendek">
                                                 <span className="fw-bolder">Durasi</span> - Terpendek
@@ -174,7 +176,7 @@ const SearchPage = ({ searchData }) => {
                                                 type="radio"
                                                 name="filter"
                                                 id="keberangkatanAwal"
-                                                onChange={() => setFilter('type=departure&sort=asc')}
+                                                onChange={() => setFilter(['departure', 'asc'])}
                                             />
                                             <label htmlFor="keberangkatanAwal">
                                                 <span className="fw-bolder">Keberangkatan</span> - Paling Awal
@@ -185,7 +187,7 @@ const SearchPage = ({ searchData }) => {
                                                 type="radio"
                                                 name="filter"
                                                 id="keberangkatanAkhir"
-                                                onChange={() => setFilter('type=departure&sort=desc')}
+                                                onChange={() => setFilter(['departure', 'desc'])}
                                             />
                                             <label htmlFor="keberangkatanAkhir">
                                                 <span className="fw-bolder">Keberangkatan</span> - Paling Akhir
@@ -196,7 +198,7 @@ const SearchPage = ({ searchData }) => {
                                                 type="radio"
                                                 name="filter"
                                                 id="kedatanganAwal"
-                                                onChange={() => setFilter('type=arrival&sort=asc')}
+                                                onChange={() => setFilter(['arrival', 'asc'])}
                                             />
                                             <label htmlFor="kedatanganAwal">
                                                 <span className="fw-bolder">Kedatangan</span> - Paling Awal
@@ -207,7 +209,7 @@ const SearchPage = ({ searchData }) => {
                                                 type="radio"
                                                 name="filter"
                                                 id="kedatanganAkhir"
-                                                onChange={() => setFilter('type=arrival&sort=desc')}
+                                                onChange={() => setFilter(['arrival', 'desc'])}
                                             />
                                             <label htmlFor="kedatanganAkhir">
                                                 <span className="fw-bolder">Kedatangan</span> - Paling Akhir
