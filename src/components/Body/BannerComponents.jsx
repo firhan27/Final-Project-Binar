@@ -9,7 +9,7 @@ const BannerComponents = () => {
     <Row className="mt-4">
       <Col>
         <div id="tes">
-          <Link to="/search">
+          <Link to="/">
             <Image src={banner} alt="banner" fluid className="img-fluid" />
           </Link>
         </div>

@@ -52,13 +52,13 @@ const SearchPage = () => {
                 if (data.status) {
                     setFlights(data.data.filter);
                 }
-                console.log(data.data.filter);
             } catch (error) {
                 console.log(error);
             }
         };
 
         getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location]);
 
     return (

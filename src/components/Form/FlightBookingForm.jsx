@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Form, Row, Col, Button, Card, Container } from 'react-bootstrap';
 import './FlightBookingForm.css';
 import dateVector from '../../assets/image/dateVector.png';
@@ -9,6 +9,7 @@ import ToComponent from './ToComponent';
 import SeatClassComponent from './SeatClassComponent';
 import PassengerComponent from './PassangerComponent';
 import { useNavigate } from 'react-router-dom';
+import PassengerContext from '../../utils/passengerContext';
 
 const FlightBookingForm = (props) => {
     const [dataFrom, setDataFrom] = useState('');
@@ -17,18 +18,11 @@ const FlightBookingForm = (props) => {
     const [returnDate, setReturnDate] = useState('');
     const [selectedPassengers, setSelectedPassengers] = useState();
     const [dataClass, setDataClass] = useState('');
+    const { passengerTypes, setPassengerTypes } = useContext(PassengerContext);
     const navigate = useNavigate();
 
     const buttonClick = (event) => {
         event.preventDefault();
-        const searchData = {
-            dataFrom,
-            dataTo,
-            departureDate,
-            returnDate,
-            selectedPassengers,
-            dataClass,
-        };
         navigate(
             `/search?from=${dataFrom.value}&to=${
                 dataTo.value
@@ -59,8 +53,8 @@ const FlightBookingForm = (props) => {
 
     const handleDataSelect = (passengers) => {
         setSelectedPassengers(passengers);
+        setPassengerTypes(passengers);
     };
-
     return (
         <Container className="mt-4 mb-5">
             <Row className="justify-content-center">
