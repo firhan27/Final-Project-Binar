@@ -34,7 +34,7 @@ const ToComponent = (props) => {
   // Transform the airport data into options array for react-select
   const selectOptions = dataTo.map((airport) => ({
     value: airport.airport_code,
-    label: airport.city,
+    label: `${airport.city} - ${airport.name}`,
   }));
 
   return (

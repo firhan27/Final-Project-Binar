@@ -35,6 +35,8 @@ const SearchPage = () => {
         );
     };
 
+    useEffect(() => {}, [flights]);
+
     useEffect(() => {
         if (!location) return;
         const getData = async () => {
@@ -51,7 +53,6 @@ const SearchPage = () => {
                     setFlights(data.data.filter);
                 }
                 console.log(data.data.filter);
-                console.log(flights);
             } catch (error) {
                 console.log(error);
             }
@@ -72,7 +73,16 @@ const SearchPage = () => {
                                 className="col-8 btn btn-primary text-start my-0 btn btn-lilac text-semibold border-0 py-2"
                                 style={{ color: 'white' }}
                             >
-                                <i className="fas fa-arrow-left me-3"></i>JKT MLB - 2 Penumpang - Economy
+                                <i className="fas fa-arrow-left me-3"></i>
+                                {`${from} ${to} - ${totalPassenger} Passengers - ${
+                                    classId === '1'
+                                        ? 'Economy'
+                                        : classId === '2'
+                                        ? 'Premium Economy'
+                                        : classId === '3'
+                                        ? 'Business'
+                                        : 'First Class'
+                                }`}
                             </button>
                             <button
                                 className="col-4 btn btn-primary my-0 btn btn-green-pastel border-0 py-2 text-semibold"
@@ -81,7 +91,7 @@ const SearchPage = () => {
                                 Ubah Pencarian
                             </button>
                         </div>
-                        <div className="scroll-container mt-3">
+                        <div className="scroll-container my-2">
                             <div className="d-flex justify-content-between px-3 gap-1">
                                 <ItemDateSearch type={'active'} />
                                 <ItemDateSearch />
@@ -137,7 +147,7 @@ const SearchPage = () => {
             >
                 <div className="modal-dialog border-0 modal-dialog-centered">
                     <div className="modal-content">
-                        <div className="modal-header border-0">
+                        <div className="modal-header border-2">
                             <button
                                 type="button"
                                 className="btn-close"
