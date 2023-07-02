@@ -24,8 +24,9 @@ const Checkout1 = () => {
   // protect
   useEffect(() => {
     // validate
-    if (typeof passengerTypes === 'undefined' || !location.state.id) {
-      nav('/'); // Redirect ke halaman home jika passengerTypes undefined
+    if (typeof passengerTypes === 'undefined' || !location.state) {
+      nav(-1); // Redirect ke halaman pencarian jika passengerTypes undefined
+      toast.warn('Tiket tidak ditemukan!');
     } else {
       const fetchData = async () => {
         try {
@@ -124,7 +125,7 @@ const Checkout1 = () => {
 
         // Menghitung pajak
         const taxRate = 0.11;
-        const tax = totalPrice * taxRate;
+        const tax = Math.round(totalPrice * taxRate);
         const finalPrice = totalPrice + tax;
 
         // Kirim data ke API
@@ -136,7 +137,7 @@ const Checkout1 = () => {
               passengers: [...passengers, ...babyPassengersToAdd],
               information: {
                 tax,
-                total_price: finalPrice,
+                total_price: Math.round(finalPrice),
                 flight_id: location.state.id,
               },
             },
