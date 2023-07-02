@@ -1,30 +1,45 @@
 import React from "react";
 import { Card, Stack } from "react-bootstrap";
-import "./CardPesanan.css";
 import { TiLocation } from "react-icons/ti";
 import { MdArrowForwardIos } from "react-icons/md";
 
-const CardPesanan = () => {
+const CardPesanan = ({ booking }) => {
+  const {
+    status,
+    departure_time,
+    arrival_time,
+    city,
+    departure_date,
+    arrival_date,
+    arrival_city,
+    departure_city,
+    formatted_duration,
+  } = booking;
+
   return (
     <Card className="card-pesanan">
       <Card.Body>
         <div>
-          <p className="status">Issued</p>
+          <p className="status">{status}</p>
         </div>
-        <Stack direction="horizontal" className="d-flex justify-content-between" gap={3}>
+        <Stack
+          direction="horizontal"
+          className="d-flex justify-content-between"
+          gap={3}
+        >
           <div className="text-center">
             <p className="fw-bold">
               <TiLocation />
-              Jakarta
+              {city}
             </p>
-            <p>5 maret 2023</p>
-            <p>19:10</p>
+            <p>{departure_date}</p>
+            <p>{departure_time}</p>
           </div>
           <div>
             <MdArrowForwardIos />
           </div>
           <div className="">
-            <p>4h 0m</p>
+            <p>{formatted_duration}</p>
           </div>
           <div>
             <MdArrowForwardIos />
@@ -32,24 +47,32 @@ const CardPesanan = () => {
           <div className="text-center">
             <p className="fw-bold">
               <TiLocation />
-              Melbeurne
+              <>
+                <span>
+                  {departure_city} {arrival_city}
+                </span>
+              </>
             </p>
-            <p>5 maret 2023</p>
-            <p>19:10</p>
+            <p>{arrival_date}</p>
+            <p>{arrival_time}</p>
           </div>
         </Stack>
         <hr className="hr-clr" />
-        <Stack direction="horizontal" className="d-flex justify-content-between" gap={3}>
+        <Stack
+          direction="horizontal"
+          className="d-flex justify-content-between"
+          gap={3}
+        >
           <div className="">
             <b>Booking Code:</b>
-            <p>dasd7adk2</p>
+            <p>{booking.booking_code}</p>
           </div>
           <div className="">
             <b>Class:</b>
-            <p>Economy</p>
+            <p>{booking.class_name}</p>
           </div>
           <div className="">
-            <b>IDR 9.850.000</b>
+            <b>IDR {booking.total_price}</b>
           </div>
         </Stack>
       </Card.Body>

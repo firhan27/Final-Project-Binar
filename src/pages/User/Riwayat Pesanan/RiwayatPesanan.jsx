@@ -1,19 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Stack, Button } from "react-bootstrap";
-import NavbarComponent from "../../../components/Header/NavbarComponent";
 import { IoArrowBack } from "react-icons/io5";
 import { FiFilter } from "react-icons/fi";
 import { ImSearch } from "react-icons/im";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import NavbarComponent from "../../../components/Header/NavbarComponent";
 import "./RiwayatPenanan.css";
 import ModalFilter from "../../../components/Modal/Modal Filter/ModalFilter";
 import ModalSearch from "../../../components/Modal/Modal Search/ModalSearch";
-import CardPesanan from "../../../components/Card/Card Pesanan/CardPesanan";
 import DetailPesanan from "../../../components/Detail Pesanan/DetailPesanan";
-
+import CardPesanan from "../../../components/Card/Card Pesanan/CardPesanan";
+import { useLocation } from "react-router-dom";
 const RiwayatPesanan = () => {
+  const location = useLocation();
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
+  const [bookings, setBookings] = useState([]);
+  const booking_code = location.search
+    ? location.search.replace("?", "").split("=")[1]
+    : null;
+  console.log(booking_code);
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          `https://skypass-dev.up.railway.app/booking`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const data = response.data.data.bookings;
+        // Sort the array
+        data.sort((a, b) => {
+          if (a.booking_code === booking_code) {
+            return -1; // booking_code should come before other elements
+          } else if (b.booking_code === booking_code) {
+            return 1; // booking_code should come after other elements
+          }
+          return 0; // No change in order for other elements
+        });
+        console.log(data);
+        setBookings(data);
+      } catch (error) {
+        console.log(error); // Tambahkan baris ini untuk mencetak pesan error
+      }
+    };
+    fetchBookings();
+  }, []);
 
   const handleShowFilterModal = () => {
     setShowFilterModal(true);
@@ -48,7 +85,11 @@ const RiwayatPesanan = () => {
           </Col>
           <Col md={2}>
             <div className="d-flex align-items-center">
-              <Button variant="light" className="fs-6 line-btn-fltr" onClick={handleShowFilterModal}>
+              <Button
+                variant="light"
+                className="fs-6 line-btn-fltr"
+                onClick={handleShowFilterModal}
+              >
                 <FiFilter /> <b>Filter</b>
               </Button>
               <p
@@ -68,25 +109,29 @@ const RiwayatPesanan = () => {
           </Col>
           <hr />
         </Row>
-        {/* <Row>
-          <Col className="text-center">
-            <h2 className="txt-null-clr mt-5">Oops! Riwayat pesanan kosong!</h2>
-            <h3>Anda belum melakukan pemesanan penerbangan</h3>
-            <Button className="mt-3">Cari Penerbangan</Button>
-          </Col>
-        </Row> */}
-        <Row>
-          <Col md={7}>
-            <h5>Maret 2023</h5>
-            <CardPesanan />
-          </Col>
-          <Col md={5}>
-            <DetailPesanan />
-          </Col>
-        </Row>
+        {bookings.length > 0 && (
+          <>
+            <Row>
+              <Col md={7}>
+                {bookings.map((booking) => (
+                  <CardPesanan key={booking.booking_code} booking={booking} />
+                ))}
+              </Col>
+              <Col md={5}>
+                <DetailPesanan bookings={bookings} />
+              </Col>
+            </Row>
+          </>
+        )}
       </Container>
-      <ModalFilter showModal={showFilterModal} handleCloseModal={handleCloseFilterModal} />
-      <ModalSearch showModal={showSearchModal} handleCloseModal={handleCloseSearchModal} />
+      <ModalFilter
+        showModal={showFilterModal}
+        handleCloseModal={handleCloseFilterModal}
+      />
+      <ModalSearch
+        showModal={showSearchModal}
+        handleCloseModal={handleCloseSearchModal}
+      />
     </>
   );
 };
