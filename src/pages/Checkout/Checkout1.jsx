@@ -124,7 +124,7 @@ const Checkout1 = () => {
 
         // Menghitung pajak
         const taxRate = 0.11;
-        const tax = totalPrice * taxRate;
+        const tax = Math.round(totalPrice * taxRate);
         const finalPrice = totalPrice + tax;
 
         // Kirim data ke API
@@ -136,7 +136,7 @@ const Checkout1 = () => {
               passengers: [...passengers, ...babyPassengersToAdd],
               information: {
                 tax,
-                total_price: finalPrice,
+                total_price: Math.round(finalPrice),
                 flight_id: location.state.id,
               },
             },

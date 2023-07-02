@@ -66,6 +66,8 @@ const ItemCardTicket = ({ data, isActive, onClick }) => {
           <p className="h5 fw-bolder text-purple ms-4">{formattedPrice}</p>
           <Button
             className="btn btn-purple text-white w-75 mx-auto rounded-pill btn-ticket"
+            as={Link}
+            to="/checkout"
             onClick={handleSelectTicket}
           >
             Pilih
