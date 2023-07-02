@@ -1,101 +1,154 @@
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import logoMaskapai from "../../assets/image/logoMaskapai.png";
-import { useLocation } from "react-router-dom";
+import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import moment from 'moment/moment';
 
-const Detail = () => {
-  /* const location = useLocation();
-  const selectedData = location.state?.selectedData;
+const Detail = ({ flight, passengerTypes, bookingCode = null }) => {
+  // Menghitung total harga
+  let totalPrice = 0;
+  Object.entries(passengerTypes).forEach(([passengerType, count]) => {
+    let price = flight.price * count; // Harga default
+    if (passengerType === 'baby') {
+      price = 0; // Set harga menjadi 0 untuk tipe "baby"
+    }
+    totalPrice += price;
+  });
 
-  if (!selectedData) {
-    console.log("selectedData is null or undefined");
-    return null;
-  }
+  // Menghitung pajak
+  const taxRate = 0.11;
+  const tax = totalPrice * taxRate;
+  const finalPrice = totalPrice + tax;
 
-  console.log("data:", data);
-  console.log("selectedData:", selectedData); */
-
-  /* const location = useLocation();
-  console.log(location.state?.id); */
+  // Format total harga dan pajak
+  const formattedTotalPrice = finalPrice.toLocaleString('id-ID');
+  const formattedTax = tax.toLocaleString('id-ID');
 
   return (
-    <Container className="mt-5">
-      <h4
-        style={{
-          color: "#000000",
-          fontSize: "20px",
-          fontWeight: "700",
-          lineHeight: "30px",
-        }}
-      >
-        Detail Penerbangan
-      </h4>
+    <Container className='mt-5'>
+      {!bookingCode ? (
+        <h4
+          style={{
+            color: '#000000',
+            fontSize: '20px',
+            fontWeight: '700',
+            lineHeight: '30px',
+          }}
+        >
+          Detail Penerbangan
+        </h4>
+      ) : (
+        <h4
+          style={{
+            color: '#000000',
+            fontSize: '20px',
+            fontWeight: '700',
+            lineHeight: '30px',
+          }}
+        >
+          Booking Code : <span style={{ color: '#A06ECE' }}>{bookingCode}</span>
+        </h4>
+      )}
+
       <Row>
         <Col>
-          <div className="mt-2">
-            <div className="d-flex justify-content-between align-items-center">
-              <h5 className="fw-bold">07:00</h5>
-              <h6 className="fw-bold" style={{ color: "#A06ECE" }}>
+          <div className='mt-2'>
+            <div className='d-flex justify-content-between align-items-center'>
+              <h5 className='fw-bold'>
+                {moment(flight.departure_time, 'HH:mm:ss').format('h:mm')}
+              </h5>
+              <h6 className='fw-bold' style={{ color: '#A06ECE' }}>
                 Keberangkatan
               </h6>
             </div>
-            <p className="mb-0">3 Maret 2023</p>
-            <p>Soekarno Hatta - Terminal 1A Domestik</p>
+            <p className='mb-0'>
+              {moment(flight.departure_date).format('DD MMMM YYYY')}
+            </p>
+            <p>
+              {flight.departure_airport} - {flight.departure_terminal_name}
+            </p>
           </div>
 
           <hr />
 
-          <Row className="d-flex align-items-center">
-            <Col md={1}>
-              <img src={logoMaskapai} alt="" />
+          <Row className='d-flex align-items-center'>
+            <Col md={2}>
+              <img
+                src={flight.logo_url}
+                alt=''
+                style={{ transform: 'scale(0.4)' }}
+              />
             </Col>
-            <Col md="auto">
-              <h6 className="fw-bold">Jet Air - Economy</h6>
-              <h6 className="fw-bold mb-4">JT - 203</h6>
-              <h6 className="fw-bold">Informasi:</h6>
-              <p className="mb-0">Baggage 20kg</p>
-              <p className="mb-0">Cabin baggage 7 kg</p>
-              <p>In Flight Entertainment</p>
+            <Col md='auto'>
+              <h6 className='fw-bold'>
+                {flight.airline_name} - {flight.class}
+              </h6>
+              <h6 className='fw-bold mb-4'>{flight.flight_number}</h6>
+              <h6 className='fw-bold'>Informasi:</h6>
+              <p className='mb-0'>Baggage {flight.baggage_capacity}kg</p>
+              <p className='mb-0'>Cabin baggage {flight.cabin_capacity} kg</p>
+              {flight.flight_entertainment ? (
+                <p>In Flight Entertainment</p>
+              ) : (
+                ''
+              )}
             </Col>
           </Row>
 
           <hr />
 
           <div>
-            <div className="d-flex justify-content-between align-items-center">
-              <h5 className="fw-bold">11:00</h5>
-              <h6 className="fw-bold" style={{ color: "#A06ECE" }}>
+            <div className='d-flex justify-content-between align-items-center'>
+              <h5 className='fw-bold'>
+                {moment(flight.arrival_time, 'HH:mm:ss').format('h:mm')}
+              </h5>
+              <h6 className='fw-bold' style={{ color: '#A06ECE' }}>
                 Kedatangan
               </h6>
             </div>
-            <p className="mb-0">3 Maret 2023</p>
-            <p className="fw-bold">Melbourne International Airport</p>
+            <p className='mb-0'>
+              {moment(flight.arrival_date).format('DD MMMM YYYY')}
+            </p>
+            <p className='fw-bold'>{flight.arrival_airport}</p>
           </div>
 
           <hr />
 
           <div>
-            <h5 className="fw-bold">Rincian Harga</h5>
-            <div className="d-flex justify-content-between align-items-center">
-              <p>2 Adults</p>
-              <p>IDR 9.550.000</p>
-            </div>
-            <div className="d-flex justify-content-between align-items-center">
-              <p>1 Baby</p>
-              <p>IDR 0</p>
-            </div>
-            <div className="d-flex justify-content-between align-items-center">
+            <h5 className='fw-bold'>Rincian Harga</h5>
+            {Object.entries(passengerTypes).map(([passengerType, count]) => {
+              let price = flight.price * count; // Default price
+              if (passengerType === 'baby') {
+                price = 0; // Set price to 0 for "baby" type
+              }
+              const formattedPrice = price.toLocaleString('id-ID');
+
+              return (
+                count > 0 && (
+                  <div
+                    className='d-flex justify-content-between align-items-center'
+                    key={passengerType}
+                  >
+                    <p>
+                      {count} {passengerType}
+                    </p>
+                    <p>IDR {formattedPrice}</p>
+                  </div>
+                )
+              );
+            })}
+
+            {/* tax */}
+            <div className='d-flex justify-content-between align-items-center'>
               <p>Tax</p>
-              <p>IDR 300.000</p>
+              <p>IDR {formattedTax}</p>
             </div>
           </div>
 
           <hr />
 
-          <div className="d-flex justify-content-between align-items-center">
-            <h5 className="fw-bold txt-primary">Total</h5>
-            <h4 className="fw-bold" style={{ color: "#7126B5" }}>
-              IDR
+          <div className='d-flex justify-content-between align-items-center'>
+            <h5 className='fw-bold txt-primary'>Total</h5>
+            <h4 className='fw-bold' style={{ color: '#7126B5' }}>
+              IDR {formattedTotalPrice}
             </h4>
           </div>
         </Col>
