@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import { FaAngleRight } from 'react-icons/fa';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import PassengerForm from '../../components/Chekout/PassengerForm';
-import Detail from '../../components/Chekout/Detail';
-import PassengerContext from '../../utils/passengerContext';
-import { toast } from 'react-toastify';
-import client from '../../api/axios';
+import React, { useState, useEffect, useContext } from "react";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { FaAngleRight } from "react-icons/fa";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import PassengerForm from "../../components/Chekout/PassengerForm";
+import Detail from "../../components/Chekout/Detail";
+import PassengerContext from "../../utils/passengerContext";
+import { toast } from "react-toastify";
+import client from "../../api/axios";
 
 const Checkout1 = () => {
   // config
@@ -24,8 +24,8 @@ const Checkout1 = () => {
   // protect
   useEffect(() => {
     // validate
-    if (typeof passengerTypes === 'undefined' || !location.state.id) {
-      nav('/'); // Redirect ke halaman home jika passengerTypes undefined
+    if (typeof passengerTypes === "undefined" || !location.state.id) {
+      nav("/"); // Redirect ke halaman home jika passengerTypes undefined
     } else {
       const fetchData = async () => {
         try {
@@ -37,7 +37,7 @@ const Checkout1 = () => {
             setFlight(response.data.data.flight[0]);
           }
         } catch (error) {
-          toast.warn('opps server error!');
+          toast.warn("opps server error!");
         }
       };
       // Fetch data hanya jika isDataFetched adalah false
@@ -71,7 +71,7 @@ const Checkout1 = () => {
   const handleFormSubmit = async () => {
     // Memeriksa setiap objek dalam array passengers
     const isDataValid = passengers.every((passenger) => {
-      if (passenger.passenger_type === 'baby') {
+      if (passenger.passenger_type === "baby") {
         return true; // Melewati pemeriksaan untuk objek dengan passenger_type "baby"
       }
 
@@ -93,7 +93,7 @@ const Checkout1 = () => {
       if (passengerTypes?.baby > 0 || passengerTypes?.baby === 0) {
         // Mencari penumpang bayi yang sudah ada
         const existingBabyPassengers = passengers.filter(
-          (passenger) => passenger.passenger_type === 'baby'
+          (passenger) => passenger.passenger_type === "baby"
         );
 
         // Menentukan berapa banyak penumpang bayi baru yang perlu ditambahkan
@@ -104,7 +104,7 @@ const Checkout1 = () => {
         const babyPassengersToAdd = Array.from({
           length: babyPassengersToAddCount,
         }).map(() => ({
-          passenger_type: 'baby',
+          passenger_type: "baby",
         }));
 
         setPassengers((prevPassengers) => [
@@ -116,7 +116,7 @@ const Checkout1 = () => {
         let totalPrice = 0;
         Object.entries(passengerTypes).forEach(([passengerType, count]) => {
           let price = flight.price * count; // Harga default
-          if (passengerType === 'baby') {
+          if (passengerType === "baby") {
             price = 0; // Set harga menjadi 0 untuk tipe "baby"
           }
           totalPrice += price;
@@ -129,9 +129,9 @@ const Checkout1 = () => {
 
         // Kirim data ke API
         try {
-          const token = localStorage.getItem('token');
+          const token = localStorage.getItem("token");
           const response = await client.post(
-            '/booking',
+            "/booking",
             {
               passengers: [...passengers, ...babyPassengersToAdd],
               information: {
@@ -151,17 +151,17 @@ const Checkout1 = () => {
             setIsDataSubmitted(true);
             setIsAllow(false);
             setBookingCode(response.data.data.booking_code);
-            toast.success('data booking sudah terkonfirmasi');
+            toast.success("data booking sudah terkonfirmasi");
           }
         } catch (error) {
           console.log(error.response);
-          toast.error('server error');
+          toast.error("server error");
         }
       } else {
-        toast.warn('data ada masalah');
+        toast.warn("data ada masalah");
       }
     } else {
-      toast.warn('data tidak lengkap');
+      toast.warn("data tidak lengkap");
     }
 
     setTimeRemaining(900); // Mengatur waktu ulang menjadi 15 menit
@@ -172,9 +172,9 @@ const Checkout1 = () => {
     const minutes = Math.floor((time % 3600) / 60);
     const seconds = time % 60;
 
-    return `${hours < 10 ? '0' + hours : hours}:${
-      minutes < 10 ? '0' + minutes : minutes
-    }:${seconds < 10 ? '0' + seconds : seconds}`;
+    return `${hours < 10 ? "0" + hours : hours}:${
+      minutes < 10 ? "0" + minutes : minutes
+    }:${seconds < 10 ? "0" + seconds : seconds}`;
   };
 
   // condition
@@ -190,55 +190,55 @@ const Checkout1 = () => {
 
   return (
     <>
-      <Container fluid className='p-0 m-0 shadow py-4'>
+      <Container fluid className="p-0 m-0 shadow py-4">
         <Container>
-          <Row className='mt-5'>
-            <Row className='mb-1'>
-              <Col className='d-flex align-items-center'>
+          <Row className="mt-5">
+            <Row className="mb-1">
+              <Col className="d-flex align-items-center">
                 <Button
-                  className='border-0 fs-5 fw-bold'
+                  className="border-0 fs-5 fw-bold"
                   style={{
-                    background: 'none',
-                    fontHeight: '30px',
+                    background: "none",
+                    fontHeight: "30px",
                   }}
                 >
-                  {' '}
+                  {" "}
                   Isi Data Diri
                 </Button>
                 <FaAngleRight
                   size={20}
                   style={{
-                    marginLeft: '5px',
-                    marginRight: '5px',
-                    marginBottom: '-3px',
+                    marginLeft: "5px",
+                    marginRight: "5px",
+                    marginBottom: "-3px",
                   }}
                 />
                 <Button
-                  className='border-0 fs-5 fw-bold'
+                  className="border-0 fs-5 fw-bold"
                   style={{
-                    background: 'none',
-                    fontHeight: '30px',
+                    background: "none",
+                    fontHeight: "30px",
                   }}
                 >
-                  {' '}
+                  {" "}
                   Bayar
                 </Button>
                 <FaAngleRight
                   size={20}
                   style={{
-                    marginLeft: '5px',
-                    marginRight: '5px',
-                    marginBottom: '-3px',
+                    marginLeft: "5px",
+                    marginRight: "5px",
+                    marginBottom: "-3px",
                   }}
                 />
                 <Button
-                  className='border-0 fs-5 fw-bold'
+                  className="border-0 fs-5 fw-bold"
                   style={{
-                    background: 'none',
-                    fontHeight: '30px',
+                    background: "none",
+                    fontHeight: "30px",
                   }}
                 >
-                  {' '}
+                  {" "}
                   Selesai
                 </Button>
               </Col>
@@ -246,14 +246,14 @@ const Checkout1 = () => {
 
             <Col>
               <div
-                className='p-3 m-0'
-                style={{ backgroundColor: 'red', borderRadius: '12px' }}
+                className="p-3 m-0"
+                style={{ backgroundColor: "red", borderRadius: "12px" }}
               >
                 <Card.Body>
                   <p
-                    className='text-center text-white p-0 m-0 fs-6 fw-bold '
+                    className="text-center text-white p-0 m-0 fs-6 fw-bold "
                     style={{
-                      lineHeight: '24px',
+                      lineHeight: "24px",
                     }}
                   >
                     Selesaikan dalam {formatTime(timeRemaining)}
@@ -267,19 +267,19 @@ const Checkout1 = () => {
       <Container>
         <Row>
           <Col sm={8}>
-            <Row className='mt-5'>
+            <Row className="mt-5">
               <Col>
                 {/* looping adults and children */}
                 {Array.from({ length: passengerTypes?.adults || 0 }).map(
                   (_, index) => (
                     <Card
-                      className='rounded-0'
-                      style={{ background: 'none' }}
+                      className="rounded-0"
+                      style={{ background: "none", borderBottom: "none" }}
                       key={index}
                     >
                       <Card.Body>
                         <PassengerForm
-                          type={'adult'}
+                          type={"adult"}
                           updatePassengerData={updatePassengerData}
                           index={index + 1}
                         />
@@ -291,13 +291,13 @@ const Checkout1 = () => {
                 {Array.from({ length: passengerTypes?.children || 0 }).map(
                   (_, index) => (
                     <Card
-                      className='rounded-0'
-                      style={{ background: 'none' }}
+                      className="rounded-0"
+                      style={{ background: "none", borderTop: "none" }}
                       key={index}
                     >
                       <Card.Body>
                         <PassengerForm
-                          type={'kid'}
+                          type={"kid"}
                           updatePassengerData={updatePassengerData}
                           index={index + 1 + passengerTypes?.adults}
                         />
@@ -310,16 +310,16 @@ const Checkout1 = () => {
               </Col>
             </Row>
 
-            <Row className='mt-5'>
-              <Card className='border-0' style={{ background: 'none' }}>
+            <Row className="mt-5">
+              <Card className="border-0" style={{ background: "none" }}>
                 <Button
-                  className='mt-4 p-3 border-0 text-white fs-5 fw-bold'
+                  className="mt-4 p-3 border-0 text-white fs-5 fw-bold"
                   style={{
-                    background: '#7126B5',
-                    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-                    borderRadius: '12px',
+                    background: "#7126B5",
+                    boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    borderRadius: "12px",
                   }}
-                  size='lg'
+                  size="lg"
                   onClick={handleFormSubmit}
                   disabled={!isAllow ? true : false}
                 >
@@ -333,17 +333,17 @@ const Checkout1 = () => {
             {/* bikin loading cek */}
             <Detail flight={flight} passengerTypes={passengerTypes} />
             {isDataSubmitted ? (
-              <Card className='border-0' style={{ background: 'none' }}>
+              <Card className="border-0" style={{ background: "none" }}>
                 <Button
                   as={Link}
-                  to='/checkout/payment'
+                  to="/checkout/payment"
                   state={dataPayment}
-                  className='mt-4 p-3 border-0 fs-5 fw-bold text-white'
+                  className="mt-4 p-3 border-0 fs-5 fw-bold text-white"
                   style={{
-                    background: '#FF0000',
-                    borderRadius: '12px',
+                    background: "#FF0000",
+                    borderRadius: "12px",
                   }}
-                  size='lg'
+                  size="lg"
                 >
                   Lanjut Bayar
                 </Button>
