@@ -18,6 +18,7 @@ const FlightBookingForm = (props) => {
     const [returnDate, setReturnDate] = useState('');
     const [selectedPassengers, setSelectedPassengers] = useState();
     const [dataClass, setDataClass] = useState('');
+    // eslint-disable-next-line no-unused-vars
     const { passengerTypes, setPassengerTypes } = useContext(PassengerContext);
     const navigate = useNavigate();
 
