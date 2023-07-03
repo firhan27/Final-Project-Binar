@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import "./resetPassword.css";
-import logo from "../../assets/image/logo.png";
+import logo from "../../assets/image/logo-skypass.png";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import client from "../../api/axios"
 import { toast } from "react-toastify";
