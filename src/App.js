@@ -14,82 +14,85 @@ import SearchPage from "./pages/SearchPage/SearchPage";
 import AuthToken from "./components/Auth/AuthToken";
 import AuthNoToken from "./components/Auth/AuthNoToken";
 import PaymentSucces from "./components/Chekout/PaymentSucces";
+import { PassengerProvider } from "./utils/passengerContext";
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="/auth/login"
-          element={
-            <AuthNoToken>
-              <Login />
-            </AuthNoToken>
-          }
-        />
-        <Route
-          path="/reset-password"
-          element={
-            <AuthNoToken>
-              <ResetPassword />
-            </AuthNoToken>
-          }
-        />
-        <Route
-          path="/auth/register"
-          element={
-            <AuthNoToken>
-              <Register />
-            </AuthNoToken>
-          }
-        />
-        <Route
-          path="/auth/register/verifikasi-otp"
-          element={
-            <AuthNoToken>
-              <VerifikasiOTP />
-            </AuthNoToken>
-          }
-        />
-        <Route
-          path="/user/history"
-          element={
-            <AuthToken>
-              <RiwayatPesanan />
-            </AuthToken>
-          }
-        />
-        <Route
-          path="/user/notifikasi"
-          element={
-            <AuthToken>
-              <Notifikasi />
-            </AuthToken>
-          }
-        />
-        <Route
-          path="/user/profile"
-          element={
-            <AuthToken>
-              <Profile />
-            </AuthToken>
-          }
-        />
+      <PassengerProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/auth/login"
+            element={
+              <AuthNoToken>
+                <Login />
+              </AuthNoToken>
+            }
+          />
+          <Route
+            path="/reset-password"
+            element={
+              <AuthNoToken>
+                <ResetPassword />
+              </AuthNoToken>
+            }
+          />
+          <Route
+            path="/auth/register"
+            element={
+              <AuthNoToken>
+                <Register />
+              </AuthNoToken>
+            }
+          />
+          <Route
+            path="/auth/register/verifikasi-otp"
+            element={
+              <AuthNoToken>
+                <VerifikasiOTP />
+              </AuthNoToken>
+            }
+          />
+          <Route
+            path="/user/history"
+            element={
+              <AuthToken>
+                <RiwayatPesanan />
+              </AuthToken>
+            }
+          />
+          <Route
+            path="/user/notifikasi"
+            element={
+              <AuthToken>
+                <Notifikasi />
+              </AuthToken>
+            }
+          />
+          <Route
+            path="/user/profile"
+            element={
+              <AuthToken>
+                <Profile />
+              </AuthToken>
+            }
+          />
 
-        <Route
-          path="/checkout"
-          element={
-            <AuthToken>
-              <Checkout1 />
-            </AuthToken>
-          }
-        />
-        <Route path="/checkout/payment" element={<Payment />} />
-        <Route path="/paymentsucces" element={<PaymentSucces />} />
-        <Route path="/search" element={<SearchPage />} />
-      </Routes>
-      <ToastContainer theme="light" />
+          <Route
+            path="/checkout"
+            element={
+              <AuthToken>
+                <Checkout1 />
+              </AuthToken>
+            }
+          />
+          <Route path="/checkout/payment" element={<Payment />} />
+          <Route path="/paymentsucces" element={<PaymentSucces />} />
+          <Route path="/search" element={<SearchPage />} />
+        </Routes>
+        <ToastContainer theme="light" />
+      </PassengerProvider>
     </BrowserRouter>
   );
 }

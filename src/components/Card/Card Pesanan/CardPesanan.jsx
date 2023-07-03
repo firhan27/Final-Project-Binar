@@ -1,60 +1,79 @@
-import React from "react";
-import { Card, Stack } from "react-bootstrap";
-import "./CardPesanan.css";
-import { TiLocation } from "react-icons/ti";
-import { MdArrowForwardIos } from "react-icons/md";
+import React from 'react';
+import { Card, Stack } from 'react-bootstrap';
+import { TiLocation } from 'react-icons/ti';
+import { MdArrowForwardIos } from 'react-icons/md';
+import moment from 'moment/moment';
+require('moment/locale/id');
 
-const CardPesanan = () => {
-  return (
-    <Card className="card-pesanan">
-      <Card.Body>
-        <div>
-          <p className="status">Issued</p>
-        </div>
-        <Stack direction="horizontal" className="d-flex justify-content-between" gap={3}>
-          <div className="text-center">
-            <p className="fw-bold">
-              <TiLocation />
-              Jakarta
-            </p>
-            <p>5 maret 2023</p>
-            <p>19:10</p>
-          </div>
-          <div>
-            <MdArrowForwardIos />
-          </div>
-          <div className="">
-            <p>4h 0m</p>
-          </div>
-          <div>
-            <MdArrowForwardIos />
-          </div>
-          <div className="text-center">
-            <p className="fw-bold">
-              <TiLocation />
-              Melbeurne
-            </p>
-            <p>5 maret 2023</p>
-            <p>19:10</p>
-          </div>
-        </Stack>
-        <hr className="hr-clr" />
-        <Stack direction="horizontal" className="d-flex justify-content-between" gap={3}>
-          <div className="">
-            <b>Booking Code:</b>
-            <p>dasd7adk2</p>
-          </div>
-          <div className="">
-            <b>Class:</b>
-            <p>Economy</p>
-          </div>
-          <div className="">
-            <b>IDR 9.850.000</b>
-          </div>
-        </Stack>
-      </Card.Body>
-    </Card>
-  );
+const CardPesanan = ({ booking, setIdBooking }) => {
+    const {
+        status,
+        departure_time,
+        arrival_time,
+        city,
+        departure_date,
+        arrival_date,
+        arrival_city,
+        departure_city,
+        formatted_duration,
+    } = booking;
+
+    return (
+        <button className="w-100 border-0 btn btn-light mb-3" onClick={() => setIdBooking(booking.booking_code)}>
+            <Card className="card-pesanan">
+                <Card.Body>
+                    <div className="d-flex">
+                        <p className="status">{status}</p>
+                    </div>
+                    <Stack direction="horizontal" className="d-flex justify-content-between" gap={3}>
+                        <div className="text-center">
+                            <p className="fw-bold">
+                                <TiLocation />
+                                {city}
+                            </p>
+                            <p>{moment(departure_date).format('DD MMMM YYYY')}</p>
+                            <p>{moment(departure_time, 'HH:mm:ss').format('HH:mm')}</p>
+                        </div>
+                        <div>
+                            <MdArrowForwardIos />
+                        </div>
+                        <div className="">
+                            <p>{formatted_duration}</p>
+                        </div>
+                        <div>
+                            <MdArrowForwardIos />
+                        </div>
+                        <div className="text-center">
+                            <p className="fw-bold">
+                                <TiLocation />
+                                <>
+                                    <span>
+                                        {departure_city} - {arrival_city}
+                                    </span>
+                                </>
+                            </p>
+                            <p>{moment(arrival_date).format('DD MMMM YYYY')}</p>
+                            <p>{moment(arrival_time, 'HH:mm:ss').format('HH:mm')}</p>
+                        </div>
+                    </Stack>
+                    <hr className="hr-clr" />
+                    <Stack direction="horizontal" className="d-flex justify-content-between" gap={3}>
+                        <div className="">
+                            <b>Booking Code:</b>
+                            <p>{booking.booking_code}</p>
+                        </div>
+                        <div className="">
+                            <b>Class:</b>
+                            <p>{booking.class_name}</p>
+                        </div>
+                        <div className="">
+                            <b>IDR {booking.total_price.toLocaleString('id-ID')}</b>
+                        </div>
+                    </Stack>
+                </Card.Body>
+            </Card>
+        </button>
+    );
 };
 
 export default CardPesanan;

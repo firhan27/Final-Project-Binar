@@ -9,7 +9,6 @@ import "./notifikasi.css";
 import ModalFilter from "../../../components/Modal/Modal Filter/ModalFilter";
 import ModalSearch from "../../../components/Modal/Modal Search/ModalSearch";
 import notifikationsIcon from "../../../assets/image/notificationsIcon.png";
-import axios from "axios";
 import client from "../../../api/axios"
 
 const Notifikasi = () => {
