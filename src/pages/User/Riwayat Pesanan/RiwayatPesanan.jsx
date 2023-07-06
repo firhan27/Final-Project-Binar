@@ -31,7 +31,9 @@ const RiwayatPesanan = () => {
                     },
                 });
                 setBookings(response.data.data.bookings);
-                setBookingId(response.data.data.bookings[0].booking_code)
+                if (response.data.data.bookings.length > 0) {
+                    setBookingId(response.data.data.bookings[0].booking_code);
+                }
             } catch (error) {
                 console.log(error); // Tambahkan baris ini untuk mencetak pesan error
             }
@@ -96,16 +98,20 @@ const RiwayatPesanan = () => {
                     <>
                         <Row>
                             <Col md={7}>
-                                {bookings.map((booking) => (
-                                    <CardPesanan
-                                        key={booking.booking_code}
-                                        booking={booking}
-                                        setIdBooking={setBookingId}
-                                    />
-                                ))}
+                                {bookings.length > 0 ? (
+                                    bookings.map((booking) => (
+                                        <CardPesanan
+                                            key={booking.booking_code}
+                                            booking={booking}
+                                            setIdBooking={setBookingId}
+                                        />
+                                    ))
+                                ) : (
+                                    <p>Tidak data riwayat pemesanan</p>
+                                )}
                             </Col>
                             <Col md={5}>
-                                <DetailPesanan bookings={bookings} bookingId={bookingId} />
+                                {bookings.length > 0 ? <DetailPesanan bookings={bookings} bookingId={bookingId} /> : ''}
                             </Col>
                         </Row>
                     </>
