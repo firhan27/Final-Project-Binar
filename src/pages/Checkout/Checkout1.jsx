@@ -24,8 +24,9 @@ const Checkout1 = () => {
   // protect
   useEffect(() => {
     // validate
-    if (typeof passengerTypes === "undefined" || !location.state.id) {
-      nav("/"); // Redirect ke halaman home jika passengerTypes undefined
+    if (typeof passengerTypes === "undefined" || !location.state) {
+      nav(-1); // Redirect ke halaman pencarian jika passengerTypes undefined
+      toast.warn('Tiket tidak ditemukan!');
     } else {
       const fetchData = async () => {
         try {

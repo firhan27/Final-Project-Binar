@@ -15,8 +15,8 @@ const Detail = ({ flight, passengerTypes, bookingCode = null }) => {
 
   // Menghitung pajak
   const taxRate = 0.11;
-  const tax = totalPrice * taxRate;
-  const finalPrice = totalPrice + tax;
+  const tax = Math.round(totalPrice * taxRate);
+  const finalPrice = Math.round(totalPrice + tax);
 
   // Format total harga dan pajak
   const formattedTotalPrice = finalPrice.toLocaleString("id-ID");
@@ -87,7 +87,7 @@ const Detail = ({ flight, passengerTypes, bookingCode = null }) => {
               </h6>
               <h6 className="fw-bold mb-4">{flight.flight_number}</h6>
               <h6 className="fw-bold">Informasi:</h6>
-              <p className="mb-0">Baggage {flight.baggage_capacity}kg</p>
+              <p className="mb-0">Baggage {flight.baggage_capacity} kg</p>
               <p className="mb-0">Cabin baggage {flight.cabin_capacity} kg</p>
               {flight.flight_entertainment ? (
                 <p>In Flight Entertainment</p>

@@ -3,7 +3,6 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import './Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/image/logo-skypass.png';
-import axios from 'axios';
 import client from '../../api/axios';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
