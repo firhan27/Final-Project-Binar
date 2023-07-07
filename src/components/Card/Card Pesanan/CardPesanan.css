@@ -6,7 +6,6 @@
 .status {
   color: white;
   background-color: #73ca5c;
-  border: 2px solid #73ca5c;
   border-radius: 50px;
   display: inline-block;
   padding: 5px 10px;
@@ -17,7 +16,7 @@
 }
 
 .search-input {
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   border-radius: 16px;
   height: 40px;
 }
