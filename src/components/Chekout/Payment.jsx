@@ -64,12 +64,12 @@ const Payment = ({ formData }) => {
       if (response.data.status === true) {
         toast.success('payment berhasil');
         setTimeout(() => {
-          nav('/user/history/?booking_code=' + location.state.bookingCode);
+          nav('/user/history?booking_code=' + location.state.bookingCode);
         }, 2000); // Menunda eksekusi nav selama 2 detik (2000 milidetik)
       } else if (response.data.message === 'payment already done!') {
         toast.success('payment sudah terbayar sebelumnya');
         setTimeout(() => {
-          nav('/user/history/?booking_code=' + location.state.bookingCode);
+          nav('/user/history?booking_code=' + location.state.bookingCode);
         }, 2000); // Menunda eksekusi nav selama 2 detik (2000 milidetik)
       }
     } catch (error) {
