@@ -111,7 +111,7 @@ const Register = () => {
               <div className="d-flex justify-content-center mt-3">
                 <Form.Text>
                   Sudah punya akun?
-                  <Link to="/login" className="txt-color">
+                  <Link to="/auth/login" className="txt-color">
                     Masuk di sini
                   </Link>
                 </Form.Text>
